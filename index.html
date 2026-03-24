@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Move — Ultimate DB</title>
+
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#1a1a18">
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -102,8 +108,11 @@
   .done-banner { background: var(--success); color: #fff; border-radius: 14px; padding: 18px 22px; text-align: center; margin-top: 24px; display: none; animation: popIn 0.4s; }
   @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
 
-  .footer-actions { text-align: center; margin-top: 40px; }
-  .reset-btn { background: none; border: none; color: var(--ink-faint); font-size: 0.75rem; text-decoration: underline; cursor: pointer; transition: color 0.2s; }
+  .footer-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e8e2d6; }
+  .data-row { display: flex; gap: 10px; }
+  .data-btn { background: #ede8de; color: var(--ink); border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .data-btn:hover { background: #dcd5c7; }
+  .reset-btn { background: none; border: none; color: var(--ink-faint); font-size: 0.75rem; text-decoration: underline; cursor: pointer; transition: color 0.2s; margin-top: 10px; }
   .reset-btn:hover { color: var(--core); }
 
   .theme-core { --theme-color: var(--core); }
@@ -171,6 +180,11 @@
   </div>
 
   <div class="footer-actions">
+    <div class="data-row">
+      <button class="data-btn" onclick="exportData()">💾 Backup Progress</button>
+      <button class="data-btn" onclick="document.getElementById('importFile').click()">📂 Restore Data</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    </div>
     <button class="reset-btn" onclick="hardReset()">Reset All Progress</button>
   </div>
 </main>
@@ -187,7 +201,7 @@
   const timers = {};
   let activeSchedule = [];
 
-  // --- LOCAL STORAGE ENGINE ---
+  // --- LOCAL STORAGE & DATA EXPORT ENGINE ---
   function saveGame() {
     const serializedCompleted = {};
     for (let day in completedStats) serializedCompleted[day] = Array.from(completedStats[day]);
@@ -214,6 +228,43 @@
       } catch (e) { return false; }
     }
     return false;
+  }
+
+  function exportData() {
+    saveGame(); // Ensure latest state is saved
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (!data) return alert("No data to save yet!");
+    
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const date = new Date().toISOString().split('T')[0];
+    a.download = `daily-move-backup-${date}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const content = e.target.result;
+        JSON.parse(content); // Validate it's actual JSON before saving
+        localStorage.setItem(STORAGE_KEY, content);
+        alert("Progress restored successfully! Reloading...");
+        location.reload();
+      } catch (err) {
+        alert("Error reading backup file. Make sure it's a valid Daily Move JSON file.");
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = ''; // Reset file input
   }
 
   function hardReset() {
