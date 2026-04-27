@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Move — Ultimate DB</title>
-
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="icon" type="image/png" href="./icon-192.png">
-<link rel="manifest" href="./manifest.json">
+<title>Daily Move — The Ultimate DB</title>
 <meta name="theme-color" content="#1a1a18">
-
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -18,112 +13,224 @@
     --glute: #2d7a4a; --glute-bg: #eaf5ee;
     --arm: #2952a3; --arm-bg: #eaeffa;
     --stretch: #8b45a0; --stretch-bg: #f5eafa;
+    --iron: #8b3a3a; --iron-bg: #fdf0ee;
     --success: #2d7a4a; --timer-ring: #c4622d;
     --shadow: 0 2px 16px rgba(0,0,0,0.07); --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+    --radius: 16px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 60px; }
+  body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 80px; }
 
-  header { background: var(--ink); color: #fff; padding: 24px 24px 20px; position: sticky; top: 0; z-index: 100; }
-  .header-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; }
-  header h1 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; letter-spacing: -0.01em; line-height: 1; margin: 0; }
+  /* HEADER */
+  header { background: var(--ink); color: #fff; padding: 20px 20px 16px; position: sticky; top: 0; z-index: 100; }
+  .header-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.01em; line-height: 1; }
   header h1 em { font-style: italic; color: #e8c99a; }
-  
-  .controls-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; flex-wrap: wrap;}
-  .week-selector { display: flex; align-items: center; gap: 8px; }
-  .week-arrow { background: #333; border: none; color: #fff; font-size: 1rem; cursor: pointer; border-radius: 6px; padding: 4px 10px; transition: background 0.2s; }
-  .week-arrow:hover { background: #555; }
-  .day-badge { background: #e8c99a; color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; min-width: 90px; text-align: center; }
-  
-  .focus-select { background: #333; color: #fff; border: 1px solid #555; border-radius: 8px; padding: 6px 10px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit; outline: none; }
-  .focus-select:focus { border-color: #e8c99a; }
+  .header-pills { display: flex; gap: 6px; align-items: center; }
+  .mode-pill { background: #333; border: 1px solid #555; color: #ccc; padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em; }
+  .mode-pill.active { background: #e8c99a; color: var(--ink); border-color: #e8c99a; }
 
-  /* RPG STATS UI */
-  .stats-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .stat-col { display: flex; flex-direction: column; gap: 4px; }
-  .stat-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #b0aa9a; display: flex; justify-content: space-between;}
+  .controls-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .week-selector { display: flex; align-items: center; gap: 6px; }
+  .week-arrow { background: #333; border: none; color: #fff; font-size: 0.9rem; cursor: pointer; border-radius: 6px; padding: 4px 10px; transition: background 0.2s; }
+  .week-arrow:hover { background: #555; }
+  .day-badge { background: #e8c99a; color: var(--ink); border-radius: 8px; padding: 5px 10px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; min-width: 80px; text-align: center; }
+
+  .controls-bottom { display: flex; gap: 8px; flex-wrap: wrap; }
+  .focus-select, .days-select { background: #333; color: #fff; border: 1px solid #555; border-radius: 8px; padding: 5px 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; outline: none; }
+  .focus-select:focus, .days-select:focus { border-color: #e8c99a; }
+
+  .stats-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .stat-col { display: flex; flex-direction: column; gap: 3px; }
+  .stat-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #b0aa9a; display: flex; justify-content: space-between; }
   .stat-lvl { color: #fff; }
-  .stat-bar-bg { width: 100%; height: 6px; background: #333; border-radius: 99px; overflow: hidden; }
+  .stat-bar-bg { width: 100%; height: 5px; background: #333; border-radius: 99px; overflow: hidden; }
   .stat-bar-fill { height: 100%; border-radius: 99px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: 0%; }
   .fill-core { background: var(--core); }
-  .fill-power { background: var(--arm); }
+  .fill-power { background: var(--glute); }
   .fill-mob { background: var(--stretch); }
+  .fill-iron { background: var(--iron); }
 
-  .week-row { display: flex; gap: 8px; padding: 16px 24px 0; overflow-x: auto; scrollbar-width: none; }
+  /* DAY ROW */
+  .week-row { display: flex; gap: 6px; padding: 14px 20px 0; overflow-x: auto; scrollbar-width: none; }
   .week-row::-webkit-scrollbar { display: none; }
-  .day-btn { padding: 10px 14px; border-radius: 12px; border: 1px solid #e8e2d6; background: #fff; color: var(--ink-soft); cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 80px; transition: all 0.2s; flex-shrink: 0; }
+  .day-btn { padding: 8px 12px; border-radius: 12px; border: 1.5px solid #e8e2d6; background: #fff; color: var(--ink-soft); cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 72px; transition: all 0.2s; flex-shrink: 0; }
   .day-btn:hover { background: #fdfaf5; }
   .day-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-2px); box-shadow: var(--shadow); }
-  .day-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
-  .day-focus { font-size: 0.65rem; opacity: 0.8; text-align: center; line-height: 1.2;}
+  .day-btn.iron-day { border-color: var(--iron); }
+  .day-btn.iron-day.active { background: var(--iron); border-color: var(--iron); }
+  .day-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+  .day-focus { font-size: 0.62rem; opacity: 0.8; text-align: center; line-height: 1.2; }
+  .day-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; opacity: 0.5; }
+  .day-btn.iron-day .day-dot { background: var(--iron); opacity: 1; }
+  .day-btn.iron-day:not(.active) .day-dot { opacity: 0.6; }
 
-  main { padding: 20px 24px; max-width: 680px; margin: 0 auto; }
-  .daily-focus-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 4px; color: var(--ink); }
-  .phase-subtitle { font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; justify-content: space-between;}
+  /* MAIN */
+  main { padding: 18px 20px; max-width: 680px; margin: 0 auto; }
+  .daily-focus-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 4px; }
+  .phase-subtitle { font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; justify-content: space-between; }
   .phase-focus { color: var(--core); }
 
-  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; margin-top: 24px; }
-  .section-dot { width: 12px; height: 12px; border-radius: 50%; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; }
+  /* SECTION HEADERS */
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; margin-top: 22px; }
+  .section-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; }
 
-  .exercise-card { background: var(--card); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; transition: all 0.2s; border: 1.5px solid transparent; }
-  .exercise-card.completed { opacity: 0.6; border-color: var(--success); background: #f9fbf9; }
-  
-  .card-top { display: flex; align-items: center; padding: 16px 18px; gap: 14px; cursor: pointer; user-select: none; }
-  .check-circle { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #d0c9bc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; background: #fff;}
+  /* EXERCISE CARDS */
+  .exercise-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 10px; overflow: hidden; transition: all 0.2s; border: 1.5px solid transparent; }
+  .exercise-card.completed { opacity: 0.55; border-color: var(--success); background: #f8fbf9; }
+  .exercise-card.iron-card { border-color: rgba(139,58,58,0.15); }
+  .exercise-card.iron-card.completed { border-color: var(--iron); }
+
+  .card-top { display: flex; align-items: center; padding: 14px 16px; gap: 12px; cursor: pointer; user-select: none; }
+  .check-circle { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #d0c9bc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; background: #fff; }
   .check-circle svg { opacity: 0; transition: opacity 0.2s; }
   .check-circle.checked { background: var(--success); border-color: var(--success); transform: scale(1.1); }
   .check-circle.checked svg { opacity: 1; }
 
   .card-info { flex: 1; min-width: 0; }
-  .exercise-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 6px; }
-  .exercise-meta { font-size: 0.8rem; color: var(--ink-soft); display: flex; gap: 8px; flex-wrap: wrap; }
-  .meta-tag { display: inline-flex; align-items: center; gap: 4px; background: #f0ebe0; padding: 4px 8px; border-radius: 6px; font-weight: 600;}
+  .exercise-name { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+  .exercise-meta { font-size: 0.78rem; color: var(--ink-soft); display: flex; gap: 6px; flex-wrap: wrap; }
+  .meta-tag { display: inline-flex; align-items: center; gap: 3px; background: #f0ebe0; padding: 3px 7px; border-radius: 6px; font-weight: 600; }
   .lvl-indicator { color: var(--core); }
   .xp-tag { color: var(--arm); font-weight: 700; }
+  .iron-tag { color: var(--iron); font-weight: 700; background: var(--iron-bg); }
 
-  .expand-btn { color: var(--ink-faint); background: none; border: none; cursor: pointer; padding: 4px; transition: transform 0.25s; }
+  .expand-btn { color: var(--ink-faint); background: none; border: none; cursor: pointer; padding: 4px; transition: transform 0.25s; flex-shrink: 0; }
   .expand-btn.open { transform: rotate(180deg); color: var(--ink-soft); }
 
-  .card-detail { display: none; padding: 0 18px 18px; border-top: 1px solid #f0ebe0; }
+  .card-detail { display: none; padding: 0 16px 16px; border-top: 1px solid #f0ebe0; }
   .card-detail.open { display: block; }
-  .detail-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; margin: 12px 0; }
+  .detail-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.6; margin: 12px 0 8px; }
 
-  .action-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-  .action-btn { background: #ede8de; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; color: var(--ink); cursor: pointer; transition: background 0.2s; }
-  .action-btn:hover { background: #dcd5c7; }
+  /* SET TRACKER */
+  .set-tracker { background: #f8f4ee; border-radius: 12px; padding: 12px 14px; margin: 8px 0; }
+  .set-tracker-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 10px; }
+  .sets-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .set-bubble { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #d0c9bc; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.2s; color: var(--ink-soft); position: relative; }
+  .set-bubble:hover { border-color: var(--success); color: var(--success); }
+  .set-bubble.done { background: var(--success); border-color: var(--success); color: #fff; transform: scale(1.05); }
+  .set-bubble.iron-set.done { background: var(--iron); border-color: var(--iron); }
+  .set-bubble span { font-size: 0.65rem; line-height: 1; text-align: center; }
+  .rest-badge { background: #ede8de; border-radius: 20px; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; }
+  .rest-badge:hover { background: #dcd5c7; }
 
-  .timer-wrap { display: flex; align-items: center; gap: 14px; background: #f8f4ee; border-radius: 14px; padding: 14px 18px; margin-top: 14px; }
+  /* MODIFIER UI */
+  .modifier-row { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .modifier-row select { padding: 4px 8px; border-radius: 8px; border: 1.5px solid #d0c9bc; font-size: 0.75rem; font-weight: 600; outline: none; background: #fff; color: var(--ink); }
+  .modifier-row select:focus { border-color: var(--iron); }
+
+  /* WEIGHT INPUT */
+  .weight-input-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+  .weight-input-row label { font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); }
+  .weight-input { width: 70px; padding: 5px 8px; border: 1.5px solid #d0c9bc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; font-family: inherit; background: #fff; color: var(--ink); outline: none; }
+  .weight-input:focus { border-color: var(--iron); }
+  .weight-unit { font-size: 0.78rem; color: var(--ink-soft); font-weight: 600; }
+  .rpe-badge { background: var(--iron-bg); color: var(--iron); border-radius: 8px; padding: 4px 10px; font-size: 0.72rem; font-weight: 700; }
+
+  /* PROGRESSIVE OVERLOAD PANEL */
+  .po-panel { background: linear-gradient(135deg, #fdf2ee 0%, #fdf8ee 100%); border: 1.5px solid rgba(196,98,45,0.2); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .po-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .po-weeks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .po-week { background: #fff; border-radius: 8px; padding: 6px 8px; text-align: center; border: 1.5px solid #ede8de; }
+  .po-week.current-week { border-color: var(--core); background: #fdf0e8; }
+  .po-week-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 3px; }
+  .po-week.current-week .po-week-label { color: var(--core); }
+  .po-week-val { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+  .po-week.current-week .po-week-val { color: var(--core); }
+  .po-note { font-size: 0.72rem; color: var(--ink-soft); margin-top: 8px; line-height: 1.5; }
+
+  /* INJURY SWAP PANEL */
+  .injury-panel { background: #fff8f5; border: 1.5px solid rgba(196,98,45,0.25); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .injury-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .swap-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #e8e2d6; background: #fff; margin-bottom: 6px; cursor: pointer; transition: all 0.2s; }
+  .swap-option:hover { border-color: var(--core); background: var(--core-bg); }
+  .swap-option.active-swap { border-color: var(--glute); background: var(--glute-bg); }
+  .swap-name { font-size: 0.85rem; font-weight: 700; flex: 1; }
+  .swap-reason { font-size: 0.7rem; color: var(--ink-soft); }
+  .swap-indicator { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 99px; }
+  .swap-indicator.current { background: var(--glute-bg); color: var(--glute); }
+  .swap-indicator.available { background: #f0ebe0; color: var(--ink-soft); }
+
+  /* WARM-UP SECTION */
+  .warmup-section { background: #fffbf5; border: 1.5px solid #f0e8d0; border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .warmup-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #a07030; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .warmup-toggle { background: none; border: none; font-size: 0.72rem; color: var(--ink-faint); cursor: pointer; font-weight: 600; }
+  .warmup-steps { display: none; }
+  .warmup-steps.open { display: block; }
+  .warmup-step { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; border-bottom: 1px solid #f0ebe0; }
+  .warmup-step:last-child { border-bottom: none; }
+  .warmup-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d0c9bc; background: #fff; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+  .warmup-check.done { background: #a07030; border-color: #a07030; }
+  .warmup-check.done::after { content: '✓'; color: #fff; font-size: 10px; font-weight: 700; }
+  .warmup-text { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4; }
+  .warmup-text strong { color: var(--ink); }
+
+  /* MODALS */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal-sheet { background: #fff; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto; }
+  .modal-handle { width: 40px; height: 4px; background: #e0d9ce; border-radius: 99px; margin: 0 auto 20px; }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 6px; }
+  .modal-subtitle { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 20px; }
+  .setup-grid { display: grid; gap: 14px; }
+  .setup-field label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin-bottom: 6px; }
+  .setup-field input, .setup-field select { width: 100%; padding: 10px 12px; border: 1.5px solid #e0d9ce; border-radius: 10px; font-size: 0.95rem; font-family: inherit; background: #fdfaf5; color: var(--ink); outline: none; }
+  .modal-btn { width: 100%; padding: 14px; background: var(--ink); color: #fff; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; font-family: inherit; transition: background 0.2s; }
+  .modal-btn.iron { background: var(--iron); }
+
+  /* EQUIPMENT FILTER MODAL */
+  .equip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .equip-item { display: flex; align-items: center; gap: 10px; background: #faf8f5; border: 1.5px solid #e8e2d6; border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .equip-item.selected { background: var(--core-bg); border-color: var(--core); }
+  .equip-check { width: 20px; height: 20px; border-radius: 5px; border: 2px solid #d0c9bc; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .equip-item.selected .equip-check { background: var(--core); border-color: var(--core); }
+  .equip-check::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; display: none; }
+  .equip-item.selected .equip-check::after { display: block; }
+  .equip-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); text-transform: capitalize; }
+  .equip-btn { background: #444; border: 1px solid #666; color: #ddd; padding: 4px 9px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+  
+  /* ACTION BUTTONS & TOAST */
+  .action-row { display: flex; gap: 7px; margin-top: 12px; flex-wrap: wrap; }
+  .action-btn { background: #ede8de; border: none; padding: 7px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; color: var(--ink); cursor: pointer; font-family: inherit; }
+  .action-btn.iron-btn { background: var(--iron-bg); color: var(--iron); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: #fff; padding: 10px 20px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; z-index: 300; transition: transform 0.3s; white-space: nowrap; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* TIMER */
+  .timer-wrap { display: flex; align-items: center; gap: 12px; background: #f8f4ee; border-radius: 14px; padding: 12px 16px; margin-top: 12px; }
   .timer-svg-wrap { position: relative; flex-shrink: 0; }
-  .timer-svg { width: 64px; height: 64px; transform: rotate(-90deg); }
+  .timer-svg { width: 58px; height: 58px; transform: rotate(-90deg); }
   .timer-bg { fill: none; stroke: #e0d9ce; stroke-width: 5; }
   .timer-ring { fill: none; stroke: var(--timer-ring); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
-  .timer-display { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; }
-  .timer-controls { display: flex; flex-direction: column; gap: 8px; }
-  .timer-btns { display: flex; gap: 8px; }
-  .timer-btn { padding: 6px 14px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+  .timer-display { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+  .timer-controls { display: flex; flex-direction: column; gap: 7px; }
+  .timer-btns { display: flex; gap: 7px; }
+  .timer-btn { padding: 6px 12px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
   .timer-btn.start { background: var(--core); color: #fff; }
+  .timer-btn.reset { background: #ede8de; color: var(--ink); }
 
-  .done-banner { background: var(--success); color: #fff; border-radius: 14px; padding: 18px 22px; text-align: center; margin-top: 24px; display: none; animation: popIn 0.4s; }
+  /* IRON-THEMED COLORS */
+  .theme-iron .check-circle.checked { background: var(--iron); border-color: var(--iron); }
+  .theme-iron .timer-ring { stroke: var(--iron); }
+  .theme-iron .timer-btn.start { background: var(--iron); }
+  .theme-core .check-circle.checked { background: var(--core); border-color: var(--core); }
+  .theme-glute .check-circle.checked { background: var(--glute); border-color: var(--glute); }
+  .theme-arm .check-circle.checked { background: var(--arm); border-color: var(--arm); }
+  .theme-stretch .check-circle.checked { background: var(--stretch); border-color: var(--stretch); }
+
+  /* BANNER & FOOTER */
+  .done-banner { background: linear-gradient(135deg, var(--success), #3a9660); color: #fff; border-radius: 14px; padding: 16px 20px; text-align: center; margin-top: 22px; display: none; animation: popIn 0.4s; }
   @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
-
-  .footer-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e8e2d6; }
-  .data-row { display: flex; gap: 10px; }
-  .data-btn { background: #ede8de; color: var(--ink); border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-  .data-btn:hover { background: #dcd5c7; }
-  .reset-btn { background: none; border: none; color: var(--ink-faint); font-size: 0.75rem; text-decoration: underline; cursor: pointer; transition: color 0.2s; margin-top: 10px; }
-  .reset-btn:hover { color: var(--core); }
-
-  .theme-core { --theme-color: var(--core); }
-  .theme-glute { --theme-color: var(--glute); }
-  .theme-arm { --theme-color: var(--arm); }
-  .theme-stretch { --theme-color: var(--stretch); }
-  .exercise-card .check-circle.checked { background: var(--theme-color); border-color: var(--theme-color); }
-  .exercise-card .timer-ring { stroke: var(--theme-color); }
-  .exercise-card .timer-btn.start { background: var(--theme-color); }
-
-  @media (max-width: 480px) { header { padding: 20px 16px 16px; } main { padding: 16px; } }
+  .footer-actions { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 36px; padding-top: 18px; border-top: 1px solid #e8e2d6; }
+  .data-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .data-btn { background: #ede8de; color: var(--ink); border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .reset-btn { background: none; border: none; color: var(--ink-faint); font-size: 0.73rem; text-decoration: underline; cursor: pointer; }
+  .iron-day-banner { background: linear-gradient(135deg, var(--iron-bg), #fff); border: 1.5px solid rgba(139,58,58,0.25); border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+  .iron-day-icon { font-size: 1.8rem; }
+  .iron-day-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--iron); margin-bottom: 2px; }
+  .iron-day-info p { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.4; }
+  .iron-setup-btn { background: var(--iron); color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: inherit; margin-left: auto; }
 </style>
 </head>
 <body>
@@ -131,21 +238,34 @@
 <header>
   <div class="header-top">
     <h1>Daily <em>Move</em></h1>
+    <div class="header-pills">
+      <button class="mode-pill active" id="pillBodyweight" onclick="setMode('bodyweight')">Bodyweight</button>
+      <button class="mode-pill" id="pillIron" onclick="setMode('iron')">🏋️ Iron</button>
+      <button class="equip-btn" id="equipBtn" onclick="openEquipModal()">🎒 Gear</button>
+    </div>
   </div>
-  
+
   <div class="controls-row">
     <div class="week-selector">
       <button class="week-arrow" id="btnPrevWeek" onclick="changeWeek(-1)">❮</button>
       <span class="day-badge" id="weekBadge">Wk 1 / 24</span>
       <button class="week-arrow" id="btnNextWeek" onclick="changeWeek(1)">❯</button>
     </div>
-    <select id="focusSelect" class="focus-select" onchange="changeFocus(this.value)">
-      <option value="balanced">Focus: Balanced</option>
-      <option value="upper">Focus: Upper Body</option>
-      <option value="lower">Focus: Lower Body</option>
-      <option value="core">Focus: Core Engine</option>
-      <option value="mobility">Focus: Mobility Flow</option>
-    </select>
+    <div class="controls-bottom">
+      <select id="daysSelect" class="days-select" onchange="changeTrainingDays(parseInt(this.value))">
+        <option value="2">2 days/wk</option>
+        <option value="3">3 days/wk</option>
+        <option value="4" selected>4 days/wk</option>
+        <option value="5">5 days/wk</option>
+      </select>
+      <select id="focusSelect" class="focus-select" onchange="changeFocus(this.value)">
+        <option value="balanced">Focus: Balanced</option>
+        <option value="upper">Focus: Upper Body</option>
+        <option value="lower">Focus: Lower Body</option>
+        <option value="core">Focus: Core Engine</option>
+        <option value="mobility">Focus: Mobility Flow</option>
+      </select>
+    </div>
   </div>
 
   <div class="stats-board">
@@ -161,6 +281,10 @@
       <div class="stat-label">Mobility <span class="stat-lvl" id="lvlMob">Lv.1</span></div>
       <div class="stat-bar-bg"><div class="stat-bar-fill fill-mob" id="barMob"></div></div>
     </div>
+    <div class="stat-col">
+      <div class="stat-label">Iron <span class="stat-lvl" id="lvlIron">Lv.1</span></div>
+      <div class="stat-bar-bg"><div class="stat-bar-fill fill-iron" id="barIron"></div></div>
+    </div>
   </div>
 </header>
 
@@ -170,694 +294,1387 @@
   <h2 class="daily-focus-title" id="dailyFocusTitle">Loading...</h2>
   <div class="phase-subtitle" id="phaseSubtitle">
     <span id="phaseName">Phase 1</span>
-    <span class="phase-focus" id="phaseFocus">Focus: Base Volume</span>
+    <span class="phase-focus" id="phaseFocus">Week 1 / 4</span>
   </div>
   <div id="workoutContainer"></div>
-  
+
   <div class="done-banner" id="doneBanner">
-    <h3 style="font-family:'DM Serif Display'; font-size:1.4rem; margin-bottom:6px;">🎉 Quest Complete!</h3>
-    <p style="font-size:0.9rem; opacity:0.9;">XP secured. Rest up your joints and come back tomorrow.</p>
+    <h3 style="font-family:'DM Serif Display'; font-size:1.3rem; margin-bottom:5px;">🎉 Quest Complete!</h3>
+    <p style="font-size:0.85rem; opacity:0.9;">XP secured. Rest up and come back stronger.</p>
   </div>
 
   <div class="footer-actions">
     <div class="data-row">
-      <button class="data-btn" onclick="exportData()">💾 Backup Progress</button>
-      <button class="data-btn" onclick="document.getElementById('importFile').click()">📂 Restore Data</button>
+      <button class="data-btn" onclick="exportData()">💾 Backup</button>
+      <button class="data-btn" onclick="document.getElementById('importFile').click()">📂 Restore</button>
+      <button class="data-btn" onclick="openIronSetup()">⚙️ Iron Setup</button>
       <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
     </div>
     <button class="reset-btn" onclick="hardReset()">Reset All Progress</button>
   </div>
 </main>
 
+<div class="modal-overlay" id="ironModal" onclick="closeModalIfOutside(event)">
+  <div class="modal-sheet" id="ironModalSheet">
+    <div class="modal-handle"></div>
+    <h2 class="modal-title">🏋️ Iron Setup</h2>
+    <p class="modal-subtitle">Configure your barbell program. We'll build progressive overload around your numbers.</p>
+    <div class="setup-grid" id="setupGrid"></div>
+    <button class="modal-btn iron" onclick="saveIronSetup()">Save & Generate Program</button>
+    <button class="modal-btn" style="background:#f0ebe0;color:var(--ink);margin-top:8px;" onclick="closeIronModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="equipModal" onclick="closeEquipModalIfOutside(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h2 class="modal-title">🎒 Equipment Available</h2>
+    <p class="modal-subtitle">Select what you have access to. Iron exercises and swaps will adapt accordingly.</p>
+    <div class="equip-grid" id="equipGrid"></div>
+    <button class="modal-btn" style="background:var(--core);" onclick="saveEquipSettings()">Save Equipment</button>
+    <button class="modal-btn" style="background:#f0ebe0;color:var(--ink);margin-top:8px;" onclick="closeEquipModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-  // --- GLOBAL STATE VARIABLES ---
-  const STORAGE_KEY = 'dailyMoveSaveData_v5';
-  const MAX_WEEKS = 24;
-  let currentWeek = 1;
-  let currentDayIdx = 0;
-  let currentFocus = 'balanced';
-  let userOverrides = {}; 
-  let completedStats = {};
-  const timers = {};
-  let activeSchedule = [];
+// ===================================================
+// CONSTANTS & STATE
+// ===================================================
+const STORAGE_KEY = 'dailyMoveSaveData_v16';
+const MAX_WEEKS = 24;
+let currentWeek = 1;
+let currentDayIdx = 0;
+let currentFocus = 'balanced';
+let currentMode = 'bodyweight'; 
+let trainingDays = 4;
+let userOverrides = {};
+let completedStats = {};
+let setCompletions = {}; 
+let warmupCompletions = {}; 
+let ironSetup = { startingRepsChoice: 5, squatE1RM: 0, benchE1RM: 0, deadliftE1RM: 0, sumoE1RM: 0, ohpE1RM: 0, sessionFocus: 'ppl' };
+let weightLogs = {}; 
+let modifiers = {}; 
+const timers = {};
+let activeSchedule = [];
+let playerStats = { core: { xp: 0, lvl: 1 }, power: { xp: 0, lvl: 1 }, mob: { xp: 0, lvl: 1 }, iron: { xp: 0, lvl: 1 } };
 
-  // --- LOCAL STORAGE & DATA EXPORT ENGINE ---
-  function saveGame() {
-    const serializedCompleted = {};
-    for (let day in completedStats) serializedCompleted[day] = Array.from(completedStats[day]);
-    const payload = { currentWeek, currentDayIdx, currentFocus, playerStats, userOverrides, activeSchedule, completedStats: serializedCompleted };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  }
+let equipmentAvailable = {
+  barbell: true, dumbbells: true, pullup_bar: true, rings: false, cables: false, ghr_machine: false, kettlebell: false, bands: true,
+  flat_bench: true, adjustable_bench: true, plates: true, log: false, yoke: false, sandbag: false, parallettes: false
+};
 
-  function loadGame() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        currentWeek = data.currentWeek || 1;
-        currentDayIdx = data.currentDayIdx || 0;
-        currentFocus = data.currentFocus || 'balanced';
-        document.getElementById('focusSelect').value = currentFocus;
-        playerStats = data.playerStats || { core: {xp:0, lvl:1}, power: {xp:0, lvl:1}, mob: {xp:0, lvl:1} };
-        userOverrides = data.userOverrides || {};
-        activeSchedule = data.activeSchedule || generateSchedule(currentFocus);
-        const loadedStats = data.completedStats || {};
-        completedStats = {};
-        for(let i=0; i<7; i++) completedStats[i] = new Set(loadedStats[i] || []);
-        return true;
-      } catch (e) { return false; }
-    }
-    return false;
-  }
+let injurySwaps = {}; 
 
-  function exportData() {
-    saveGame(); // Ensure latest state is saved
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (!data) return alert("No data to save yet!");
-    
-    const blob = new Blob([data], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    const date = new Date().toISOString().split('T')[0];
-    a.download = `daily-move-backup-${date}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
+function meetsEquipmentRequirements(equipArray) {
+  if (!equipArray || equipArray.length === 0) return true;
+  return equipArray.every(eq => equipmentAvailable[eq]);
+}
 
-  function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const content = e.target.result;
-        JSON.parse(content); // Validate it's actual JSON before saving
-        localStorage.setItem(STORAGE_KEY, content);
-        alert("Progress restored successfully! Reloading...");
-        location.reload();
-      } catch (err) {
-        alert("Error reading backup file. Make sure it's a valid Daily Move JSON file.");
-      }
-    };
-    reader.readAsText(file);
-    event.target.value = ''; // Reset file input
-  }
-
-  function hardReset() {
-    if (confirm("Reset everything? This cannot be undone.")) {
-      localStorage.removeItem(STORAGE_KEY);
-      location.reload();
-    }
-  }
-
-  // --- RPG SYSTEM ---
-  const XP_PER_LEVEL = 100;
-  let playerStats = { core: { xp: 0, lvl: 1 }, power: { xp: 0, lvl: 1 }, mob: { xp: 0, lvl: 1 } };
-  const statMapping = { core: 'core', glute: 'power', arm: 'power', stretch: 'mob' };
-
-  function addXP(category, amount) {
-    const statKey = statMapping[category];
-    playerStats[statKey].xp += amount;
-    if (playerStats[statKey].xp >= XP_PER_LEVEL) {
-      playerStats[statKey].lvl++;
-      playerStats[statKey].xp -= XP_PER_LEVEL;
-    }
-    updateStatUI();
-  }
-
-  function removeXP(category, amount) {
-    const statKey = statMapping[category];
-    playerStats[statKey].xp -= amount;
-    if (playerStats[statKey].xp < 0 && playerStats[statKey].lvl > 1) {
-      playerStats[statKey].lvl--;
-      playerStats[statKey].xp += XP_PER_LEVEL;
-    } else if (playerStats[statKey].xp < 0) {
-      playerStats[statKey].xp = 0;
-    }
-    updateStatUI();
-  }
-
-  function updateStatUI() {
-    ['core', 'power', 'mob'].forEach(key => {
-      document.getElementById(`lvl${key.charAt(0).toUpperCase() + key.slice(1)}`).textContent = `Lv.${playerStats[key].lvl}`;
-      const pct = (playerStats[key].xp / XP_PER_LEVEL) * 100;
-      document.getElementById(`bar${key.charAt(0).toUpperCase() + key.slice(1)}`).style.width = `${pct}%`;
-    });
-  }
-
-  // --- MASSIVE EXERCISE DATABASE (136 Variations) ---
-  const db = {
-    // === CORE ===
-    c_iso: { cat: 'core', theme: 'theme-core', title: 'Core Isometric', type: 'time', vars: [
-      { name: 'Full Plank', desc: 'Straight line from head to heels. Push floor away.', base: 15 },
-      { name: 'Plank Leg Lifts', desc: 'In plank, alternate lifting one leg 2 inches off floor.', base: 20 },
-      { name: 'Spiderman Plank', desc: 'In plank, bring knee to outside of same-side elbow slowly.', base: 20 },
-      { name: 'Extended Plank', desc: 'Walk hands 4-6 inches forward past shoulders. Intense tension.', base: 20 }
-    ]},
-    c_dyn: { cat: 'core', theme: 'theme-core', title: 'Core Dynamic', type: 'reps', vars: [
-      { name: 'Heel Taps', desc: 'Lie on back, knees 90°. Tap one heel to floor, return.', base: 10 },
-      { name: 'Bicycle Crunches', desc: 'Elbow to opposite knee. Control the twist.', base: 12 },
-      { name: 'V-Ups', desc: 'Snap up, touching hands to toes at the top.', base: 8 },
-      { name: 'Hollow Rocks', desc: 'Hold hollow body position and gently rock forward/back.', base: 12 }
-    ]},
-    c_post: { cat: 'core', theme: 'theme-core', title: 'Posterior Core', type: 'reps_side', vars: [
-      { name: 'Bird Dog', desc: 'All fours. Extend opposite arm and leg perfectly straight.', base: 6 },
-      { name: 'Bird Dog Hover', desc: 'Same motion, but lift planted knee 1 inch off floor.', base: 6 },
-      { name: 'Superman Lifts', desc: 'Lie on stomach, lift chest and thighs, pause 1s, lower.', base: 10 },
-      { name: 'Reverse Hypers', desc: 'Lie face down on edge of bed/couch. Lift legs straight up to parallel.', base: 10 }
-    ]},
-    c_pelvic: { cat: 'core', theme: 'theme-core', title: 'Deep Core / Pelvic', type: 'time', vars: [
-      { name: 'Diaphragmatic Breathing', desc: 'Lie on back. Inhale deeply. Exhale fully while gently drawing pelvic floor up and in.', base: 30 },
-      { name: 'Supine Marching', desc: 'Lie on back. Exhale, engage core, and slowly lift one foot 2 inches off floor.', base: 30 },
-      { name: 'Bridge with Kegel Pulse', desc: 'Hold glute bridge at top. On every exhale, pulse a pelvic floor squeeze.', base: 30 },
-      { name: 'Bear Hover Breathing', desc: 'On hands and knees. Lift knees 1 inch off floor. Hold and breathe deeply.', base: 20 }
-    ]},
-    c_oblique: { cat: 'core', theme: 'theme-core', title: 'Lateral Core', type: 'time_side', vars: [
-      { name: 'Side Plank', desc: 'Stack feet, lift hips. Straight line from head to heels.', base: 15 },
-      { name: 'Side Plank Pulses', desc: 'In side plank, dip hips slightly and press back up.', base: 20 },
-      { name: 'Russian Twists', desc: 'Sit in V, twist torso side to side under control.', base: 20 },
-      { name: 'Thread the Needle Plank', desc: 'In side plank, reach top arm under your ribs, then back up to sky.', base: 20 }
-    ]},
-    c_antirot: { cat: 'core', theme: 'theme-core', title: 'Anti-Rotation Core', type: 'reps_side', vars: [
-      { name: 'Plank Shoulder Taps', desc: 'In plank, tap opposite shoulder. Do not let hips sway at all.', base: 8 },
-      { name: 'Plank Reaches', desc: 'In plank, reach one arm straight out in front. Hold 1s, return.', base: 6 },
-      { name: 'Plank Pull-Throughs', desc: 'In plank, grab a heavy item from outside left hand, drag to right side.', base: 6 },
-      { name: 'Bear Crawl Steps', desc: 'Hover knees 1 inch off floor. Take a tiny step forward with opposite arm/leg.', base: 8 }
-    ]},
-    c_lsit: { cat: 'core', theme: 'theme-core', title: 'Compression & L-Sit', type: 'time', vars: [
-      { name: 'Seated Pike Pulses', desc: 'Sit with legs straight. Hands by knees. Lean forward and lift legs off floor in pulses.', base: 15 },
-      { name: 'Tuck L-Sit Prep', desc: 'Sit between two chairs. Press down, lift hips, keep knees tucked to chest.', base: 10 },
-      { name: 'Single Leg L-Sit', desc: 'Supported on chairs. One leg tucked, one leg perfectly straight.', base: 10 },
-      { name: 'Full L-Sit Attempt', desc: 'Supported on chairs/floor. Both legs perfectly straight, hips lifted. Hold.', base: 10 }
-    ]},
-
-    // === GLUTES & LEGS ===
-    g_squat: { cat: 'glute', theme: 'theme-glute', title: 'Squat Pattern', type: 'reps', vars: [
-      { name: 'Bodyweight Squat', desc: 'Sink hips down and back to knee level or lower. Drive up through heels.', base: 6 },
-      { name: 'Pause Squats', desc: 'Hold the absolute bottom of the squat for 3 full seconds per rep.', base: 6 },
-      { name: '1.5 Rep Squats', desc: 'Squat all the way down, come up halfway, go back down, stand all the way up.', base: 6 },
-      { name: 'Jump Squats', desc: 'Explode up, land softly with bent knees.', base: 8 }
-    ]},
-    g_hinge: { cat: 'glute', theme: 'theme-glute', title: 'Hinge Pattern', type: 'reps', vars: [
-      { name: 'Glute Bridge', desc: 'Press hips up from floor. Squeeze hard at the top.', base: 10 },
-      { name: 'Single-Leg Bridge', desc: 'One leg extended straight out. Push with planted foot.', base: 8 },
-      { name: 'Elevated Bridge', desc: 'Feet on a chair/couch, press hips up.', base: 10 },
-      { name: 'Single-Leg Elevated', desc: 'One foot on chair, one extended. Max range of motion.', base: 8 }
-    ]},
-    g_abduct: { cat: 'glute', theme: 'theme-glute', title: 'Knee Stability', type: 'reps_side', vars: [
-      { name: 'Clamshells', desc: 'Lie on side, knees bent/stacked. Keep feet glued and lift top knee like a clamshell.', base: 10 },
-      { name: 'Fire Hydrants', desc: 'On all fours, lift one knee directly out to the side. Keep core still.', base: 10 },
-      { name: 'Side-Lying Leg Raises', desc: 'Lie on side, legs straight. Lift top leg straight up, leading with the heel.', base: 10 },
-      { name: 'Curtsy Lunges', desc: 'Step one leg behind and across the other, sinking into a lunge.', base: 8 }
-    ]},
-    g_ham: { cat: 'glute', theme: 'theme-glute', title: 'Hamstrings', type: 'reps', vars: [
-      { name: 'Glute Bridge Walkouts', desc: 'Hold a bridge, walk heels out away from you until legs are almost straight, then walk back.', base: 5 },
-      { name: 'Slider Leg Curls (Eccentric)', desc: 'Bridge up with feet on towels. Slowly slide feet out. Drop hips to pull back.', base: 6 },
-      { name: 'Slider Leg Curls (Full)', desc: 'Bridge up. Slide feet out, then pull them back in while keeping hips elevated.', base: 6 },
-      { name: 'Single-Leg RDL (Bodyweight)', desc: 'Hinge at hips, lifting one leg straight back behind you until torso is parallel to floor.', base: 8 }
-    ]},
-    g_lateral: { cat: 'glute', theme: 'theme-glute', title: 'Lateral Power', type: 'reps_side', vars: [
-      { name: 'Lateral Weight Shifts', desc: 'Wide stance. Shift weight side to side, keeping chest up. Do not step.', base: 8 },
-      { name: 'Side Lunges', desc: 'Step out wide to the side, sink hips down and back on that leg. Push back to center.', base: 6 },
-      { name: 'Cossack Squats', desc: 'Very wide stance. Squat deep on one leg while the other leg stays straight, toes pointing up.', base: 5 },
-      { name: 'Skater Jumps', desc: 'Leap side to side, landing on one foot and sweeping the other behind you.', base: 10 }
-    ]},
-    g_quad: { cat: 'glute', theme: 'theme-glute', title: 'Quad Isolation', type: 'reps', vars: [
-      { name: 'Kneeling Lean Backs', desc: 'Kneel tall. Keep straight line from knees to head. Lean back slightly, return.', base: 8 },
-      { name: 'Reverse Nordics (Assisted)', desc: 'Hold a band or doorframe. Lean back until calves touch hamstrings, pull back up.', base: 6 },
-      { name: 'Full Reverse Nordics', desc: 'No assistance. Lean all the way back and drive through quads to return vertical.', base: 5 },
-      { name: 'Sissy Squat Prep', desc: 'Hold a chair. Rise on toes, lean torso back, and drive knees far forward over toes.', base: 6 }
-    ]},
-    g_plyo: { cat: 'glute', theme: 'theme-glute', title: 'Plyometrics', type: 'reps', vars: [
-      { name: 'Pogo Jumps', desc: 'Keep legs straight. Bounce on the balls of your feet like a pogo stick.', base: 20 },
-      { name: 'Squat Jumps', desc: 'Squat down, explode up as high as possible. Soft landing.', base: 8 },
-      { name: 'Broad Jumps', desc: 'Jump forward as far as possible. Turn around and repeat.', base: 6 },
-      { name: 'Split Jumps', desc: 'Start in lunge. Jump and switch legs in the air, landing in lunge on the other side.', base: 12 }
-    ]},
-
-    // === UPPER BODY ===
-    a_push: { cat: 'arm', theme: 'theme-arm', title: 'Horizontal Push', type: 'reps', vars: [
-      { name: 'Incline Push-Up', desc: 'Hands on counter or sturdy chair.', base: 6 },
-      { name: 'Standard Push-Up', desc: 'From the floor. Chest to deck.', base: 6 },
-      { name: 'Push-Up with Rotation', desc: 'Do a push-up, then lift one arm to the sky into a T-plank.', base: 6 },
-      { name: 'Decline Push-Up', desc: 'Feet elevated on chair, hands on floor.', base: 8 }
-    ]},
-    a_pull: { cat: 'arm', theme: 'theme-arm', title: 'Horizontal Pull', type: 'reps', vars: [
-      { name: 'Prone Ts', desc: 'Lie on stomach, arms straight out, lift squeezing shoulder blades.', base: 10 },
-      { name: 'Doorway Rows', desc: 'Hold doorframe, lean back, pull self in.', base: 12 },
-      { name: 'Towel Slide Pulls', desc: 'Lie on smooth floor with towel under hands. Pull body forward.', base: 8 },
-      { name: 'Inverted Chair Rows', desc: 'Under two sturdy chairs with a broomstick, pull chest to bar.', base: 8 }
-    ]},
-    a_vertpush: { cat: 'arm', theme: 'theme-arm', title: 'Vertical Push', type: 'reps', vars: [
-      { name: 'Downward Dog Hold', desc: 'Hold downward dog position, actively pushing floor away to load shoulders. (Treated as reps for logic)', base: 20 },
-      { name: 'Pike Push-Up (Floor)', desc: 'Hips high in a V shape. Lower top of head toward the floor between your hands.', base: 6 },
-      { name: 'Pike Push-Up (Elevated)', desc: 'Same movement, but feet are elevated on a chair or couch.', base: 6 },
-      { name: 'Wall-Facing Handstand Hold', desc: 'Walk feet up the wall until torso is vertical. Hold. (Treated as reps).', base: 15 }
-    ]},
-    a_scap: { cat: 'arm', theme: 'theme-arm', title: 'Scapular Health', type: 'reps', vars: [
-      { name: 'Scapular Push-Ups', desc: 'In plank, keep arms locked straight. Let chest sink, then push upper back to the ceiling.', base: 10 },
-      { name: 'Wall Slides', desc: 'Back flat against wall. Slide arms up into a Y and pull down into a W.', base: 10 },
-      { name: 'Reverse Snow Angels', desc: 'Lie face down. Sweep arms from your hips all the way overhead without touching floor.', base: 8 },
-      { name: 'Doorway Scapular Hangs', desc: 'Grip top of sturdy doorframe. Hang passively, then pull shoulder blades down actively.', base: 8 }
-    ]},
-    c_posture: { cat: 'arm', theme: 'theme-arm', title: 'Postural Back', type: 'reps', vars: [
-      { name: 'Prone I-Y-T Lifts', desc: 'Lie on stomach. Lift arms straight overhead (I), then angle out (Y), then straight out (T).', base: 6 },
-      { name: 'Band/Towel Pull-Aparts', desc: 'Hold towel tight in front of chest. Actively try to rip it apart for 3s per rep.', base: 10 },
-      { name: 'Towel Face Pulls', desc: 'Hold a towel taut. Pull it to your nose, squeezing shoulder blades together hard.', base: 12 },
-      { name: 'Superman to Lat Pull', desc: 'In superman hold, mimic doing a pull-up, squeezing lats down and back.', base: 10 }
-    ]},
-    a_bicep: { cat: 'arm', theme: 'theme-arm', title: 'Biceps & Forearms', type: 'reps', vars: [
-      { name: 'Underhand Doorway Rows', desc: 'Row using doorframe, but with palms facing toward you to emphasize biceps.', base: 12 },
-      { name: 'Towel Isometric Curls', desc: 'Step on middle of towel. Grab ends and pull up as hard as possible. Hold 5s per rep.', base: 6 },
-      { name: 'Underhand Inverted Rows', desc: 'Under chairs/broomstick. Palms facing you. Pull chest to bar.', base: 8 },
-      { name: 'Pelican Curl Prep', desc: 'Stand facing away from a wall. Reach arms back, plant hands on wall, lean body forward to stretch/load biceps.', base: 8 }
-    ]},
-    a_tri: { cat: 'arm', theme: 'theme-arm', title: 'Shoulders/Triceps', type: 'reps', vars: [
-      { name: 'Arm Circles', desc: 'Strict, tight circles forward then backward.', base: 20 },
-      { name: 'Chair Dips (Bent Knee)', desc: 'Hands on chair edge, lower body with bent knees.', base: 8 },
-      { name: 'Chair Dips (Straight Leg)', desc: 'Legs extended perfectly straight in front of you.', base: 8 },
-      { name: 'Pike Push-Ups', desc: 'Hips high in Downward Dog, lower top of head to floor.', base: 6 }
-    ]},
-
-    // === MOBILITY ===
-    s_hip: { cat: 'stretch', theme: 'theme-stretch', title: 'Hip Mobility', type: 'time_side', vars: [
-      { name: 'Posterior Tilt Lunge', desc: 'Shallow lunge. Squeeze the glute of your back leg and tuck pelvis to intensely stretch the flexor.', base: 20 },
-      { name: 'Kneeling Hip Flexor', desc: 'Back knee down, squeeze glute to deepen stretch.', base: 20 },
-      { name: 'Pigeon Pose', desc: 'Fold front leg under you on the floor, lean forward.', base: 20 },
-      { name: 'Couch Stretch', desc: 'Back shin flat against wall, kneel on floor. Very intense.', base: 20 }
-    ]},
-    s_tspine: { cat: 'stretch', theme: 'theme-stretch', title: 'Thoracic Spine', type: 'reps_side', vars: [
-      { name: 'Open Books', desc: 'Lie on side, knees bent. Sweep top arm open across your body to touch floor behind you.', base: 8 },
-      { name: 'Quadruped T-Spine Rotation', desc: 'On all fours. Hand behind head, touch elbow to opposite wrist, then twist open to ceiling.', base: 8 },
-      { name: 'Puppy Dog Pose', desc: 'Like childs pose, but keep hips high in the air while dropping chest to floor. (Hold for time)', base: 1 }, 
-      { name: 'Seated Rotations', desc: 'Sit tall, twist torso and grab back of chair to assist rotation.', base: 6 }
-    ]},
-    s_ankle: { cat: 'stretch', theme: 'theme-stretch', title: 'Active Ankles/Calves', type: 'reps', vars: [
-      { name: 'Downward Dog Pedals', desc: 'In down dog, actively push one heel to the floor at a time, pausing for 2 seconds.', base: 10 },
-      { name: 'Deep Squat Ankle Rocks', desc: 'Sit in a deep squat. Shift weight over one knee to push it past your toes without lifting heel.', base: 10 },
-      { name: 'Eccentric Calf Drops', desc: 'Stand on a stair. Push up with both feet, lift one foot, and slowly lower down on the single leg.', base: 8 },
-      { name: 'Wall Ankle Mobilization', desc: 'Stand facing wall. Keep heel planted and drive knee forward to touch wall.', base: 10 }
-    ]},
-    s_calf: { cat: 'stretch', theme: 'theme-stretch', title: 'Fascia & Soleus', type: 'time_side', vars: [
-      { name: 'Seated Towel Stretch', desc: 'Sit with legs straight. Loop towel around foot and gently pull toes toward you.', base: 20 },
-      { name: 'Wall Calf Stretch (Straight Leg)', desc: 'Lean against wall, one foot back with heel pressed to floor. Knee locked.', base: 20 },
-      { name: 'Wall Soleus Stretch (Bent Leg)', desc: 'Same position, but slightly bend the back knee. Deeper toward Achilles.', base: 20 },
-      { name: 'Plantar Fascia Smash', desc: 'Roll a golf ball, lacrosse ball, or frozen water bottle under the arch of your foot.', base: 30 }
-    ]},
-    s_ham: { cat: 'stretch', theme: 'theme-stretch', title: 'Active Hamstrings', type: 'reps_side', vars: [
-      { name: 'Seated Nerve Floss', desc: 'Sit on chair. Round back, tuck chin. Slowly straighten one leg while looking up at ceiling. Return.', base: 10 },
-      { name: 'Elephant Walks', desc: 'Forward fold, hands on shins/floor. Bend one knee while locking the other leg perfectly straight. Alternate.', base: 10 },
-      { name: 'Active Straight Leg Raise', desc: 'Lie on back. Keep one leg flat, lift the other leg perfectly straight toward ceiling.', base: 8 },
-      { name: 'Jefferson Curl (Bodyweight)', desc: 'Stand tall. Slowly roll spine down starting from neck, vertebra by vertebra, reaching for toes.', base: 6 }
-    ]},
-    s_wrist: { cat: 'stretch', theme: 'theme-stretch', title: 'Wrist Prep', type: 'time', vars: [
-      { name: 'Wrist Circles', desc: 'Clasp hands together and roll wrists in smooth, large circles in both directions.', base: 30 },
-      { name: 'Quadruped Wrist Rocks', desc: 'On all fours, fingers pointing forward. Gently rock shoulders past your wrists.', base: 30 },
-      { name: 'Palm Pulses', desc: 'On all fours. Keep fingers flat and lift the heels of your palms off the floor repeatedly.', base: 30 },
-      { name: 'Prayer Stretch & Reverse', desc: 'Palms together at chest, push down. Then backs of hands together, pull up.', base: 30 }
-    ]},
-    s_neck: { cat: 'stretch', theme: 'theme-stretch', title: 'Neck & Traps', type: 'time_side', vars: [
-      { name: 'Chin Tucks', desc: 'Sit tall. Pull chin straight back, creating a double chin, to align cervical spine.', base: 15 },
-      { name: 'Upper Trap Stretch', desc: 'Sit on one hand. Use other hand to gently pull ear toward opposite shoulder.', base: 20 },
-      { name: 'Levator Scapula Stretch', desc: 'Turn head 45 degrees, look down at armpit. Gently pull head down and forward.', base: 20 },
-      { name: 'Neck Isometrics', desc: 'Press hand into forehead, resist with neck. Repeat on all 4 sides of head.', base: 15 }
-    ]},
-    s_shoulder: { cat: 'stretch', theme: 'theme-stretch', title: 'Shoulder Extension', type: 'reps', vars: [
-      { name: 'Broomstick Dislocates', desc: 'Hold broomstick wide. Keep arms straight, bring it over your head and behind your back. Return.', base: 10 },
-      { name: 'Butchers Block Stretch', desc: 'Kneel with elbows resting on a chair/bench. Drop head between arms to stretch lats and triceps.', base: 8 },
-      { name: 'Tabletop Lift', desc: 'Sit on floor, hands behind you. Drive hips up into a reverse tabletop to stretch front of shoulders.', base: 8 },
-      { name: 'Wall Extensions', desc: 'Stand facing away from wall. Reach arms straight back to touch wall behind you, walking hands up.', base: 8 }
-    ]},
-    s_split: { cat: 'stretch', theme: 'theme-stretch', title: 'Deep Splits Prep', type: 'time_side', vars: [
-      { name: 'Horse Stance Hold', desc: 'Very wide stance, toes pointed out 45 degrees. Sink hips deep and hold.', base: 20 },
-      { name: 'Cossack Hold', desc: 'Deep lateral lunge hold. One leg bent, one leg straight with toes up.', base: 20 },
-      { name: 'Supported Front Split', desc: 'One foot forward, one back. Place hands on chairs to support weight as you sink hips down.', base: 20 },
-      { name: 'Supported Middle Split', desc: 'Feet extremely wide. Forearms on the floor or a chair in front of you.', base: 20 }
-    ]}
+// ===================================================
+// SAVE / LOAD
+// ===================================================
+function saveGame() {
+  const serializedCompleted = {};
+  for (let day in completedStats) serializedCompleted[day] = Array.from(completedStats[day]);
+  const payload = {
+    currentWeek, currentDayIdx, currentFocus, currentMode, trainingDays, playerStats, userOverrides, activeSchedule, 
+    ironSetup, weightLogs, modifiers, completedStats: serializedCompleted, setCompletions, warmupCompletions,
+    equipmentAvailable, injurySwaps
   };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+}
 
-  const pools = {
-    core: ['c_iso', 'c_dyn', 'c_post', 'c_pelvic', 'c_oblique', 'c_antirot', 'c_lsit'],
-    glute: ['g_squat', 'g_hinge', 'g_abduct', 'g_ham', 'g_lateral', 'g_quad', 'g_plyo'],
-    arm: ['a_push', 'a_pull', 'a_vertpush', 'a_scap', 'c_posture', 'a_bicep', 'a_tri'], 
-    stretch: ['s_hip', 's_tspine', 's_ankle', 's_calf', 's_ham', 's_wrist', 's_neck', 's_shoulder', 's_split']
-  };
-
-  // --- DYNAMIC FOCUS TEMPLATES ---
-  const focusTemplates = {
-    balanced: [ 
-      { day: 'Mon', focus: 'Total Body A', ids: ['g_squat', 'a_push', 'c_iso', 's_wrist'] },
-      { day: 'Tue', focus: 'Lateral & Posture', ids: ['c_oblique', 'c_posture', 'c_antirot', 's_neck'] },
-      { day: 'Wed', focus: 'Posterior Chain', ids: ['g_hinge', 'g_ham', 'c_pelvic', 's_calf'] }, 
-      { day: 'Thu', focus: 'Vertical & Scap', ids: ['a_pull', 'a_vertpush', 'a_scap', 's_tspine'] },
-      { day: 'Fri', focus: 'Core Gauntlet', ids: ['c_dyn', 'c_post', 's_hip', 's_ham'] },
-      { day: 'Sat', focus: 'Lateral Power', ids: ['g_lateral', 'g_abduct', 'a_vertpush', 's_ankle'] }, 
-      { day: 'Sun', focus: 'Full Recovery', ids: ['s_tspine', 's_hip', 's_shoulder', 's_wrist'] }
-    ],
-    upper: [
-      { day: 'Mon', focus: 'Heavy Push/Pull', ids: ['a_push', 'a_pull', 'c_iso', 's_shoulder'] },
-      { day: 'Tue', focus: 'Shoulders & Arms', ids: ['a_vertpush', 'a_bicep', 'c_antirot', 's_wrist'] },
-      { day: 'Wed', focus: 'Lower Maintenance', ids: ['g_squat', 'g_hinge', 's_hip'] },
-      { day: 'Thu', focus: 'Scapular Health', ids: ['a_scap', 'c_posture', 's_tspine', 's_neck'] },
-      { day: 'Fri', focus: 'Volume Upper', ids: ['a_push', 'a_pull', 'c_dyn'] },
-      { day: 'Sat', focus: 'Core & Stability', ids: ['c_oblique', 'c_post', 'c_lsit', 's_shoulder'] },
-      { day: 'Sun', focus: 'Upper Recovery', ids: ['s_tspine', 's_wrist', 's_neck', 's_shoulder'] }
-    ],
-    lower: [
-      { day: 'Mon', focus: 'Heavy Squat/Hinge', ids: ['g_squat', 'g_hinge', 'c_pelvic', 's_ankle'] },
-      { day: 'Tue', focus: 'Quads & Plyo', ids: ['g_quad', 'g_plyo', 's_hip', 's_calf'] },
-      { day: 'Wed', focus: 'Upper Maintenance', ids: ['a_push', 'a_pull', 's_tspine'] },
-      { day: 'Thu', focus: 'Hamstrings & Glutes', ids: ['g_ham', 'g_abduct', 'c_iso', 's_ham'] },
-      { day: 'Fri', focus: 'Lateral Power', ids: ['g_lateral', 'c_oblique', 's_split'] },
-      { day: 'Sat', focus: 'Lower Volume', ids: ['g_squat', 'g_hinge', 'c_antirot', 's_calf'] },
-      { day: 'Sun', focus: 'Lower Recovery', ids: ['s_hip', 's_ham', 's_ankle', 's_split'] }
-    ],
-    core: [
-      { day: 'Mon', focus: 'Deep Core Engine', ids: ['c_iso', 'c_pelvic', 'c_post', 's_hip'] },
-      { day: 'Tue', focus: 'Total Body Main', ids: ['g_squat', 'a_push', 's_tspine'] },
-      { day: 'Wed', focus: 'Dynamic & Oblique', ids: ['c_dyn', 'c_oblique', 's_shoulder'] },
-      { day: 'Thu', focus: 'Anti-Rotation', ids: ['c_antirot', 'a_vertpush', 's_wrist'] },
-      { day: 'Fri', focus: 'Posterior & L-Sit', ids: ['c_lsit', 'g_hinge', 's_ham'] },
-      { day: 'Sat', focus: 'Core Circuit', ids: ['c_iso', 'c_dyn', 'c_oblique', 'c_posture'] },
-      { day: 'Sun', focus: 'Spinal Recovery', ids: ['s_tspine', 's_neck', 's_hip'] }
-    ],
-    mobility: [
-      { day: 'Mon', focus: 'Hips & Legs', ids: ['s_hip', 's_ham', 'g_squat', 's_split'] },
-      { day: 'Tue', focus: 'Spine & Shoulders', ids: ['s_tspine', 's_shoulder', 'a_pull', 'c_posture'] },
-      { day: 'Wed', focus: 'Ankles & Calves', ids: ['s_ankle', 's_calf', 'g_hinge'] },
-      { day: 'Thu', focus: 'Wrists & Neck', ids: ['s_wrist', 's_neck', 'c_iso', 'a_push'] },
-      { day: 'Fri', focus: 'Deep Splits Prep', ids: ['s_split', 's_hip', 's_ham', 'c_pelvic'] },
-      { day: 'Sat', focus: 'Total Flow', ids: ['s_tspine', 's_shoulder', 's_ankle', 'c_dyn'] },
-      { day: 'Sun', focus: 'Pure Recovery', ids: ['s_neck', 's_wrist', 's_calf', 's_split'] }
-    ]
-  };
-
-  function generateSchedule(focus) {
-    return JSON.parse(JSON.stringify(focusTemplates[focus]));
-  }
-
-  function changeFocus(newFocus) {
-    if(newFocus !== currentFocus) {
-      if(confirm("Changing your phase focus will generate a new schedule for this week. Proceed?")) {
-        currentFocus = newFocus;
-        activeSchedule = generateSchedule(currentFocus);
-        completedStats = {};
-        activeSchedule.forEach((_, i) => completedStats[i] = new Set());
-        currentDayIdx = 0;
-        saveGame();
-        refreshUI();
-      } else {
-        document.getElementById('focusSelect').value = currentFocus;
-      }
-    }
-  }
-
-  function getExerciseData(exId, weekNum) {
-    const track = db[exId];
-    if (!track) {
-      console.error("Missing Database Track: " + exId);
-      return {
-        name: "Error: Missing Move", desc: "Database entry for " + exId + " is missing.", meta: "ERROR", xpReward: 0,
-        timerVal: 0, levelNum: 1, isOverride: false, trackCat: 'stretch', trackTheme: 'theme-stretch', trackTitle: 'Error'
-      };
-    }
-
-    const isStretch = track.cat === 'stretch';
-    const phase = Math.ceil(weekNum / 4); 
-    const subWeek = (weekNum - 1) % 4;    
-
-    let defaultVarIdx = Math.min(phase - 1, 3); 
-    let activeVarIdx = userOverrides[exId] !== undefined ? userOverrides[exId] : defaultVarIdx;
-    const variation = track.vars[activeVarIdx];
-
-    let sets = isStretch ? 1 : 2; 
-    if (!isStretch && phase === 5) sets = 3;
-    if (!isStretch && phase === 6) sets = 4;
-
-    let val = variation.base;
-    if (track.type.includes('time')) val += (subWeek * 5); 
-    else val += (subWeek * 2);  
-
-    let meta = '';
-    if (track.type === 'time') meta = `⏱ ${sets}x${val}s`;
-    if (track.type === 'time_side') meta = `⏱ ${sets}x${val}s / side`;
-    if (track.type === 'reps') meta = `🔁 ${sets}x${val}`;
-    if (track.type === 'reps_side') meta = `🔁 ${sets}x${val} / side`;
-
-    const xpReward = Math.round((sets * val) / (track.type.includes('time') ? 4 : 1));
-
-    return {
-      name: variation.name, desc: variation.desc, meta: meta, xpReward: Math.max(10, xpReward),
-      timerVal: track.type.includes('time') ? val : 0, levelNum: activeVarIdx + 1,
-      isOverride: userOverrides[exId] !== undefined, trackCat: track.cat,
-      trackTheme: track.theme, trackTitle: track.title
-    };
-  }
-
-  function changeWeek(dir) { 
-    const newWeek = currentWeek + dir;
-    if (newWeek >= 1 && newWeek <= MAX_WEEKS) {
-      currentWeek = newWeek;
-      activeSchedule = generateSchedule(currentFocus); 
-      completedStats = {};
-      activeSchedule.forEach((_, i) => completedStats[i] = new Set());
-      currentDayIdx = 0; 
-      saveGame();
-      refreshUI();
-    }
-  }
-
-  function selectDay(index) {
-    currentDayIdx = index;
-    saveGame(); 
-    renderSchedule();
-    renderWorkout();
-    checkBanner();
-  }
-
-  function toggleLevel(exId) {
-    let current = userOverrides[exId] !== undefined ? userOverrides[exId] : Math.min(Math.ceil(currentWeek/4) - 1, 3);
-    userOverrides[exId] = current === 3 ? 0 : current + 1;
-    saveGame();
-    renderWorkout();
-  }
-
-  function swapExercise(dayIdx, exIdx, category) {
-    const dayData = activeSchedule[dayIdx];
-    const currentId = dayData.ids[exIdx];
-    const pool = pools[category];
-    
-    let poolIdx = pool.indexOf(currentId);
-    let nextId = pool[(poolIdx + 1) % pool.length];
-
-    while (dayData.ids.includes(nextId) && pool.length > dayData.ids.length) {
-      poolIdx = (poolIdx + 1) % pool.length;
-      nextId = pool[poolIdx];
-    }
-
-    if (completedStats[dayIdx].has(currentId)) {
-      completedStats[dayIdx].delete(currentId);
-      const oldData = getExerciseData(currentId, currentWeek);
-      removeXP(oldData.trackCat, oldData.xpReward);
-    }
-    dayData.ids[exIdx] = nextId;
-    saveGame();
-    renderWorkout();
-    checkBanner();
-  }
-
-  function renderSchedule() {
-    const container = document.getElementById('weekSchedule');
-    container.innerHTML = activeSchedule.map((s, i) => `
-      <button class="day-btn ${i === currentDayIdx ? 'active' : ''}" onclick="selectDay(${i})">
-        <span class="day-name">${s.day}</span>
-        <span class="day-focus">${s.focus}</span>
-      </button>
-    `).join('');
-  }
-
-  function renderWorkout() {
-    const dayData = activeSchedule[currentDayIdx];
-    document.getElementById('dailyFocusTitle').textContent = `Today: ${dayData.focus}`;
-    
-    const container = document.getElementById('workoutContainer');
-    container.innerHTML = '';
-
-    let currentCategory = '';
-    
-    dayData.ids.forEach((exId, arrayIdx) => {
-      const data = getExerciseData(exId, currentWeek);
-      const isChecked = completedStats[currentDayIdx].has(exId);
+function loadGame() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      currentWeek = data.currentWeek || 1; currentDayIdx = data.currentDayIdx || 0;
+      currentFocus = data.currentFocus || 'balanced'; currentMode = data.currentMode || 'bodyweight';
+      trainingDays = data.trainingDays || 4;
+      playerStats = data.playerStats || { core:{xp:0,lvl:1}, power:{xp:0,lvl:1}, mob:{xp:0,lvl:1}, iron:{xp:0,lvl:1} };
+      userOverrides = data.userOverrides || {};
+      ironSetup = data.ironSetup || { startingRepsChoice:5, squatE1RM:0, benchE1RM:0, deadliftE1RM:0, sumoE1RM:0, ohpE1RM:0, sessionFocus:'ppl' };
+      weightLogs = data.weightLogs || {}; modifiers = data.modifiers || {};
+      setCompletions = data.setCompletions || {}; warmupCompletions = data.warmupCompletions || {};
+      if (data.equipmentAvailable) equipmentAvailable = { ...equipmentAvailable, ...data.equipmentAvailable };
+      injurySwaps = data.injurySwaps || {};
       
-      if (data.trackCat !== currentCategory) {
-        currentCategory = data.trackCat;
-        container.innerHTML += `
-          <div class="section-header">
-            <div class="section-dot" style="background:var(--${data.trackCat})"></div>
-            <span class="section-title">${data.trackTitle}</span>
-          </div>`;
-      }
+      const loadedStats = data.completedStats || {};
+      completedStats = {};
+      for(let i=0; i<7; i++) completedStats[i] = new Set(loadedStats[i] || []);
+      
+      activeSchedule = data.activeSchedule || generateSchedule(currentFocus);
+      return true;
+    } catch(e) { return false; }
+  }
+  return false;
+}
 
-      let timerHtml = '';
-      if (data.timerVal > 0) {
-        timerHtml = `
-          <div class="timer-wrap">
-            <div class="timer-svg-wrap">
-              <svg class="timer-svg" viewBox="0 0 54 54">
-                <circle class="timer-bg" cx="27" cy="27" r="26"/>
-                <circle class="timer-ring" id="ring-${exId}" cx="27" cy="27" r="26" style="stroke-dasharray: 163.36; stroke-dashoffset: 163.36;"/>
-              </svg>
-              <div class="timer-display" id="timerDisplay-${exId}">
-                ${Math.floor(data.timerVal/60)}:${String(data.timerVal%60).padStart(2,'0')}
-              </div>
-            </div>
-            <div class="timer-controls">
-              <div class="timer-btns">
-                <button class="timer-btn start" onclick="startTimer('${exId}', ${data.timerVal})">Start Timer</button>
-                <button class="timer-btn reset" onclick="resetTimer('${exId}', ${data.timerVal})">Reset</button>
-              </div>
-            </div>
-          </div>`;
-      }
+function exportData() {
+  saveGame();
+  const data = localStorage.getItem(STORAGE_KEY);
+  if (!data) return alert("No data to save yet!");
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `daily-move-backup-${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
 
-      const cardHtml = `
-        <div class="exercise-card ${data.trackTheme} ${isChecked ? 'completed' : ''}" id="card-${exId}">
-          <div class="card-top" onclick="toggleDetail('${exId}')">
-            <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${exId}" onclick="toggleCheck(event, '${exId}', '${data.trackCat}', ${data.xpReward})">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      JSON.parse(e.target.result); localStorage.setItem(STORAGE_KEY, e.target.result);
+      alert("Progress restored! Reloading..."); location.reload();
+    } catch(err) { alert("Error reading backup file."); }
+  };
+  reader.readAsText(file); event.target.value = '';
+}
+
+function hardReset() {
+  if (confirm("Reset everything? This cannot be undone.")) { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+}
+
+// ===================================================
+// RPG SYSTEM
+// ===================================================
+const XP_PER_LEVEL = 100;
+const statMapping = { core: 'core', glute: 'power', arm: 'power', stretch: 'mob', iron: 'iron' };
+
+function addXP(category, amount) {
+  const k = statMapping[category] || 'core'; playerStats[k].xp += amount;
+  while (playerStats[k].xp >= XP_PER_LEVEL) { playerStats[k].lvl++; playerStats[k].xp -= XP_PER_LEVEL; }
+  updateStatUI();
+}
+function removeXP(category, amount) {
+  const k = statMapping[category] || 'core'; playerStats[k].xp -= amount;
+  if (playerStats[k].xp < 0 && playerStats[k].lvl > 1) { playerStats[k].lvl--; playerStats[k].xp += XP_PER_LEVEL; }
+  else if (playerStats[k].xp < 0) playerStats[k].xp = 0;
+  updateStatUI();
+}
+function updateStatUI() {
+  ['core','power','mob','iron'].forEach(key => {
+    const cap = key.charAt(0).toUpperCase() + key.slice(1);
+    document.getElementById(`lvl${cap}`).textContent = `Lv.${playerStats[key].lvl}`;
+    document.getElementById(`bar${cap}`).style.width = `${(playerStats[key].xp / XP_PER_LEVEL)*100}%`;
+  });
+}
+
+// ===================================================
+// EXERCISE DATABASE — BODYWEIGHT & CALISTHENICS
+// ===================================================
+const db = {
+  // CORE
+  c_iso: { cat:'core', theme:'theme-core', title:'Core Isometric', equip:[], type:'time', vars:[
+    { name:'Full Plank', desc:'Straight line from head to heels. Push floor away.', base:20 },
+    { name:'Plank Leg Lifts', desc:'In plank, alternate lifting one leg 2 inches off floor.', base:25 },
+    { name:'Spiderman Plank', desc:'Bring knee to outside of same-side elbow slowly.', base:25 },
+    { name:'Extended Plank', desc:'Walk hands 4-6 inches forward past shoulders.', base:25 },
+    { name:'RKC Plank', desc:'Squeeze fists, glutes, abs. Max tension hold.', base:20 }
+  ]},
+  c_dyn: { cat:'core', theme:'theme-core', title:'Core Dynamic', equip:[], type:'reps', vars:[
+    { name:'Heel Taps', desc:'Lie on back, knees 90°. Tap one heel to floor.', base:10 },
+    { name:'Dead Bugs', desc:'Slowly lower opposite arm/leg together.', base:8 },
+    { name:'Bicycle Crunches', desc:'Elbow to opposite knee. Control twist.', base:12 },
+    { name:'V-Ups', desc:'Snap up, touching hands to toes at top.', base:8 },
+    { name:'Hollow Rocks', desc:'Hold hollow body position and gently rock.', base:12 }
+  ]},
+  c_post: { cat:'core', theme:'theme-core', title:'Posterior Core', equip:[], type:'reps_side', vars:[
+    { name:'Bird Dog', desc:'Extend opposite arm and leg straight, pause 2s.', base:6 },
+    { name:'Bird Dog Hover', desc:'Lift planted knee 1 inch off floor throughout.', base:6 },
+    { name:'Superman Lifts', desc:'Lift chest and thighs simultaneously, pause 2s.', base:10 },
+    { name:'Reverse Hypers', desc:'Face down on edge of bed. Lift legs straight.', base:10 },
+    { name:'Arch Body Rocks', desc:'Lift arms and legs, hold arch, rock gently.', base:8 }
+  ]},
+  c_pelvic: { cat:'core', theme:'theme-core', title:'Deep Pelvic Core', equip:[], type:'time', vars:[
+    { name:'Diaphragmatic Breathing', desc:'Inhale deep, exhale and draw pelvic floor up.', base:30 },
+    { name:'Supine Marching', desc:'Exhale, lift one foot 2 inches off floor. Hold 3s.', base:30 },
+    { name:'Bridge with Kegel', desc:'Hold bridge at top. Pulse a squeeze on exhale.', base:30 },
+    { name:'Bear Hover Breathing', desc:'Lift knees 1 inch off floor. Breathe deep.', base:25 },
+    { name:'Hollow Body Hold', desc:'Press low back down, lift head/shoulders slightly.', base:20 }
+  ]},
+  c_oblique: { cat:'core', theme:'theme-core', title:'Lateral Core', equip:[], type:'time_side', vars:[
+    { name:'Side Plank', desc:'Stack feet, lift hips. Straight line.', base:15 },
+    { name:'Side Plank Pulses', desc:'Dip hips slightly and press back up.', base:20 },
+    { name:'Russian Twists', desc:'Sit in V, twist torso side to side.', base:20 },
+    { name:'Thread the Needle', desc:'Reach top arm under ribs, then back up.', base:20 },
+    { name:'Copenhagen Plank', desc:'Side plank with top foot on a chair. Squeeze inner thigh.', base:15 }
+  ]},
+  c_antirot: { cat:'core', theme:'theme-core', title:'Anti-Rotation', equip:[], type:'reps_side', vars:[
+    { name:'Plank Shoulder Taps', desc:'Tap opposite shoulder. Don\'t let hips sway.', base:8 },
+    { name:'Plank Reaches', desc:'Reach arm straight out front. Hold 2s.', base:6 },
+    { name:'Plank Pull-Throughs', desc:'Drag a heavy item from outside left to right side.', base:6 },
+    { name:'Bear Crawl Steps', desc:'Hover knees. Step opposite arm/leg.', base:8 },
+    { name:'Stir the Pot', desc:'Forearms on a ball/towel. Make small circles.', base:6 }
+  ]},
+  c_lsit: { cat:'core', theme:'theme-core', title:'Compression / L-Sit', equip:[], type:'time', vars:[
+    { name:'Seated Pike Pulses', desc:'Lean forward and lift legs off floor in pulses.', base:15 },
+    { name:'Tuck L-Sit Prep', desc:'Sit between two chairs. Lift hips, keep knees tucked.', base:10 },
+    { name:'Single Leg L-Sit', desc:'Supported on chairs. One leg tucked, one straight.', base:10 },
+    { name:'Full L-Sit Attempt', desc:'Both legs straight, hips lifted. Aim for 2s holds.', base:10 }
+  ]},
+  c_posture: { cat:'arm', theme:'theme-arm', title:'Postural Back', equip:[], type:'reps', vars:[
+    { name:'Prone Hip Extension', desc:'Alternate squeezing glute and lifting leg.', base:10 },
+    { name:'Prone I-Y-T Lifts', desc:'Lift arms in I, Y, and T positions.', base:6 },
+    { name:'Band/Towel Pull-Aparts', desc:'Hold towel tight. Try to rip apart.', base:10 },
+    { name:'Towel Face Pulls', desc:'Pull taut towel to nose, squeezing blades.', base:12 },
+    { name:'Superman to Lat Pull', desc:'In superman, mimic a pull-up.', base:10 }
+  ]},
+  
+  // ELITE CALISTHENICS CORE
+  c_front_lever: { cat:'core', theme:'theme-core', title:'Front Lever', equip:['pullup_bar'], type:'time', vars:[
+    { name:'Tuck Front Lever', desc:'Hang from bar, tuck knees to chest, pull back parallel.', base:10 },
+    { name:'Advanced Tuck Lever', desc:'Open hip angle slightly. Back flat.', base:10 },
+    { name:'Straddle Front Lever', desc:'Legs straight but spread wide.', base:5 },
+    { name:'Full Front Lever Hold', desc:'Body perfectly straight and horizontal.', base:3 }
+  ]},
+  c_planche: { cat:'core', theme:'theme-core', title:'Planche', equip:['parallettes'], type:'time', vars:[
+    { name:'Planche Lean', desc:'Push-up position, lean far forward over wrists.', base:15 },
+    { name:'Tuck Planche', desc:'Elevate feet, tuck knees into chest, hold weight on hands.', base:10 },
+    { name:'Straddle Planche', desc:'Legs straight and wide, hips level with shoulders.', base:5 },
+    { name:'Full Planche Hold', desc:'Body perfectly straight and horizontal. Elite strength.', base:3 }
+  ]},
+  c_flag: { cat:'core', theme:'theme-core', title:'Human Flag', equip:['pullup_bar'], type:'time', vars:[
+    { name:'Flag Support Hold', desc:'Grip vertical pole, bottom arm pushes, top pulls. Feet down.', base:10 },
+    { name:'Tuck Human Flag', desc:'Lift into flag position with knees tucked.', base:5 },
+    { name:'Straddle Human Flag', desc:'Open legs wide for balance.', base:5 },
+    { name:'Full Human Flag Hold', desc:'Body straight and horizontal.', base:3 }
+  ]},
+  c_dragon_flag: { cat:'core', theme:'theme-core', title:'Dragon Flag', equip:['flat_bench'], type:'reps', vars:[
+    { name:'Lying Leg Raises', desc:'Standard raises on the bench.', base:12 },
+    { name:'Tuck Dragon Flag', desc:'Hold bench, lift body as rigid unit with tucked knees.', base:6 },
+    { name:'Single-Leg Dragon Flag', desc:'One leg straight, one tucked.', base:5 },
+    { name:'Full Dragon Flag', desc:'Bruce Lee style. Full rigid body lift and slow negative.', base:4 }
+  ]},
+  c_ab_wheel: { cat:'core', theme:'theme-core', title:'Ab Wheel', equip:[], type:'reps', vars:[
+    { name:'Partial Kneeling Rollout', desc:'Roll out halfway and pull back.', base:10 },
+    { name:'Full Kneeling Rollout', desc:'Roll until nose touches floor. Pull back with lats/abs.', base:8 },
+    { name:'Standing Eccentric', desc:'Stand, roll all the way out slowly. Drop to knees to return.', base:4 },
+    { name:'Full Standing Rollout', desc:'Stand, roll out, and pull back up to standing.', base:2 }
+  ]},
+
+  // GLUTES & LEGS
+  g_squat: { cat:'glute', theme:'theme-glute', title:'Squat Pattern', equip:[], type:'reps', vars:[
+    { name:'Bodyweight Squat', desc:'Sink hips down and back to knee level.', base:8 },
+    { name:'Pause Squats', desc:'Hold the bottom for 3 full seconds per rep.', base:6 },
+    { name:'1.5 Rep Squats', desc:'All the way down, halfway up, back down, stand up.', base:6 },
+    { name:'Jump Squats', desc:'Explode up, land softly with bent knees.', base:8 },
+    { name:'Pistol Squat Progression', desc:'Hold doorframe. Squat down on one leg.', base:5 }
+  ]},
+  g_hinge: { cat:'glute', theme:'theme-glute', title:'Hinge Pattern', equip:[], type:'reps', vars:[
+    { name:'Glute Bridge', desc:'Press hips up from floor. Squeeze hard.', base:10 },
+    { name:'Single-Leg Bridge', desc:'One leg extended out. Push with planted foot.', base:8 },
+    { name:'Elevated Bridge', desc:'Feet on a chair/couch, press hips up.', base:10 },
+    { name:'Single-Leg Elevated', desc:'One foot on chair, one extended.', base:8 },
+    { name:'Nordic Curl (Eccentric)', desc:'Kneel, anchor feet. Lower slowly to floor.', base:4 }
+  ]},
+  g_abduct: { cat:'glute', theme:'theme-glute', title:'Knee Stability', equip:[], type:'reps_side', vars:[
+    { name:'Clamshells', desc:'Lie on side. Lift top knee like a clamshell.', base:12 },
+    { name:'Fire Hydrants', desc:'On all fours, lift knee out to side.', base:10 },
+    { name:'Side-Lying Leg Raises', desc:'Lift top leg up, leading with heel.', base:12 },
+    { name:'Curtsy Lunges', desc:'Step leg behind and across, sink into lunge.', base:8 },
+    { name:'Banded Hip Abduction', desc:'Step side to side, resisting band.', base:12 }
+  ]},
+  g_ham: { cat:'glute', theme:'theme-glute', title:'Hamstrings', equip:[], type:'reps', vars:[
+    { name:'Glute Bridge Walkouts', desc:'Hold bridge, walk heels out and back.', base:6 },
+    { name:'Slider Leg Curls (Eccentric)', desc:'Bridge on towels. Slide feet out slowly.', base:6 },
+    { name:'Slider Leg Curls (Full)', desc:'Slide out, pull back keeping hips elevated.', base:6 },
+    { name:'Single-Leg RDL', desc:'Hinge at hips, lifting leg straight back.', base:8 },
+    { name:'Hamstring Curl on Chair', desc:'Lie face down, hook feet. Curl heels up.', base:8 }
+  ]},
+  g_lateral: { cat:'glute', theme:'theme-glute', title:'Lateral Power', equip:[], type:'reps_side', vars:[
+    { name:'Lateral Weight Shifts', desc:'Wide stance. Shift weight side to side.', base:8 },
+    { name:'Side Lunges', desc:'Step wide, sink hips down/back.', base:6 },
+    { name:'Lateral Band Walks', desc:'Band at ankles. Walk sideways in half-squat.', base:12 },
+    { name:'Cossack Squats', desc:'Very wide stance. Squat deep on one leg.', base:5 },
+    { name:'Skater Jumps', desc:'Leap side to side, landing on one foot.', base:10 }
+  ]},
+  g_quad: { cat:'glute', theme:'theme-glute', title:'Quad Isolation', equip:[], type:'reps', vars:[
+    { name:'Kneeling Lean Backs', desc:'Kneel tall. Lean back slowly, return.', base:8 },
+    { name:'Step-Up (Tall)', desc:'Use chair. Drive up with heel of lead leg.', base:8 },
+    { name:'Reverse Nordics (Assisted)', desc:'Hold band. Lean back till calves touch hams.', base:6 },
+    { name:'Full Reverse Nordics', desc:'No assistance. Lean back and drive up.', base:5 },
+    { name:'Sissy Squat Prep', desc:'Hold chair. Rise on toes, lean torso back.', base:6 }
+  ]},
+  g_plyo: { cat:'glute', theme:'theme-glute', title:'Plyometrics', equip:[], type:'reps', vars:[
+    { name:'Pogo Jumps', desc:'Keep legs stiff. Bounce on balls of feet.', base:20 },
+    { name:'Box Jump Simulation', desc:'Jump onto low step, land soft.', base:6 },
+    { name:'Broad Jumps', desc:'Jump forward as far as possible.', base:6 },
+    { name:'Squat Jumps', desc:'Squat down, explode up as high as possible.', base:8 },
+    { name:'Split Jumps', desc:'Jump and switch legs in air from lunge.', base:12 }
+  ]},
+
+  // UPPER BODY
+  a_push: { cat:'arm', theme:'theme-arm', title:'Horizontal Push', equip:[], type:'reps', vars:[
+    { name:'Incline Push-Up', desc:'Hands on counter/chair.', base:8 },
+    { name:'Standard Push-Up', desc:'From floor. Chest to deck.', base:8 },
+    { name:'Decline Push-Up', desc:'Feet elevated on chair.', base:8 },
+    { name:'Archer Push-Up', desc:'Wide stance. Shift weight to one side.', base:5 },
+    { name:'Push-Up with Rotation', desc:'Push-up, then lift arm to T-plank.', base:6 }
+  ]},
+  a_pull: { cat:'arm', theme:'theme-arm', title:'Horizontal Pull', equip:[], type:'reps', vars:[
+    { name:'Prone Ts', desc:'Lie on stomach, lift arms squeezing blades.', base:10 },
+    { name:'Doorway Rows', desc:'Hold doorframe, lean back, pull in.', base:12 },
+    { name:'Towel Slide Pulls', desc:'Lie on smooth floor with towel. Pull forward.', base:8 },
+    { name:'Inverted Chair Rows', desc:'Under chairs with broomstick, pull to bar.', base:8 },
+    { name:'Single-Arm Doorway Row', desc:'Hold doorframe with one arm. Pull hard.', base:8 }
+  ]},
+  a_vertpush: { cat:'arm', theme:'theme-arm', title:'Vertical Push', equip:[], type:'reps', vars:[
+    { name:'Downward Dog Hold', desc:'Hold down dog, pushing floor away.', base:20 },
+    { name:'Pike Push-Up (Floor)', desc:'Hips high in V shape. Lower head.', base:6 },
+    { name:'Pike Push-Up (Elevated)', desc:'Feet elevated on chair.', base:6 },
+    { name:'Wall Handstand Hold', desc:'Walk feet up wall. Hold.', base:15 },
+    { name:'HSPU Negative', desc:'Kick to handstand. Lower slowly.', base:3 }
+  ]},
+  a_scap: { cat:'arm', theme:'theme-arm', title:'Scapular Health', equip:[], type:'reps', vars:[
+    { name:'Cat-Cow Scapular', desc:'On all fours. Protract/retract blades.', base:10 },
+    { name:'Wall Slides', desc:'Back against wall. Slide arms Y to W.', base:10 },
+    { name:'Scapular Push-Ups', desc:'In plank, sink chest, then push upper back up.', base:10 },
+    { name:'Reverse Snow Angels', desc:'Lie face down. Sweep arms hips to overhead.', base:8 },
+    { name:'Doorway Scapular Hangs', desc:'Hang from door, pull blades down.', base:8 }
+  ]},
+  a_bicep: { cat:'arm', theme:'theme-arm', title:'Biceps & Forearms', equip:[], type:'reps', vars:[
+    { name:'Towel Isometric Curls', desc:'Step on towel. Pull up hard. Hold 5s.', base:6 },
+    { name:'Underhand Doorway Rows', desc:'Row from door with palms facing you.', base:12 },
+    { name:'Towel Hammer Curls', desc:'Neutral grip on towel under foot. Curl.', base:8 },
+    { name:'Underhand Inverted Rows', desc:'Under chairs/broomstick. Palms facing you.', base:8 },
+    { name:'Pelican Curl Prep', desc:'Stand facing away from wall. Reach back to wall.', base:8 }
+  ]},
+  a_tri: { cat:'arm', theme:'theme-arm', title:'Triceps / Shoulders', equip:[], type:'reps', vars:[
+    { name:'Arm Circles', desc:'Strict, tight circles forward/backward.', base:20 },
+    { name:'Chair Dips (Bent Knee)', desc:'Hands on chair edge, lower with bent knees.', base:8 },
+    { name:'Chair Dips (Straight Leg)', desc:'Legs perfectly straight.', base:8 },
+    { name:'Diamond Push-Up', desc:'Hands in diamond shape. Elbows track back.', base:6 },
+    { name:'Sphinx Push-Ups', desc:'Bodyweight tricep extension from floor.', base:6 }
+  ]},
+
+  // CALISTHENICS PULLS
+  a_bar_mu: { cat:'arm', theme:'theme-arm', title:'Bar Muscle-Up', equip:['pullup_bar'], type:'reps', vars:[
+    { name:'Kipping Pull-Ups', desc:'Use momentum to pull high.', base:5 },
+    { name:'Band-Assisted Muscle-Up', desc:'Use heavy band. Focus on wrist turnover.', base:3 },
+    { name:'Strict Bar Muscle-Up', desc:'Explosive pull to hips, fast transition.', base:2 },
+    { name:'Weighted Muscle-Up', desc:'Add vest or light plate.', base:1 }
+  ]},
+  a_ring_mu: { cat:'arm', theme:'theme-arm', title:'Ring Muscle-Up', equip:['rings'], type:'reps', vars:[
+    { name:'False Grip Hangs', desc:'Hang with wrists over the rings.', base:10 },
+    { name:'Deep Ring Pull-Ups', desc:'Pull rings to sternum in false grip.', base:5 },
+    { name:'Strict Ring Muscle-Up', desc:'Pull to chest, lean forward, dip out.', base:2 },
+    { name:'Muscle-Up + Forward Roll', desc:'Advanced gymnastic sequence.', base:1 }
+  ]},
+  a_skin_cat: { cat:'arm', theme:'theme-arm', title:'Skin the Cat', equip:['rings'], type:'reps', vars:[
+    { name:'Tuck Hang', desc:'Hang and bring knees to chest.', base:10 },
+    { name:'Inverted Hang', desc:'Rotate until upside down.', base:5 },
+    { name:'Skin the Cat (Bent)', desc:'Rotate fully backward to German hang.', base:3 },
+    { name:'Full Skin the Cat', desc:'Keep legs perfectly straight through entire motion.', base:2 }
+  ]},
+
+  // MOBILITY
+  s_hip: { cat:'stretch', theme:'theme-stretch', title:'Hip Mobility', equip:[], type:'time_side', vars:[
+    { name:'Posterior Tilt Lunge', desc:'Shallow lunge. Tuck pelvis. Intense stretch.', base:20 },
+    { name:'Kneeling Hip Flexor', desc:'Back knee down, squeeze glute. Reach up.', base:25 },
+    { name:'Pigeon Pose', desc:'Fold front leg under on floor, lean forward.', base:30 },
+    { name:'Couch Stretch', desc:'Back shin flat against wall. Intense flexor stretch.', base:30 },
+    { name:'90/90 Hip Rotations', desc:'Sit in 90/90. Rotate from side to side smoothly.', base:6 }
+  ]},
+  s_tspine: { cat:'stretch', theme:'theme-stretch', title:'Thoracic Spine', equip:[], type:'reps_side', vars:[
+    { name:'Open Books', desc:'Lie on side. Sweep top arm open across body.', base:8 },
+    { name:'Quadruped T-Spine', desc:'On all fours. Twist elbow to ceiling.', base:8 },
+    { name:'Puppy Dog Pose', desc:'Hips high, drop chest to floor. Hold.', base:1 },
+    { name:'Seated Rotations', desc:'Sit tall, twist torso holding chair.', base:8 },
+    { name:'Foam Roll T-Spine', desc:'Extend over rolled towel/foam roller at upper back.', base:6 }
+  ]},
+  s_ankle: { cat:'stretch', theme:'theme-stretch', title:'Active Ankles', equip:[], type:'reps', vars:[
+    { name:'Downward Dog Pedals', desc:'Push one heel to floor at a time.', base:10 },
+    { name:'Deep Squat Ankle Rocks', desc:'Sit deep. Shift weight over one knee.', base:10 },
+    { name:'Eccentric Calf Drops', desc:'Stand on stair. Lower slowly on one leg.', base:8 },
+    { name:'Wall Ankle Mobilization', desc:'Keep heel planted, drive knee to wall.', base:10 },
+    { name:'Ankle CARs', desc:'Make massive, slow circles at the ankle.', base:8 }
+  ]},
+  s_calf: { cat:'stretch', theme:'theme-stretch', title:'Fascia & Soleus', equip:[], type:'time_side', vars:[
+    { name:'Seated Towel Stretch', desc:'Loop towel around foot, gently pull toes.', base:20 },
+    { name:'Wall Calf Stretch', desc:'Lean on wall, foot back, heel down, knee locked.', base:25 },
+    { name:'Wall Soleus Stretch', desc:'Same position, slightly bend back knee.', base:25 },
+    { name:'Plantar Fascia Smash', desc:'Roll a ball under the arch of foot.', base:30 },
+    { name:'Toe Spreading Drills', desc:'Actively spread toes as wide as possible.', base:15 }
+  ]},
+  s_ham: { cat:'stretch', theme:'theme-stretch', title:'Active Hamstrings', equip:[], type:'reps_side', vars:[
+    { name:'Seated Nerve Floss', desc:'Sit on chair. Round back, straighten leg while looking up.', base:10 },
+    { name:'Elephant Walks', desc:'Forward fold. Bend one knee, lock the other.', base:10 },
+    { name:'Active Straight Leg Raise', desc:'Lie on back. Keep one leg flat, lift other.', base:8 },
+    { name:'Jefferson Curl', desc:'Roll spine down slowly, vertebra by vertebra.', base:6 },
+    { name:'RDL to Hamstring Stretch', desc:'Standing RDL till deep pull, pause 3s.', base:8 }
+  ]},
+  s_wrist: { cat:'stretch', theme:'theme-stretch', title:'Wrist Prep', equip:[], type:'time', vars:[
+    { name:'Wrist Circles', desc:'Clasp hands and roll wrists both directions.', base:30 },
+    { name:'Quadruped Wrist Rocks', desc:'On all fours. Gently rock shoulders past wrists.', base:30 },
+    { name:'Palm Pulses', desc:'On all fours. Lift heels of palms off floor.', base:30 },
+    { name:'Prayer Stretch & Reverse', desc:'Palms together down. Backs of hands together up.', base:30 },
+    { name:'Wrist Extensor Stretch', desc:'Arm straight, gently pull fingers back.', base:20 }
+  ]},
+  s_neck: { cat:'stretch', theme:'theme-stretch', title:'Neck & Traps', equip:[], type:'time_side', vars:[
+    { name:'Chin Tucks', desc:'Pull chin straight back, creating double chin.', base:15 },
+    { name:'Upper Trap Stretch', desc:'Sit on hand. Gently pull ear toward opposite shoulder.', base:20 },
+    { name:'Levator Scapula Stretch', desc:'Look at armpit. Gently pull head down.', base:20 },
+    { name:'Neck Isometrics', desc:'Press hand into forehead, resist with neck.', base:15 },
+    { name:'Neck CARs', desc:'Move head through full controlled range slowly.', base:5 }
+  ]},
+  s_shoulder: { cat:'stretch', theme:'theme-stretch', title:'Shoulder Ext.', equip:[], type:'reps', vars:[
+    { name:'Broomstick Dislocates', desc:'Keep arms straight, bring stick overhead and behind.', base:10 },
+    { name:'Butchers Block Stretch', desc:'Kneel with elbows on chair. Drop head between arms.', base:8 },
+    { name:'Tabletop Lift', desc:'Sit on floor, hands behind. Drive hips up.', base:8 },
+    { name:'Wall Extensions', desc:'Stand facing away from wall. Reach arms straight back.', base:8 },
+    { name:'Shoulder CARs', desc:'Make the biggest, slowest controlled circle with shoulder.', base:5 }
+  ]},
+  s_split: { cat:'stretch', theme:'theme-stretch', title:'Deep Splits Prep', equip:[], type:'time_side', vars:[
+    { name:'Horse Stance Hold', desc:'Very wide stance. Sink hips deep and hold.', base:20 },
+    { name:'Cossack Hold', desc:'Deep lateral lunge hold. One leg bent, one straight.', base:25 },
+    { name:'Supported Front Split', desc:'Hands on chairs. Sink hips down between legs.', base:25 },
+    { name:'Supported Middle Split', desc:'Feet extremely wide. Forearms on floor.', base:25 },
+    { name:'PNF Stretching', desc:'Contract muscles for 5s, release, sink deeper.', base:20 }
+  ]}
+};
+
+// ===================================================
+// IRON / BARBELL DATABASE
+// ===================================================
+const ironDB = {
+  // MAIN LIFTS
+  squat: {
+    name: 'Back Squat', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
+    desc: 'Bar on upper traps. Brace hard, chest up, sit between heels.',
+    cues: ['Brace hard', 'Knees track over toes', 'Drive floor away']
+  },
+  squat_light: {
+    name: 'Back Squat (Light)', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' } ],
+    desc: 'Lighter squat session focusing on speed and technique, balancing the heavy deadlift.',
+    cues: ['Speed out of the hole', 'Perfect form']
+  },
+  bench: {
+    name: 'Flat Bench Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'flat_bench'],
+    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
+    desc: 'Arch back, bar touches sternum. Leg drive is key.',
+    cues: ['Bend the bar', 'Touch, don\'t bounce', 'Leg drive']
+  },
+  deadlift: {
+    name: 'Conventional Deadlift', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
+    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1' } ],
+    desc: 'Bar over mid-foot. Take slack out. Push floor away.',
+    cues: ['Push floor away', 'Lats tight', 'Squeeze glutes at lockout']
+  },
+  deadlift_light: {
+    name: 'Deadlift (Light)', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
+    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' } ],
+    desc: 'Lighter deadlift session focusing on form and bar speed, balancing the heavy squats.',
+    cues: ['Explosive pull', 'Keep lats engaged']
+  },
+  sumo: {
+    name: 'Sumo Deadlift', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
+    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1' } ],
+    desc: 'Wide stance. Push knees out hard. Hips close to bar.',
+    cues: ['Spread the floor', 'Hips close to bar', 'Drive knees out']
+  },
+  ohp: {
+    name: 'Overhead Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
+    desc: 'Brace hard. Press bar up and back. Shrug traps at lockout.',
+    cues: ['Move head back', 'Full lockout', 'Squeeze glutes']
+  },
+
+  // ACCESSORIES
+  db_row: {
+    name: 'Dumbbell Row', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
+    warmup: [{ text: 'Warmup weight × 8' }], desc: 'Pull DB to hip. Do not rotate torso.', cues: ['Lead with elbow', 'Pull to hip']
+  },
+  seal_row: {
+    name: 'Seal Row', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
+    warmup: [], desc: 'Lie face down on bench, row dumbbells up.', cues: ['Squeeze scapula', 'No momentum']
+  },
+  barbell_row: {
+    name: 'Barbell Row', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [{ text: 'Empty bar × 10' }], desc: 'Hinge over, pull bar to belly button.', cues: ['Keep back flat', 'Pull with lats']
+  },
+  db_curl: {
+    name: 'Dumbbell Curl', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Elbows pinned. Supinate at top.', cues: ['Elbows pinned', 'Full ROM']
+  },
+  barbell_curl: {
+    name: 'Barbell Curl', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [], desc: 'Strict barbell curl.', cues: ['No swinging', 'Squeeze biceps']
+  },
+  zottman_curl: {
+    name: 'Zottman Curl', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Curl up palms-up, lower palms-down.', cues: ['Full supination up', 'Controlled pronated down']
+  },
+  db_lateral: {
+    name: 'Lateral Raise', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Lead with elbows. Stop at shoulder height.', cues: ['Lead with elbows', 'Slow negative']
+  },
+  banded_lateral: {
+    name: 'Banded Lateral Raise', cat: 'iron', theme: 'theme-iron', equip: ['bands'],
+    warmup: [], desc: 'Constant tension lateral raise with band.', cues: ['Controlled tempo']
+  },
+  db_split_squat: {
+    name: 'Static Split Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Step one foot forward and one foot back. Lower your back knee straight down toward the floor, keeping your front foot flat.', cues: ['Drop straight down', 'Front heel stays planted', 'Keep torso steady']
+  },
+  db_bstance_squat: {
+    name: 'B-Stance Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Staggered stance squat where the back foot is just a kickstand for balance.', cues: ['Back foot is a kickstand', 'Hinge slightly forward', 'Drive through front heel']
+  },
+  db_rfe_split: {
+    name: 'RFE Split Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
+    warmup: [], desc: 'Rear foot on bench. Vertical torso. Lower back knee.', cues: ['Vertical torso', 'Full depth']
+  },
+  db_rdl: {
+    name: 'Romanian Deadlift (DB)', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Hinge hips back. Soft knees.', cues: ['Push hips back', 'DBs close to legs']
+  },
+  db_goblet: {
+    name: 'Goblet Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Hold DB at chest. Elbows inside knees.', cues: ['Chest up', 'Full depth']
+  },
+  db_incline: {
+    name: 'Incline DB Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'adjustable_bench'],
+    warmup: [{ text: 'Light weight × 10' }], desc: 'Press DBs up on 30-45 degree bench.', cues: ['Control descent', 'Full stretch']
+  },
+  db_tricep_ext: {
+    name: 'DB Tricep Extension', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Hold DB overhead. Lower behind head.', cues: ['Elbows stay in', 'Full stretch']
+  },
+  flat_db_bench: {
+    name: 'Flat DB Bench Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
+    warmup: [{ text: 'Light weight × 10' }], desc: 'Press up and slightly in.', cues: ['Elbows 45°', 'Full chest stretch']
+  },
+  jm_press: {
+    name: 'JM Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell','flat_bench'],
+    warmup: [], desc: 'Hybrid close-grip bench / skullcrusher.', cues: ['Elbows forward', 'Drive to lockout']
+  },
+  tate_press: {
+    name: 'Tate Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
+    warmup: [], desc: 'DB tips to chest, elbows wide. Press up.', cues: ['Elbows wide', 'DB tips to chest']
+  },
+  svend_press: {
+    name: 'Svend Press', cat: 'iron', theme: 'theme-iron', equip: ['plates'],
+    warmup: [], desc: 'Press a plate between palms forward. Squeeze hard.', cues: ['Crush the plate', 'Slow press']
+  },
+  cuban_press: {
+    name: 'Cuban Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
+    warmup: [], desc: 'Upright row → external rotate → press.', cues: ['Full rotation', 'Strict press']
+  },
+  powell_raise: {
+    name: 'Powell Raise', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
+    warmup: [], desc: 'Lie on side. Sweep DB from hip to overhead.', cues: ['Thumb down', 'Full arc']
+  },
+  hack_squat_bb: {
+    name: 'Barbell Hack Squat', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
+    warmup: [], desc: 'Bar behind legs. Squat down keeping torso upright.', cues: ['Torso tall', 'Push knees out']
+  },
+  ghr: {
+    name: 'Glute-Ham Raise', cat: 'iron', theme: 'theme-iron', equip: ['ghr_machine'],
+    warmup: [], desc: 'Lower body from horizontal, pull back with hamstrings.', cues: ['Neutral spine', 'Hams pull']
+  },
+  kot_split_squat: {
+    name: 'KOT Split Squat', cat: 'iron', theme: 'theme-iron', equip: [],
+    warmup: [], desc: 'Drive knee far past toes. Rebuilds patellar tendon.', cues: ['Heel stays down', 'Load the knee']
+  }
+};
+
+// ── IRON ACCESSORY SWAP POOLS ──
+const ironPools = {
+  push: ['db_incline', 'flat_db_bench', 'db_lateral', 'banded_lateral', 'db_tricep_ext', 'jm_press', 'tate_press', 'svend_press', 'cuban_press', 'powell_raise'],
+  pull: ['db_row', 'seal_row', 'barbell_row', 'db_curl', 'barbell_curl', 'zottman_curl'],
+  legs: ['db_split_squat', 'db_bstance_squat', 'db_rdl', 'db_goblet', 'hack_squat_bb', 'ghr', 'kot_split_squat']
+};
+
+function getIronSubCat(exId) {
+  if (ironPools.push.includes(exId)) return 'push';
+  if (ironPools.pull.includes(exId)) return 'pull';
+  if (ironPools.legs.includes(exId)) return 'legs';
+  return null;
+}
+
+// ── INJURY / PREFERENCE SWAP DATABASE (Main Lifts Only) ──
+const injurySwapOptions = {
+squat: [
+    { id: 'db_goblet', name: 'Goblet Squat', reason: 'Lower back friendly', equip: ['dumbbells'] },
+    { id: 'db_split_squat', name: 'Static Split Squat', reason: 'Unilateral focus', equip: ['dumbbells'] },
+    { id: 'kot_split_squat', name: 'KOT Split Squat', reason: 'Knee rehab', equip: [] }
+  ],
+  bench: [
+    { id: 'flat_db_bench', name: 'Flat DB Bench', reason: 'Shoulder joint mobility', equip: ['dumbbells','flat_bench'] },
+    { id: 'db_incline', name: 'Incline DB Press', reason: 'Upper chest focus', equip: ['dumbbells','adjustable_bench'] }
+  ],
+  deadlift: [
+    { id: 'sumo', name: 'Sumo Deadlift', reason: 'Lower back strain', equip: ['barbell','plates'] },
+    { id: 'db_rdl', name: 'DB RDL', reason: 'Hamstring isolation', equip: ['dumbbells'] }
+  ],
+  ohp: [
+    { id: 'db_lateral', name: 'Lateral Raise', reason: 'Shoulder impingement', equip: ['dumbbells'] }
+  ]
+};
+
+injurySwapOptions['squat_light'] = injurySwapOptions['squat'];
+injurySwapOptions['deadlift_light'] = injurySwapOptions['deadlift'];
+
+// IRON FOCUS TEMPLATES
+const ironFocusTemplates = {
+  ppl: {
+    name: 'Push / Pull / Legs',
+    sessions: {
+      push: { title: 'Push Day', lifts: ['bench', 'ohp', 'db_incline', 'db_tricep_ext', 'db_lateral'] },
+      pull: { title: 'Pull Day', lifts: ['deadlift', 'db_row', 'db_curl'] },
+      legs: { title: 'Legs Day', lifts: ['squat', 'db_split_squat', 'db_rdl', 'db_goblet'] }
+    }
+  },
+  upper_lower: {
+    name: 'Upper / Lower',
+    sessions: {
+      upper: { title: 'Upper Body', lifts: ['bench', 'db_row', 'ohp', 'db_curl', 'db_tricep_ext', 'db_lateral'] },
+      lower: { title: 'Lower Body', lifts: ['squat', 'deadlift', 'db_split_squat', 'db_rdl', 'db_goblet'] }
+    }
+  },
+  two_day_fullbody: {
+    name: '2-Day Full Body (Squat & DL)',
+    sessions: {
+      a: { title: 'Full Body A', lifts: ['squat', 'bench', 'deadlift_light', 'db_row', 'db_lateral'] },
+      b: { title: 'Full Body B', lifts: ['deadlift', 'ohp', 'squat_light', 'db_incline', 'db_curl'] }
+    }
+  }
+};
+
+const focusTemplates = {
+  balanced: [
+    { day:'Mon', focus:'Total Body A', ids:['g_squat','a_push','c_iso','s_wrist'] },
+    { day:'Tue', focus:'Lateral & Posture', ids:['c_oblique','c_posture','c_antirot','s_neck'] },
+    { day:'Wed', focus:'Posterior Chain', ids:['g_hinge','g_ham','c_pelvic','s_calf'] },
+    { day:'Thu', focus:'Vertical & Scap', ids:['a_pull','a_vertpush','a_scap','s_tspine'] },
+    { day:'Fri', focus:'Core Gauntlet', ids:['c_dyn','c_post','s_hip','s_ham'] },
+    { day:'Sat', focus:'Lateral Power', ids:['g_lateral','g_abduct','a_vertpush','s_ankle'] },
+    { day:'Sun', focus:'Full Recovery', ids:['s_tspine','s_hip','s_shoulder','s_wrist'] }
+  ],
+  upper: [
+    { day:'Mon', focus:'Heavy Push/Pull', ids:['a_push','a_pull','c_iso','s_shoulder'] },
+    { day:'Tue', focus:'Shoulders & Arms', ids:['a_vertpush','a_bicep','c_antirot','s_wrist'] },
+    { day:'Wed', focus:'Lower Maintenance', ids:['g_squat','g_hinge','s_hip'] },
+    { day:'Thu', focus:'Scapular Health', ids:['a_scap','c_posture','s_tspine','s_neck'] },
+    { day:'Fri', focus:'Volume Upper', ids:['a_push','a_pull','c_dyn'] },
+    { day:'Sat', focus:'Core & Stability', ids:['c_oblique','c_post','c_lsit','s_shoulder'] },
+    { day:'Sun', focus:'Upper Recovery', ids:['s_tspine','s_wrist','s_neck','s_shoulder'] }
+  ],
+  lower: [
+    { day:'Mon', focus:'Heavy Squat/Hinge', ids:['g_squat','g_hinge','c_pelvic','s_ankle'] },
+    { day:'Tue', focus:'Quads & Plyo', ids:['g_quad','g_plyo','s_hip','s_calf'] },
+    { day:'Wed', focus:'Upper Maintenance', ids:['a_push','a_pull','s_tspine'] },
+    { day:'Thu', focus:'Hamstrings & Glutes', ids:['g_ham','g_abduct','c_iso','s_ham'] },
+    { day:'Fri', focus:'Lateral Power', ids:['g_lateral','c_oblique','s_split'] },
+    { day:'Sat', focus:'Lower Volume', ids:['g_squat','g_hinge','c_antirot','s_calf'] },
+    { day:'Sun', focus:'Lower Recovery', ids:['s_hip','s_ham','s_ankle','s_split'] }
+  ],
+  core: [
+    { day:'Mon', focus:'Deep Core Engine', ids:['c_iso','c_pelvic','c_post','s_hip'] },
+    { day:'Tue', focus:'Total Body Main', ids:['g_squat','a_push','s_tspine'] },
+    { day:'Wed', focus:'Dynamic & Oblique', ids:['c_dyn','c_oblique','s_shoulder'] },
+    { day:'Thu', focus:'Anti-Rotation', ids:['c_antirot','a_vertpush','s_wrist'] },
+    { day:'Fri', focus:'Posterior & L-Sit', ids:['c_lsit','g_hinge','s_ham'] },
+    { day:'Sat', focus:'Core Circuit', ids:['c_iso','c_dyn','c_oblique','c_posture'] },
+    { day:'Sun', focus:'Spinal Recovery', ids:['s_tspine','s_neck','s_hip'] }
+  ],
+  mobility: [
+    { day:'Mon', focus:'Hips & Legs', ids:['s_hip','s_ham','g_squat','s_split'] },
+    { day:'Tue', focus:'Spine & Shoulders', ids:['s_tspine','s_shoulder','a_pull','c_posture'] },
+    { day:'Wed', focus:'Ankles & Calves', ids:['s_ankle','s_calf','g_hinge'] },
+    { day:'Thu', focus:'Wrists & Neck', ids:['s_wrist','s_neck','c_iso','a_push'] },
+    { day:'Fri', focus:'Deep Splits Prep', ids:['s_split','s_hip','s_ham','c_pelvic'] },
+    { day:'Sat', focus:'Total Flow', ids:['s_tspine','s_shoulder','s_ankle','c_dyn'] },
+    { day:'Sun', focus:'Pure Recovery', ids:['s_neck','s_wrist','s_calf','s_split'] }
+  ]
+};
+
+const pools = {
+  core:['c_iso','c_dyn','c_post','c_pelvic','c_oblique','c_antirot','c_lsit','c_front_lever','c_planche','c_flag','c_dragon_flag','c_ab_wheel'],
+  glute:['g_squat','g_hinge','g_abduct','g_ham','g_lateral','g_quad','g_plyo'],
+  arm:['a_push','a_pull','a_vertpush','a_scap','c_posture','a_bicep','a_tri','a_bar_mu','a_ring_mu','a_skin_cat'],
+  stretch:['s_hip','s_tspine','s_ankle','s_calf','s_ham','s_wrist','s_neck','s_shoulder','s_split']
+};
+
+const bonusPool = [...ironPools.push, ...ironPools.pull, ...ironPools.legs];
+
+// ===================================================
+// PROGRESSIVE OVERLOAD & WARMUP ENGINE
+// ===================================================
+function getE1RM(liftKey) {
+  const baseKey = liftKey.replace('_light', '');
+  const map = { squat:'squatE1RM', bench:'benchE1RM', deadlift:'deadliftE1RM', sumo:'sumoE1RM', ohp:'ohpE1RM' };
+  return ironSetup[map[baseKey]] || 0;
+}
+
+function calcWorkingWeight(liftKey, weekNum) {
+  const e1rm = getE1RM(liftKey);
+  if (!e1rm) return null;
+  const isLight = liftKey.endsWith('_light');
+  const cycleWeek = ((weekNum - 1) % 4) + 1;
+  const cycle = Math.floor((weekNum - 1) / 4);
+  const progressFactor = 1 + (cycle * 0.025); 
+  const adjustedE1RM = e1rm * progressFactor;
+  
+  if (isLight) {
+    return Math.round((adjustedE1RM * 0.65) / 5) * 5;
+  }
+  
+  const intensities = [0.70, 0.75, 0.80, 0.65]; 
+  const weight = adjustedE1RM * intensities[cycleWeek - 1];
+  return Math.round(weight / 5) * 5;
+}
+
+function calcSetsReps(liftKey, weekNum, isMainSlot) {
+  const cycleWeek = ((weekNum - 1) % 4) + 1;
+  const isLight = liftKey.endsWith('_light');
+  
+  if (isLight) {
+    return { sets: 3, reps: cycleWeek === 4 ? 8 : 10 }; 
+  }
+  
+  if (isMainSlot) {
+    const startReps = ironSetup.startingRepsChoice || 5;
+    const setsMap = { 3: 5, 4: 5, 5: 4, 6: 4, 8: 3 };
+    const baseSets = setsMap[startReps] || 4;
+    const setsProgression = [baseSets, baseSets, baseSets + 1, Math.max(2, baseSets - 1)];
+    const repsProgression = [startReps, startReps + 1, startReps + 2, Math.max(3, startReps - 2)];
+    return { sets: setsProgression[cycleWeek - 1], reps: repsProgression[cycleWeek - 1] };
+  } else {
+    const accRepScheme = [ {s:3, r:12}, {s:3, r:10}, {s:4, r:8}, {s:2, r:15} ];
+    return { sets: accRepScheme[cycleWeek - 1].s, reps: accRepScheme[cycleWeek - 1].r };
+  }
+}
+
+function getPoData(liftKey, currentW) {
+  const cycleStart = Math.floor((currentW - 1) / 4) * 4 + 1;
+  return [0,1,2,3].map(i => {
+    const w = cycleStart + i;
+    const wt = calcWorkingWeight(liftKey, w);
+    const sr = calcSetsReps(liftKey, w, true);
+    return { week: w, weight: wt, sets: sr.sets, reps: sr.reps };
+  });
+}
+
+function updateWarmups(exId, weightInput) {
+  const wt = parseFloat(weightInput);
+  if (isNaN(wt) || wt <= 0) return;
+  const pcts = [0, 0.5, 0.7, 0.85];
+  for(let i=1; i<pcts.length; i++) {
+    const span = document.getElementById(`wu-val-${exId}-${i}`);
+    if(span) span.innerHTML = ` ≈ <strong>${Math.round((wt * pcts[i]) / 5) * 5}lb</strong>`;
+  }
+}
+
+function setModifier(exId, modValue) {
+  modifiers[`${exId}_${currentWeek}`] = modValue;
+  saveGame();
+  showToast(`Modifier set to: ${modValue}`);
+}
+
+// ===================================================
+// SCHEDULE GENERATION
+// ===================================================
+function getIronDayPattern(daysPerWeek) {
+  const patterns = { 2: [1,0,0,0,1,0,0], 3: [1,0,1,0,1,0,0], 4: [1,0,1,0,1,1,0], 5: [1,1,0,1,1,1,0] };
+  return (patterns[daysPerWeek] || patterns[4]).map(v => v === 1);
+}
+
+function generateSchedule(focus) {
+  const baseBWDays = focusTemplates[focus] || focusTemplates.balanced;
+  const ironPattern = getIronDayPattern(trainingDays);
+  
+  let ironTemplateKey = ironSetup.sessionFocus;
+  if (trainingDays === 2) {
+     ironTemplateKey = 'two_day_fullbody';
+  }
+  const ironTemplate = ironFocusTemplates[ironTemplateKey] || ironFocusTemplates.ppl;
+  const ironSessions = Object.keys(ironTemplate.sessions);
+  let ironIdx = 0;
+
+  return baseBWDays.map((d, i) => {
+    const isIron = (currentMode === 'iron') && ironPattern[i];
+    if (isIron) {
+      const sessionKey = ironSessions[ironIdx % ironSessions.length]; ironIdx++;
+      const session = ironTemplate.sessions[sessionKey];
+      
+      const filteredLifts = session.lifts.filter(liftId => {
+         const actId = injurySwaps[liftId] || liftId;
+         const data = ironDB[actId];
+         return data ? meetsEquipmentRequirements(data.equip) : true;
+      });
+      return { day: d.day, focus: session.title, ids: filteredLifts, isIron: true };
+    }
+    const bwFiltered = d.ids.filter(id => { const data = db[id]; return data ? meetsEquipmentRequirements(data.equip) : true; });
+    if(bwFiltered.length === 0) bwFiltered.push('c_iso');
+    return { ...d, ids: bwFiltered, isIron: false };
+  });
+}
+
+function getExerciseData(exId, weekNum) {
+  const track = db[exId];
+  if (!track) return null;
+
+  const isStretch = track.cat === 'stretch';
+  const phase = Math.ceil(weekNum / 4);
+  const subWeek = (weekNum - 1) % 4;
+
+  let defaultVarIdx = Math.min(phase - 1, track.vars.length - 1);
+  let activeVarIdx = userOverrides[exId] !== undefined ? userOverrides[exId] : defaultVarIdx;
+  activeVarIdx = Math.min(activeVarIdx, track.vars.length - 1);
+  const variation = track.vars[activeVarIdx];
+
+  let sets = isStretch ? 1 : 2;
+  if (!isStretch && phase >= 5) sets = 3;
+
+  let val = variation.base;
+  if (track.type.includes('time')) val += (subWeek * 5);
+  else val += (subWeek * 2);
+
+  let meta = '';
+  if (track.type === 'time') meta = `⏱ ${sets}×${val}s`;
+  if (track.type === 'time_side') meta = `⏱ ${sets}×${val}s/side`;
+  if (track.type === 'reps') meta = `🔁 ${sets}×${val}`;
+  if (track.type === 'reps_side') meta = `🔁 ${sets}×${val}/side`;
+
+  const xpReward = Math.max(10, Math.round((sets * val) / (track.type.includes('time') ? 4 : 1)));
+
+  return {
+    name: variation.name, desc: variation.desc, meta, xpReward,
+    timerVal: track.type.includes('time') ? val : 0, levelNum: activeVarIdx + 1,
+    isOverride: userOverrides[exId] !== undefined, trackCat: track.cat,
+    trackTheme: track.theme, trackTitle: track.title, sets, varCount: track.vars.length
+  };
+}
+
+function getIronExerciseData(exId, weekNum, isMainSlot) {
+  const lift = ironDB[exId];
+  if (!lift) return null;
+
+  const sr = calcSetsReps(exId, weekNum, isMainSlot);
+  let workingWeight = null, poData = null;
+
+  if (isMainSlot && getE1RM(exId) > 0) {
+    workingWeight = calcWorkingWeight(exId, weekNum);
+    poData = getPoData(exId, weekNum);
+  } else if (!isMainSlot) {
+    const saved = weightLogs[`${exId}_${weekNum}`];
+    if (saved) workingWeight = saved.weight;
+  }
+
+  const meta = workingWeight ? `🏋️ ${sr.sets}×${sr.reps} @ ${workingWeight}lb` : `🏋️ ${sr.sets}×${sr.reps}`;
+
+  return {
+    name: lift.name, desc: lift.desc, meta, xpReward: sr.sets * sr.reps * 3,
+    timerVal: 0, levelNum: 1, isOverride: false, trackCat: 'iron',
+    trackTheme: 'theme-iron', trackTitle: isMainSlot ? 'Main Lift' : 'Accessory',
+    sets: sr.sets, reps: sr.reps, workingWeight, warmup: lift.warmup,
+    cues: lift.cues, poData, isMain: isMainSlot, isIron: true, varCount: 1
+  };
+}
+
+// ===================================================
+// RENDER ENGINE
+// ===================================================
+function renderSchedule() {
+  document.getElementById('weekSchedule').innerHTML = activeSchedule.map((s, i) => `
+    <button class="day-btn ${i === currentDayIdx ? 'active' : ''} ${s.isIron ? 'iron-day' : ''}" onclick="selectDay(${i})">
+      <span class="day-name">${s.day}</span>
+      <span class="day-focus">${s.focus}</span>
+      <div class="day-dot" style="background:${s.isIron ? 'var(--iron)' : 'transparent'}"></div>
+    </button>
+  `).join('');
+}
+
+function renderWorkout() {
+  const dayData = activeSchedule[currentDayIdx];
+  document.getElementById('dailyFocusTitle').textContent = `${dayData.day}: ${dayData.focus}`;
+  const container = document.getElementById('workoutContainer');
+  container.innerHTML = '';
+
+  if (dayData.isIron) {
+    renderIronDay(dayData, container);
+    return;
+  }
+
+  let currentCategory = '';
+  dayData.ids.forEach((exId, arrayIdx) => {
+    const data = getExerciseData(exId, currentWeek);
+    if (!data) return;
+    const isChecked = completedStats[currentDayIdx].has(exId);
+
+    if (data.trackCat !== currentCategory) {
+      currentCategory = data.trackCat;
+      container.innerHTML += `
+        <div class="section-header">
+          <div class="section-dot" style="background:var(--${data.trackCat})"></div>
+          <span class="section-title">${data.trackTitle}</span>
+        </div>`;
+    }
+
+    const setKey = `${exId}_${currentDayIdx}_${currentWeek}`;
+    if (!setCompletions[setKey]) setCompletions[setKey] = new Array(data.sets).fill(false);
+    const sets = setCompletions[setKey];
+
+    const setsHTML = buildSetBubbles(setKey, sets, data.sets, false, data.timerVal > 0 ? 60 : 90);
+
+    let timerHtml = '';
+    if (data.timerVal > 0) {
+      timerHtml = buildTimer(exId, data.timerVal);
+    }
+
+    container.innerHTML += `
+      <div class="exercise-card ${data.trackTheme} ${isChecked ? 'completed' : ''}" id="card-${exId}">
+        <div class="card-top" onclick="toggleDetail('${exId}')">
+          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${exId}" onclick="toggleCheck(event,'${exId}','${data.trackCat}',${data.xpReward})">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-info">
+            <div class="exercise-name">${data.name}</div>
+            <div class="exercise-meta">
+              <span class="meta-tag"><span class="lvl-indicator">L${data.levelNum}</span></span>
+              <span class="meta-tag">${data.meta}</span>
+              <span class="meta-tag xp-tag">+${data.xpReward} XP</span>
             </div>
-            <div class="card-info">
-              <div class="exercise-name">${data.name}</div>
-              <div class="exercise-meta">
-                <span class="meta-tag"><span class="lvl-indicator">L${data.levelNum}</span></span>
-                <span class="meta-tag">${data.meta}</span>
-                <span class="meta-tag xp-tag">+${data.xpReward} XP</span>
+          </div>
+          <button class="expand-btn" id="btn-${exId}">
+            <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><polyline points="4,7 9,12 14,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="card-detail" id="detail-${exId}">
+          <div class="action-row">
+            ${data.varCount > 1 ? `<button class="action-btn" onclick="toggleLevel('${exId}')">⚡ Change Level</button>` : ''}
+            <button class="action-btn" onclick="swapExercise(${currentDayIdx},${arrayIdx},'${data.trackCat}')">🔄 Swap Move</button>
+          </div>
+          <p class="detail-desc">${data.desc}</p>
+          ${setsHTML}
+          ${timerHtml}
+        </div>
+      </div>`;
+  });
+}
+
+function renderIronDay(dayData, container) {
+  const mainLifts = ['squat','bench','deadlift','sumo','ohp', 'squat_light', 'deadlift_light'];
+  let lastTitle = '';
+
+  dayData.ids.forEach((baseExId, arrayIdx) => {
+    const isMainSlot = mainLifts.includes(baseExId);
+    const actualExId = injurySwaps[baseExId] || baseExId;
+    const data = getIronExerciseData(actualExId, currentWeek, isMainSlot);
+    if (!data) return;
+    
+    const isChecked = completedStats[currentDayIdx].has(actualExId);
+
+    if (data.trackTitle !== lastTitle) {
+      lastTitle = data.trackTitle;
+      container.innerHTML += `
+        <div class="section-header">
+          <div class="section-dot" style="background:var(--iron)"></div>
+          <span class="section-title">${data.trackTitle}</span>
+        </div>`;
+    }
+
+    const setKey = `${actualExId}_${currentDayIdx}_${currentWeek}`;
+    if (!setCompletions[setKey]) setCompletions[setKey] = new Array(data.sets).fill(false);
+
+    const setsHTML = buildSetBubbles(setKey, setCompletions[setKey], data.sets, true, 180);
+    const savedWeight = (weightLogs[`${actualExId}_${currentWeek}`] || {}).weight || data.workingWeight || '';
+    const currentMod = modifiers[`${actualExId}_${currentWeek}`] || 'Standard';
+
+    let warmupHTML = '';
+    if (data.warmup && data.warmup.length > 0) {
+      const warmupSteps = data.warmup.map((w, wi) => {
+        let stepText = w.text;
+        let dynamicSpan = '';
+        if (data.isMain && wi > 0) {
+          const pcts = [0, 0.5, 0.7, 0.85];
+          const pctWeight = savedWeight ? Math.round((savedWeight * pcts[wi] / 5)) * 5 : 0;
+          dynamicSpan = `<span id="wu-val-${actualExId}-${wi}">${pctWeight ? ` ≈ <strong>${pctWeight}lb</strong>` : ''}</span>`;
+          stepText = stepText.replace(/50%|70%|85%/, m => m + dynamicSpan);
+        }
+        return `
+          <div class="warmup-step">
+            <div class="warmup-check" id="wuchk-${actualExId}-${wi}" onclick="this.classList.toggle('done')"></div>
+            <div class="warmup-text">${stepText}</div>
+          </div>`;
+      }).join('');
+      
+      warmupHTML = `
+        <div class="warmup-section">
+          <div class="warmup-title">🔥 Warm-Up Protocol</div>
+          <div class="warmup-steps open">${warmupSteps}</div>
+        </div>`;
+    }
+
+    let poHTML = '';
+    if (data.poData) {
+      const cycleWeek = ((currentWeek - 1) % 4) + 1;
+      poHTML = `
+        <div class="po-panel">
+          <div class="po-panel-title">📈 4-Week Progressive Overload</div>
+          <div class="po-weeks">
+            ${data.poData.map((pw, pi) => `
+              <div class="po-week ${pi + 1 === cycleWeek ? 'current-week' : ''}">
+                <div class="po-week-label">Wk ${pi + 1}</div>
+                <div class="po-week-val">${pw.weight ? pw.weight + 'lb' : '—'}</div>
+                <div style="font-size:0.7rem;color:var(--ink-soft)">${pw.sets}×${pw.reps}</div>
               </div>
-            </div>
-            <button class="expand-btn" id="btn-${exId}">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polyline points="4,7 9,12 14,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+            `).join('')}
           </div>
-          <div class="card-detail" id="detail-${exId}">
-            <div class="action-row">
-              <button class="action-btn" onclick="toggleLevel('${exId}')">
-                ⚡ Change Level
-              </button>
-              <button class="action-btn" onclick="swapExercise(${currentDayIdx}, ${arrayIdx}, '${data.trackCat}')">
-                🔄 Swap Move
-              </button>
-            </div>
-            <p class="detail-desc">${data.desc}</p>
-            ${timerHtml}
-          </div>
+        </div>`;
+    }
+
+    // MODIFIER UI
+    let modifierUI = '';
+    if (data.isMain) {
+      modifierUI = `
+        <div class="modifier-row">
+          <label style="font-size:0.78rem;font-weight:600;color:var(--ink-soft);">Modifier:</label>
+          <select onchange="setModifier('${actualExId}', this.value)">
+            <option value="Standard" ${currentMod === 'Standard'?'selected':''}>Standard</option>
+            <option value="Paused (3s)" ${currentMod === 'Paused (3s)'?'selected':''}>Paused (3s bottom)</option>
+            <option value="Tempo (4-0-1-0)" ${currentMod === 'Tempo (4-0-1-0)'?'selected':''}>Tempo (4-0-1-0)</option>
+            <option value="Banded/Chains" ${currentMod === 'Banded/Chains'?'selected':''}>Banded / Accommodating</option>
+            <option value="Deficit" ${currentMod === 'Deficit'?'selected':''}>Deficit / Extended ROM</option>
+          </select>
+        </div>`;
+    }
+
+    // SWAP UI (Main + Accessories)
+    let swapUI = '';
+    if (data.isMain && injurySwapOptions[baseExId]) {
+      const validSwaps = injurySwapOptions[baseExId].filter(opt => meetsEquipmentRequirements(opt.equip));
+      if (validSwaps.length > 0) {
+        swapUI = `<div class="injury-panel">
+          <div class="injury-panel-title">🔄 Swap / Modify Lift</div>
+          ${validSwaps.map(opt => `
+             <div class="swap-option ${actualExId === opt.id ? 'active-swap' : ''}" onclick="setInjurySwap('${baseExId}', '${opt.id}')">
+               <div class="swap-name">${opt.name} <div class="swap-reason">${opt.reason}</div></div>
+             </div>
+          `).join('')}
+          ${actualExId !== baseExId ? `<div class="swap-option" onclick="setInjurySwap('${baseExId}', '${baseExId}')"><div class="swap-name">Revert to Default</div></div>` : ''}
+        </div>`;
+      }
+    }
+    
+    // Accessory Swap Action
+    let accActionRow = '';
+    if (!data.isMain && getIronSubCat(actualExId)) {
+      accActionRow = `
+        <div class="action-row" style="margin-bottom: 12px;">
+          <button class="action-btn" onclick="swapIronAccessory(${currentDayIdx}, ${arrayIdx})">🔄 Swap Accessory</button>
         </div>
       `;
-      container.innerHTML += cardHtml;
-    });
-  }
-
-  function toggleDetail(exId) {
-    document.getElementById('detail-' + exId).classList.toggle('open');
-    document.getElementById('btn-' + exId).classList.toggle('open');
-  }
-
-  function toggleCheck(e, exId, cat, xp) {
-    e.stopPropagation();
-    const checkedSet = completedStats[currentDayIdx];
-    
-    if (checkedSet.has(exId)) {
-      checkedSet.delete(exId);
-      document.getElementById('chk-' + exId).classList.remove('checked');
-      document.getElementById('card-' + exId).classList.remove('completed');
-      removeXP(cat, xp);
-    } else {
-      checkedSet.add(exId);
-      document.getElementById('chk-' + exId).classList.add('checked');
-      document.getElementById('card-' + exId).classList.add('completed');
-      addXP(cat, xp);
     }
-    saveGame();
-    checkBanner();
-  }
 
-  function checkBanner() {
-    const totalToday = activeSchedule[currentDayIdx].ids.length;
-    const completedToday = completedStats[currentDayIdx].size;
-    document.getElementById('doneBanner').style.display = (completedToday === totalToday && totalToday > 0) ? 'block' : 'none';
-  }
+    const weightInputHTML = `
+      <div class="weight-input-row">
+        <label>Working Weight:</label>
+        <input type="number" class="weight-input" id="wt-${actualExId}" value="${savedWeight}" placeholder="lbs" 
+          oninput="updateWarmups('${actualExId}', this.value)"
+          onchange="logWeight('${actualExId}',this.value,${data.sets},${data.reps})" step="5" min="0">
+        <span class="weight-unit">lb</span>
+      </div>`;
 
-  const CIRCUMFERENCE = 163.36; 
-  function fmtTime(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+    container.innerHTML += `
+      <div class="exercise-card iron-card ${isChecked ? 'completed' : ''}" id="card-${actualExId}">
+        <div class="card-top" onclick="toggleDetail('${actualExId}')">
+          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${actualExId}" onclick="toggleCheck(event,'${actualExId}','iron',${data.xpReward})">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-info">
+            <div class="exercise-name">${data.name} ${currentMod !== 'Standard' ? `<span style="font-size:0.75rem;color:var(--iron);">${currentMod}</span>` : ''}</div>
+            <div class="exercise-meta">
+              <span class="meta-tag iron-tag">${data.meta}</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-detail" id="detail-${actualExId}">
+          <p class="detail-desc">${data.desc}</p>
+          ${accActionRow}
+          ${modifierUI}
+          ${weightInputHTML}
+          ${warmupHTML}
+          ${setsHTML}
+          ${poHTML}
+          ${swapUI}
+        </div>
+      </div>`;
+  });
+  
+  // Add +1 Bonus Accessory Button
+  container.innerHTML += `
+    <div style="text-align: center; margin-top: 16px;">
+      <button class="action-btn iron-btn" style="padding: 10px 16px; font-size: 0.85rem;" onclick="addBonusIronAccessory()">🔥 + I want 1 more accessory</button>
+    </div>
+  `;
+}
 
-  function startTimer(id, total) {
-    if (timers[id] && timers[id].running) return;
-    const display = document.getElementById('timerDisplay-' + id);
-    const ring = document.getElementById('ring-' + id);
-    if (!ring) return;
+function buildSetBubbles(setKey, sets, numSets, isIron, restSeconds) {
+  const bubbles = sets.map((done, si) => `
+    <div class="set-bubble ${done ? 'done' : ''} ${isIron ? 'iron-set' : ''}" 
+         id="sb-${setKey}-${si}" onclick="toggleSet('${setKey}',${si})"><span>S${si+1}</span></div>
+  `).join('');
+  return `<div class="set-tracker"><div class="sets-row">${bubbles}</div></div>`;
+}
 
-    let remaining = timers[id] ? timers[id].remaining : total;
-    ring.style.strokeDasharray = CIRCUMFERENCE;
-    timers[id] = { running: true, remaining };
+function buildTimer(exId, total) {
+  const CIRC = 163.36;
+  return `
+    <div class="timer-wrap">
+      <div class="timer-svg-wrap">
+        <svg class="timer-svg" viewBox="0 0 54 54">
+          <circle class="timer-bg" cx="27" cy="27" r="26"/>
+          <circle class="timer-ring" id="ring-${exId}" cx="27" cy="27" r="26" style="stroke-dasharray:${CIRC};stroke-dashoffset:${CIRC};"/>
+        </svg>
+        <div class="timer-display" id="timerDisplay-${exId}">
+          ${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}
+        </div>
+      </div>
+      <div class="timer-controls">
+        <div class="timer-btns">
+          <button class="timer-btn start" onclick="startTimer('${exId}',${total})">Start</button>
+          <button class="timer-btn reset" onclick="resetTimer('${exId}',${total})">Reset</button>
+        </div>
+      </div>
+    </div>`;
+}
 
-    const interval = setInterval(() => {
-      remaining--;
-      timers[id].remaining = remaining;
-      display.textContent = fmtTime(remaining);
-      ring.style.strokeDashoffset = CIRCUMFERENCE * (1 - remaining / total);
-
-      if (remaining <= 0) {
-        clearInterval(interval);
-        timers[id].running = false;
-        display.textContent = '✓';
-      }
-    }, 1000);
-    timers[id].interval = interval;
-  }
-
-  function resetTimer(id, total) {
-    if (timers[id] && timers[id].interval) clearInterval(timers[id].interval);
-    timers[id] = { running: false, remaining: total };
-    const display = document.getElementById('timerDisplay-' + id);
-    const ring = document.getElementById('ring-' + id);
-    if (display) display.textContent = fmtTime(total);
-    if (ring) ring.style.strokeDashoffset = CIRCUMFERENCE;
-  }
-
-  // --- BOOT UP LOGIC ---
-  function refreshUI() {
-    document.getElementById('weekBadge').textContent = `Wk ${currentWeek} / ${MAX_WEEKS}`;
-    document.getElementById('btnPrevWeek').disabled = (currentWeek === 1);
-    document.getElementById('btnNextWeek').disabled = (currentWeek === MAX_WEEKS);
-    document.getElementById('focusSelect').value = currentFocus;
-    
-    const phase = Math.ceil(currentWeek / 4);
-    const subWeek = ((currentWeek - 1) % 4) + 1;
-    document.getElementById('phaseName').textContent = `Phase ${phase} (Month ${phase})`;
-    document.getElementById('phaseFocus').textContent = phase < 5 ? `Week ${subWeek}/4: Volume Loading` : `Week ${subWeek}/4: Set Multiplication`;
-    
-    updateStatUI();
-    Object.keys(timers).forEach(id => { if(timers[id].interval) clearInterval(timers[id].interval); });
-    renderSchedule();
-    renderWorkout();
-    checkBanner();
-  }
-
-  function boot() {
-    if (!loadGame()) {
-      currentWeek = 1; currentDayIdx = 0; currentFocus = 'balanced';
-      activeSchedule = generateSchedule(currentFocus);
-      completedStats = {};
-      activeSchedule.forEach((_, i) => completedStats[i] = new Set());
-      saveGame();
+// REST TIMER
+let restTimerInterval = null;
+function startRestTimer(seconds) {
+  if (restTimerInterval) clearInterval(restTimerInterval);
+  showToast(`⏱ Rest: ${seconds >= 60 ? Math.floor(seconds/60)+'m' : seconds+'s'} starting...`);
+  let remaining = seconds;
+  restTimerInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(restTimerInterval);
+      showToast('✅ Rest done! Time to work.');
     }
-    refreshUI();
-  }
+  }, 1000);
+}
 
-  boot();
+// ===================================================
+// INTERACTIONS
+// ===================================================
+function toggleDetail(exId) {
+  document.getElementById('detail-' + exId).classList.toggle('open');
+}
+
+function toggleCheck(e, exId, cat, xp) {
+  e.stopPropagation();
+  const checkedSet = completedStats[currentDayIdx];
+  if (checkedSet.has(exId)) {
+    checkedSet.delete(exId); document.getElementById('chk-'+exId).classList.remove('checked'); document.getElementById('card-'+exId).classList.remove('completed');
+  } else {
+    checkedSet.add(exId); document.getElementById('chk-'+exId).classList.add('checked'); document.getElementById('card-'+exId).classList.add('completed');
+    showToast(`+${xp} XP!`);
+  }
+  saveGame(); checkBanner();
+}
+
+function toggleSet(setKey, setIdx) {
+  if (!setCompletions[setKey]) return;
+  setCompletions[setKey][setIdx] = !setCompletions[setKey][setIdx];
+  const el = document.getElementById(`sb-${setKey}-${setIdx}`);
+  if (el) el.classList.toggle('done');
+  saveGame();
+}
+
+function toggleLevel(exId) {
+  const track = db[exId];
+  if (!track) return;
+  let current = userOverrides[exId] !== undefined ? userOverrides[exId] : Math.min(Math.ceil(currentWeek/4)-1, track.vars.length-1);
+  userOverrides[exId] = (current + 1) % track.vars.length;
+  saveGame(); renderWorkout();
+}
+
+function swapExercise(dayIdx, exIdx, category) {
+  const dayData = activeSchedule[dayIdx];
+  const currentId = dayData.ids[exIdx];
+  
+  const pool = pools[category].filter(id => {
+     let track = db[id];
+     return track ? meetsEquipmentRequirements(track.equip) : true;
+  });
+
+  if (!pool || pool.length === 0) return showToast("No equipment matches available.");
+  
+  let poolIdx = pool.indexOf(currentId);
+  if (poolIdx === -1) poolIdx = 0;
+  
+  let nextId = pool[(poolIdx + 1) % pool.length];
+  let iterations = 0;
+  while (dayData.ids.includes(nextId) && pool.length > dayData.ids.length && iterations < pool.length) {
+    poolIdx = (poolIdx + 1) % pool.length;
+    nextId = pool[poolIdx];
+    iterations++;
+  }
+  
+  if (completedStats[dayIdx].has(currentId)) {
+    completedStats[dayIdx].delete(currentId);
+    const oldData = getExerciseData(currentId, currentWeek);
+    if (oldData) removeXP(oldData.trackCat, oldData.xpReward);
+  }
+  
+  dayData.ids[exIdx] = nextId;
+  saveGame(); renderWorkout(); checkBanner();
+}
+
+function swapIronAccessory(dayIdx, exIdx) {
+  const dayData = activeSchedule[dayIdx];
+  const currentId = dayData.ids[exIdx];
+  const subCat = getIronSubCat(currentId);
+  if (!subCat) return showToast("No alternates mapped for this accessory.");
+
+  const pool = ironPools[subCat].filter(id => {
+     const t = ironDB[id];
+     return t ? meetsEquipmentRequirements(t.equip) : true;
+  });
+
+  if (!pool || pool.length === 0) return showToast("No equipment matches available.");
+  
+  let poolIdx = pool.indexOf(currentId);
+  if (poolIdx === -1) poolIdx = 0;
+  
+  let nextId = pool[(poolIdx + 1) % pool.length];
+  let iterations = 0;
+  while (dayData.ids.includes(nextId) && pool.length > dayData.ids.length && iterations < pool.length) {
+    poolIdx = (poolIdx + 1) % pool.length;
+    nextId = pool[poolIdx];
+    iterations++;
+  }
+  
+  if (completedStats[dayIdx].has(currentId)) {
+    completedStats[dayIdx].delete(currentId);
+    const oldData = getIronExerciseData(currentId, currentWeek, false);
+    if (oldData) removeXP('iron', oldData.xpReward);
+  }
+  
+  dayData.ids[exIdx] = nextId;
+  saveGame(); renderWorkout(); checkBanner();
+}
+
+function addBonusIronAccessory() {
+   const dayData = activeSchedule[currentDayIdx];
+   const available = bonusPool.filter(id => !dayData.ids.includes(id) && meetsEquipmentRequirements(ironDB[id].equip));
+   
+   if (available.length === 0) return showToast("No more accessories available!");
+   
+   const randomId = available[Math.floor(Math.random() * available.length)];
+   dayData.ids.push(randomId);
+   saveGame();
+   renderWorkout();
+   showToast("🔥 Bonus exercise added!");
+}
+
+function setInjurySwap(baseId, swapId) {
+  if (baseId === swapId) delete injurySwaps[baseId];
+  else injurySwaps[baseId] = swapId;
+  saveGame(); renderWorkout(); showToast('🔄 Lift swapped!');
+}
+
+function logWeight(exId, weight, sets, reps) {
+  weightLogs[`${exId}_${currentWeek}`] = { weight: parseFloat(weight), sets, reps };
+  saveGame(); showToast(`✏️ Logged ${weight}lb`);
+}
+
+function checkBanner() {
+  const totalToday = activeSchedule[currentDayIdx].ids.length;
+  const completedToday = completedStats[currentDayIdx].size;
+  document.getElementById('doneBanner').style.display = (completedToday === totalToday && totalToday > 0) ? 'block' : 'none';
+}
+
+function selectDay(index) { currentDayIdx = index; saveGame(); renderSchedule(); renderWorkout(); checkBanner(); }
+
+// ===================================================
+// EQUIPMENT MODAL
+// ===================================================
+function openEquipModal() {
+  const grid = document.getElementById('equipGrid');
+  grid.innerHTML = Object.keys(equipmentAvailable).map(eq => `
+    <label class="equip-item ${equipmentAvailable[eq] ? 'selected' : ''}" onclick="this.classList.toggle('selected')">
+      <div class="equip-check"></div><div class="equip-label">${eq.replace('_', ' ')}</div>
+    </label>
+  `).join('');
+  document.getElementById('equipModal').classList.add('open');
+}
+
+function saveEquipSettings() {
+  const items = document.querySelectorAll('.equip-item');
+  let index = 0;
+  Object.keys(equipmentAvailable).forEach(eq => { equipmentAvailable[eq] = items[index].classList.contains('selected'); index++; });
+  closeEquipModal();
+  saveGame(); regenerateSchedule(); showToast('🎒 Equipment saved!');
+}
+function closeEquipModal() { document.getElementById('equipModal').classList.remove('open'); }
+function closeEquipModalIfOutside(e) { if (e.target === document.getElementById('equipModal')) closeEquipModal(); }
+
+// ===================================================
+// IRON SETUP MODAL
+// ===================================================
+function openIronSetup() {
+  const grid = document.getElementById('setupGrid'); const is = ironSetup;
+  grid.innerHTML = `
+    <div class="setup-field"><label>Training Split</label><select id="si-sessionFocus"><option value="ppl" ${is.sessionFocus==='ppl'?'selected':''}>Push / Pull / Legs</option><option value="upper_lower" ${is.sessionFocus==='upper_lower'?'selected':''}>Upper / Lower</option></select></div>
+    <div class="setup-field"><label>Starting Reps</label><select id="si-startReps"><option value="5" ${is.startingRepsChoice==5?'selected':''}>5 reps</option><option value="8" ${is.startingRepsChoice==8?'selected':''}>8 reps</option></select></div>
+    ${['squat','bench','deadlift','sumo','ohp'].map(lift => `
+      <div class="setup-field"><label>${lift} e1RM</label><input type="number" id="si-${lift}" value="${is[lift+'E1RM']||''}" placeholder="lbs" step="5"></div>
+    `).join('')}
+  `;
+  document.getElementById('ironModal').classList.add('open');
+}
+
+function saveIronSetup() {
+  ironSetup.sessionFocus = document.getElementById('si-sessionFocus').value;
+  ironSetup.startingRepsChoice = parseInt(document.getElementById('si-startReps').value);
+  ['squat','bench','deadlift','sumo','ohp'].forEach(lift => { ironSetup[lift+'E1RM'] = parseFloat(document.getElementById('si-'+lift).value) || 0; });
+  closeIronModal(); saveGame(); refreshUI(); showToast('✅ Iron program saved!');
+}
+function closeIronModal() { document.getElementById('ironModal').classList.remove('open'); }
+function closeModalIfOutside(e) { if (e.target === document.getElementById('ironModal')) closeIronModal(); }
+
+// ===================================================
+// BOOT
+// ===================================================
+function showToast(msg) {
+  const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function setMode(mode) { currentMode = mode; regenerateSchedule(); }
+function changeTrainingDays(days) { trainingDays = days; regenerateSchedule(); }
+function changeFocus(newFocus) { currentFocus = newFocus; regenerateSchedule(); }
+function changeWeek(dir) { 
+  const newWeek = currentWeek + dir; 
+  if (newWeek >= 1 && newWeek <= MAX_WEEKS) { currentWeek = newWeek; currentDayIdx = 0; saveGame(); refreshUI(); }
+}
+function regenerateSchedule() { activeSchedule = generateSchedule(currentFocus); currentDayIdx = 0; saveGame(); refreshUI(); }
+
+function refreshUI() {
+  document.getElementById('weekBadge').textContent = `Wk ${currentWeek} / ${MAX_WEEKS}`;
+  document.getElementById('pillBodyweight').classList.toggle('active', currentMode==='bodyweight');
+  document.getElementById('pillIron').classList.toggle('active', currentMode==='iron');
+  updateStatUI(); renderSchedule(); renderWorkout(); checkBanner();
+}
+
+function boot() {
+  if (!loadGame()) { activeSchedule = generateSchedule(currentFocus); saveGame(); }
+  refreshUI();
+}
+
+boot();
 </script>
 </body>
 </html>
