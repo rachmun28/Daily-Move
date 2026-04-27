@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Move — The Ultimate DB</title>
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#1a1a18">
 <meta name="theme-color" content="#1a1a18">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -67,7 +66,6 @@
   .day-focus { font-size: 0.62rem; opacity: 0.8; text-align: center; line-height: 1.2; }
   .day-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; opacity: 0.5; }
   .day-btn.iron-day .day-dot { background: var(--iron); opacity: 1; }
-  .day-btn.iron-day:not(.active) .day-dot { opacity: 0.6; }
 
   /* MAIN */
   main { padding: 18px 20px; max-width: 680px; margin: 0 auto; }
@@ -111,13 +109,11 @@
   .set-tracker { background: #f8f4ee; border-radius: 12px; padding: 12px 14px; margin: 8px 0; }
   .set-tracker-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 10px; }
   .sets-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .set-bubble { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #d0c9bc; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.2s; color: var(--ink-soft); position: relative; }
+  .set-bubble { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #d0c9bc; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.2s; color: var(--ink-soft); }
   .set-bubble:hover { border-color: var(--success); color: var(--success); }
   .set-bubble.done { background: var(--success); border-color: var(--success); color: #fff; transform: scale(1.05); }
   .set-bubble.iron-set.done { background: var(--iron); border-color: var(--iron); }
   .set-bubble span { font-size: 0.65rem; line-height: 1; text-align: center; }
-  .rest-badge { background: #ede8de; border-radius: 20px; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; }
-  .rest-badge:hover { background: #dcd5c7; }
 
   /* MODIFIER UI */
   .modifier-row { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -130,11 +126,10 @@
   .weight-input { width: 70px; padding: 5px 8px; border: 1.5px solid #d0c9bc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; font-family: inherit; background: #fff; color: var(--ink); outline: none; }
   .weight-input:focus { border-color: var(--iron); }
   .weight-unit { font-size: 0.78rem; color: var(--ink-soft); font-weight: 600; }
-  .rpe-badge { background: var(--iron-bg); color: var(--iron); border-radius: 8px; padding: 4px 10px; font-size: 0.72rem; font-weight: 700; }
 
   /* PROGRESSIVE OVERLOAD PANEL */
   .po-panel { background: linear-gradient(135deg, #fdf2ee 0%, #fdf8ee 100%); border: 1.5px solid rgba(196,98,45,0.2); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
-  .po-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .po-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 8px; }
   .po-weeks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
   .po-week { background: #fff; border-radius: 8px; padding: 6px 8px; text-align: center; border: 1.5px solid #ede8de; }
   .po-week.current-week { border-color: var(--core); background: #fdf0e8; }
@@ -142,26 +137,19 @@
   .po-week.current-week .po-week-label { color: var(--core); }
   .po-week-val { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
   .po-week.current-week .po-week-val { color: var(--core); }
-  .po-note { font-size: 0.72rem; color: var(--ink-soft); margin-top: 8px; line-height: 1.5; }
 
   /* INJURY SWAP PANEL */
   .injury-panel { background: #fff8f5; border: 1.5px solid rgba(196,98,45,0.25); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
-  .injury-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .injury-panel-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--core); margin-bottom: 10px; }
   .swap-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #e8e2d6; background: #fff; margin-bottom: 6px; cursor: pointer; transition: all 0.2s; }
   .swap-option:hover { border-color: var(--core); background: var(--core-bg); }
   .swap-option.active-swap { border-color: var(--glute); background: var(--glute-bg); }
   .swap-name { font-size: 0.85rem; font-weight: 700; flex: 1; }
   .swap-reason { font-size: 0.7rem; color: var(--ink-soft); }
-  .swap-indicator { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 99px; }
-  .swap-indicator.current { background: var(--glute-bg); color: var(--glute); }
-  .swap-indicator.available { background: #f0ebe0; color: var(--ink-soft); }
 
   /* WARM-UP SECTION */
   .warmup-section { background: #fffbf5; border: 1.5px solid #f0e8d0; border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
-  .warmup-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #a07030; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-  .warmup-toggle { background: none; border: none; font-size: 0.72rem; color: var(--ink-faint); cursor: pointer; font-weight: 600; }
-  .warmup-steps { display: none; }
-  .warmup-steps.open { display: block; }
+  .warmup-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #a07030; margin-bottom: 10px; }
   .warmup-step { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; border-bottom: 1px solid #f0ebe0; }
   .warmup-step:last-child { border-bottom: none; }
   .warmup-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d0c9bc; background: #fff; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
@@ -169,6 +157,24 @@
   .warmup-check.done::after { content: '✓'; color: #fff; font-size: 10px; font-weight: 700; }
   .warmup-text { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4; }
   .warmup-text strong { color: var(--ink); }
+
+  /* TIMER */
+  .timer-wrap { display: flex; align-items: center; gap: 12px; background: #f8f4ee; border-radius: 14px; padding: 12px 16px; margin-top: 12px; }
+  .timer-svg-wrap { position: relative; flex-shrink: 0; }
+  .timer-svg { width: 58px; height: 58px; transform: rotate(-90deg); }
+  .timer-bg { fill: none; stroke: #e0d9ce; stroke-width: 5; }
+  .timer-ring { fill: none; stroke: var(--timer-ring); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 0.9s linear; }
+  .timer-display { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+  .timer-controls { display: flex; flex-direction: column; gap: 7px; }
+  .timer-btns { display: flex; gap: 7px; }
+  .timer-btn { padding: 6px 12px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .timer-btn.start { background: var(--core); color: #fff; }
+  .timer-btn.start.running { background: #888; }
+  .timer-btn.reset { background: #ede8de; color: var(--ink); }
+
+  /* IRON TIMER */
+  .theme-iron .timer-ring { stroke: var(--iron); }
+  .theme-iron .timer-btn.start { background: var(--iron); }
 
   /* MODALS */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
@@ -193,35 +199,13 @@
   .equip-item.selected .equip-check::after { display: block; }
   .equip-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); text-transform: capitalize; }
   .equip-btn { background: #444; border: 1px solid #666; color: #ddd; padding: 4px 9px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-  
+
   /* ACTION BUTTONS & TOAST */
   .action-row { display: flex; gap: 7px; margin-top: 12px; flex-wrap: wrap; }
   .action-btn { background: #ede8de; border: none; padding: 7px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; color: var(--ink); cursor: pointer; font-family: inherit; }
   .action-btn.iron-btn { background: var(--iron-bg); color: var(--iron); }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: #fff; padding: 10px 20px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; z-index: 300; transition: transform 0.3s; white-space: nowrap; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: #fff; padding: 10px 20px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; z-index: 300; transition: transform 0.3s; white-space: nowrap; pointer-events: none; }
   .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* TIMER */
-  .timer-wrap { display: flex; align-items: center; gap: 12px; background: #f8f4ee; border-radius: 14px; padding: 12px 16px; margin-top: 12px; }
-  .timer-svg-wrap { position: relative; flex-shrink: 0; }
-  .timer-svg { width: 58px; height: 58px; transform: rotate(-90deg); }
-  .timer-bg { fill: none; stroke: #e0d9ce; stroke-width: 5; }
-  .timer-ring { fill: none; stroke: var(--timer-ring); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
-  .timer-display { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
-  .timer-controls { display: flex; flex-direction: column; gap: 7px; }
-  .timer-btns { display: flex; gap: 7px; }
-  .timer-btn { padding: 6px 12px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
-  .timer-btn.start { background: var(--core); color: #fff; }
-  .timer-btn.reset { background: #ede8de; color: var(--ink); }
-
-  /* IRON-THEMED COLORS */
-  .theme-iron .check-circle.checked { background: var(--iron); border-color: var(--iron); }
-  .theme-iron .timer-ring { stroke: var(--iron); }
-  .theme-iron .timer-btn.start { background: var(--iron); }
-  .theme-core .check-circle.checked { background: var(--core); border-color: var(--core); }
-  .theme-glute .check-circle.checked { background: var(--glute); border-color: var(--glute); }
-  .theme-arm .check-circle.checked { background: var(--arm); border-color: var(--arm); }
-  .theme-stretch .check-circle.checked { background: var(--stretch); border-color: var(--stretch); }
 
   /* BANNER & FOOTER */
   .done-banner { background: linear-gradient(135deg, var(--success), #3a9660); color: #fff; border-radius: 14px; padding: 16px 20px; text-align: center; margin-top: 22px; display: none; animation: popIn 0.4s; }
@@ -230,11 +214,6 @@
   .data-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
   .data-btn { background: #ede8de; color: var(--ink); border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
   .reset-btn { background: none; border: none; color: var(--ink-faint); font-size: 0.73rem; text-decoration: underline; cursor: pointer; }
-  .iron-day-banner { background: linear-gradient(135deg, var(--iron-bg), #fff); border: 1.5px solid rgba(139,58,58,0.25); border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
-  .iron-day-icon { font-size: 1.8rem; }
-  .iron-day-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--iron); margin-bottom: 2px; }
-  .iron-day-info p { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.4; }
-  .iron-setup-btn { background: var(--iron); color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: inherit; margin-left: auto; }
 </style>
 </head>
 <body>
@@ -318,6 +297,7 @@
   </div>
 </main>
 
+<!-- Iron Setup Modal -->
 <div class="modal-overlay" id="ironModal" onclick="closeModalIfOutside(event)">
   <div class="modal-sheet" id="ironModalSheet">
     <div class="modal-handle"></div>
@@ -329,11 +309,12 @@
   </div>
 </div>
 
+<!-- Equipment Modal -->
 <div class="modal-overlay" id="equipModal" onclick="closeEquipModalIfOutside(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <h2 class="modal-title">🎒 Equipment Available</h2>
-    <p class="modal-subtitle">Select what you have access to. Iron exercises and swaps will adapt accordingly.</p>
+    <p class="modal-subtitle">Select what you have access to. Exercises will adapt accordingly.</p>
     <div class="equip-grid" id="equipGrid"></div>
     <button class="modal-btn" style="background:var(--core);" onclick="saveEquipSettings()">Save Equipment</button>
     <button class="modal-btn" style="background:#f0ebe0;color:var(--ink);margin-top:8px;" onclick="closeEquipModal()">Cancel</button>
@@ -346,81 +327,103 @@
 // ===================================================
 // CONSTANTS & STATE
 // ===================================================
-const STORAGE_KEY = 'dailyMoveSaveData_v16';
+const STORAGE_KEY = 'dailyMoveSaveData_v17';
 const MAX_WEEKS = 24;
 let currentWeek = 1;
 let currentDayIdx = 0;
 let currentFocus = 'balanced';
-let currentMode = 'bodyweight'; 
+let currentMode = 'bodyweight';
 let trainingDays = 4;
 let userOverrides = {};
 let completedStats = {};
-let setCompletions = {}; 
-let warmupCompletions = {}; 
+let setCompletions = {};
+let warmupCompletions = {};
 let ironSetup = { startingRepsChoice: 5, squatE1RM: 0, benchE1RM: 0, deadliftE1RM: 0, sumoE1RM: 0, ohpE1RM: 0, sessionFocus: 'ppl' };
-let weightLogs = {}; 
-let modifiers = {}; 
-const timers = {};
+let weightLogs = {};
+let modifiers = {};
+// FIX: timers stored as object keyed by exId, each holds { interval, remaining, total }
+const timerState = {};
 let activeSchedule = [];
 let playerStats = { core: { xp: 0, lvl: 1 }, power: { xp: 0, lvl: 1 }, mob: { xp: 0, lvl: 1 }, iron: { xp: 0, lvl: 1 } };
+let injurySwaps = {};
 
 let equipmentAvailable = {
-  barbell: true, dumbbells: true, pullup_bar: true, rings: false, cables: false, ghr_machine: false, kettlebell: false, bands: true,
-  flat_bench: true, adjustable_bench: true, plates: true, log: false, yoke: false, sandbag: false, parallettes: false
+  barbell: true, dumbbells: true, pullup_bar: true, rings: false, cables: false,
+  ghr_machine: false, kettlebell: false, bands: true, flat_bench: true,
+  adjustable_bench: true, plates: true, log: false, yoke: false,
+  sandbag: false, parallettes: false
 };
 
-let injurySwaps = {}; 
-
+// FIX: safe equipment check — returns true if no requirements
 function meetsEquipmentRequirements(equipArray) {
   if (!equipArray || equipArray.length === 0) return true;
-  return equipArray.every(eq => equipmentAvailable[eq]);
+  return equipArray.every(eq => !!equipmentAvailable[eq]);
+}
+
+// FIX: ensure completedStats[i] is always a Set for all 7 days
+function ensureCompletedStats() {
+  for (let i = 0; i < 7; i++) {
+    if (!(completedStats[i] instanceof Set)) {
+      completedStats[i] = new Set(Array.isArray(completedStats[i]) ? completedStats[i] : []);
+    }
+  }
 }
 
 // ===================================================
 // SAVE / LOAD
 // ===================================================
 function saveGame() {
-  const serializedCompleted = {};
-  for (let day in completedStats) serializedCompleted[day] = Array.from(completedStats[day]);
-  const payload = {
-    currentWeek, currentDayIdx, currentFocus, currentMode, trainingDays, playerStats, userOverrides, activeSchedule, 
-    ironSetup, weightLogs, modifiers, completedStats: serializedCompleted, setCompletions, warmupCompletions,
-    equipmentAvailable, injurySwaps
-  };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  try {
+    ensureCompletedStats();
+    const serializedCompleted = {};
+    for (let i = 0; i < 7; i++) serializedCompleted[i] = Array.from(completedStats[i]);
+    const payload = {
+      currentWeek, currentDayIdx, currentFocus, currentMode, trainingDays,
+      playerStats, userOverrides, activeSchedule, ironSetup, weightLogs,
+      modifiers, completedStats: serializedCompleted, setCompletions,
+      warmupCompletions, equipmentAvailable, injurySwaps
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch(e) { console.warn('Save failed:', e); }
 }
 
 function loadGame() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      const data = JSON.parse(saved);
-      currentWeek = data.currentWeek || 1; currentDayIdx = data.currentDayIdx || 0;
-      currentFocus = data.currentFocus || 'balanced'; currentMode = data.currentMode || 'bodyweight';
-      trainingDays = data.trainingDays || 4;
-      playerStats = data.playerStats || { core:{xp:0,lvl:1}, power:{xp:0,lvl:1}, mob:{xp:0,lvl:1}, iron:{xp:0,lvl:1} };
-      userOverrides = data.userOverrides || {};
-      ironSetup = data.ironSetup || { startingRepsChoice:5, squatE1RM:0, benchE1RM:0, deadliftE1RM:0, sumoE1RM:0, ohpE1RM:0, sessionFocus:'ppl' };
-      weightLogs = data.weightLogs || {}; modifiers = data.modifiers || {};
-      setCompletions = data.setCompletions || {}; warmupCompletions = data.warmupCompletions || {};
-      if (data.equipmentAvailable) equipmentAvailable = { ...equipmentAvailable, ...data.equipmentAvailable };
-      injurySwaps = data.injurySwaps || {};
-      
-      const loadedStats = data.completedStats || {};
-      completedStats = {};
-      for(let i=0; i<7; i++) completedStats[i] = new Set(loadedStats[i] || []);
-      
-      activeSchedule = data.activeSchedule || generateSchedule(currentFocus);
-      return true;
-    } catch(e) { return false; }
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return false;
+    const data = JSON.parse(saved);
+    currentWeek = data.currentWeek || 1;
+    currentDayIdx = data.currentDayIdx || 0;
+    currentFocus = data.currentFocus || 'balanced';
+    currentMode = data.currentMode || 'bodyweight';
+    trainingDays = data.trainingDays || 4;
+    playerStats = data.playerStats || { core:{xp:0,lvl:1}, power:{xp:0,lvl:1}, mob:{xp:0,lvl:1}, iron:{xp:0,lvl:1} };
+    userOverrides = data.userOverrides || {};
+    ironSetup = Object.assign({ startingRepsChoice:5, squatE1RM:0, benchE1RM:0, deadliftE1RM:0, sumoE1RM:0, ohpE1RM:0, sessionFocus:'ppl' }, data.ironSetup || {});
+    weightLogs = data.weightLogs || {};
+    modifiers = data.modifiers || {};
+    setCompletions = data.setCompletions || {};
+    warmupCompletions = data.warmupCompletions || {};
+    if (data.equipmentAvailable) equipmentAvailable = Object.assign({}, equipmentAvailable, data.equipmentAvailable);
+    injurySwaps = data.injurySwaps || {};
+    // FIX: rebuild completedStats as proper Sets
+    completedStats = {};
+    const raw = data.completedStats || {};
+    for (let i = 0; i < 7; i++) {
+      completedStats[i] = new Set(Array.isArray(raw[i]) ? raw[i] : []);
+    }
+    activeSchedule = data.activeSchedule && data.activeSchedule.length === 7 ? data.activeSchedule : generateSchedule(currentFocus);
+    return true;
+  } catch(e) {
+    console.warn('Load failed:', e);
+    return false;
   }
-  return false;
 }
 
 function exportData() {
   saveGame();
   const data = localStorage.getItem(STORAGE_KEY);
-  if (!data) return alert("No data to save yet!");
+  if (!data) { alert("No data to save yet!"); return; }
   const blob = new Blob([data], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -434,8 +437,10 @@ function importData(event) {
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
-      JSON.parse(e.target.result); localStorage.setItem(STORAGE_KEY, e.target.result);
-      alert("Progress restored! Reloading..."); location.reload();
+      JSON.parse(e.target.result);
+      localStorage.setItem(STORAGE_KEY, e.target.result);
+      alert("Progress restored! Reloading...");
+      location.reload();
     } catch(err) { alert("Error reading backup file."); }
   };
   reader.readAsText(file); event.target.value = '';
@@ -452,12 +457,14 @@ const XP_PER_LEVEL = 100;
 const statMapping = { core: 'core', glute: 'power', arm: 'power', stretch: 'mob', iron: 'iron' };
 
 function addXP(category, amount) {
-  const k = statMapping[category] || 'core'; playerStats[k].xp += amount;
+  const k = statMapping[category] || 'core';
+  playerStats[k].xp += amount;
   while (playerStats[k].xp >= XP_PER_LEVEL) { playerStats[k].lvl++; playerStats[k].xp -= XP_PER_LEVEL; }
   updateStatUI();
 }
 function removeXP(category, amount) {
-  const k = statMapping[category] || 'core'; playerStats[k].xp -= amount;
+  const k = statMapping[category] || 'core';
+  playerStats[k].xp -= amount;
   if (playerStats[k].xp < 0 && playerStats[k].lvl > 1) { playerStats[k].lvl--; playerStats[k].xp += XP_PER_LEVEL; }
   else if (playerStats[k].xp < 0) playerStats[k].xp = 0;
   updateStatUI();
@@ -465,8 +472,10 @@ function removeXP(category, amount) {
 function updateStatUI() {
   ['core','power','mob','iron'].forEach(key => {
     const cap = key.charAt(0).toUpperCase() + key.slice(1);
-    document.getElementById(`lvl${cap}`).textContent = `Lv.${playerStats[key].lvl}`;
-    document.getElementById(`bar${cap}`).style.width = `${(playerStats[key].xp / XP_PER_LEVEL)*100}%`;
+    const lvlEl = document.getElementById(`lvl${cap}`);
+    const barEl = document.getElementById(`bar${cap}`);
+    if (lvlEl) lvlEl.textContent = `Lv.${playerStats[key].lvl}`;
+    if (barEl) barEl.style.width = `${(playerStats[key].xp / XP_PER_LEVEL) * 100}%`;
   });
 }
 
@@ -474,7 +483,6 @@ function updateStatUI() {
 // EXERCISE DATABASE — BODYWEIGHT & CALISTHENICS
 // ===================================================
 const db = {
-  // CORE
   c_iso: { cat:'core', theme:'theme-core', title:'Core Isometric', equip:[], type:'time', vars:[
     { name:'Full Plank', desc:'Straight line from head to heels. Push floor away.', base:20 },
     { name:'Plank Leg Lifts', desc:'In plank, alternate lifting one leg 2 inches off floor.', base:25 },
@@ -511,7 +519,7 @@ const db = {
     { name:'Copenhagen Plank', desc:'Side plank with top foot on a chair. Squeeze inner thigh.', base:15 }
   ]},
   c_antirot: { cat:'core', theme:'theme-core', title:'Anti-Rotation', equip:[], type:'reps_side', vars:[
-    { name:'Plank Shoulder Taps', desc:'Tap opposite shoulder. Don\'t let hips sway.', base:8 },
+    { name:'Plank Shoulder Taps', desc:"Tap opposite shoulder. Don't let hips sway.", base:8 },
     { name:'Plank Reaches', desc:'Reach arm straight out front. Hold 2s.', base:6 },
     { name:'Plank Pull-Throughs', desc:'Drag a heavy item from outside left to right side.', base:6 },
     { name:'Bear Crawl Steps', desc:'Hover knees. Step opposite arm/leg.', base:8 },
@@ -530,8 +538,6 @@ const db = {
     { name:'Towel Face Pulls', desc:'Pull taut towel to nose, squeezing blades.', base:12 },
     { name:'Superman to Lat Pull', desc:'In superman, mimic a pull-up.', base:10 }
   ]},
-  
-  // ELITE CALISTHENICS CORE
   c_front_lever: { cat:'core', theme:'theme-core', title:'Front Lever', equip:['pullup_bar'], type:'time', vars:[
     { name:'Tuck Front Lever', desc:'Hang from bar, tuck knees to chest, pull back parallel.', base:10 },
     { name:'Advanced Tuck Lever', desc:'Open hip angle slightly. Back flat.', base:10 },
@@ -562,8 +568,6 @@ const db = {
     { name:'Standing Eccentric', desc:'Stand, roll all the way out slowly. Drop to knees to return.', base:4 },
     { name:'Full Standing Rollout', desc:'Stand, roll out, and pull back up to standing.', base:2 }
   ]},
-
-  // GLUTES & LEGS
   g_squat: { cat:'glute', theme:'theme-glute', title:'Squat Pattern', equip:[], type:'reps', vars:[
     { name:'Bodyweight Squat', desc:'Sink hips down and back to knee level.', base:8 },
     { name:'Pause Squats', desc:'Hold the bottom for 3 full seconds per rep.', base:6 },
@@ -613,8 +617,6 @@ const db = {
     { name:'Squat Jumps', desc:'Squat down, explode up as high as possible.', base:8 },
     { name:'Split Jumps', desc:'Jump and switch legs in air from lunge.', base:12 }
   ]},
-
-  // UPPER BODY
   a_push: { cat:'arm', theme:'theme-arm', title:'Horizontal Push', equip:[], type:'reps', vars:[
     { name:'Incline Push-Up', desc:'Hands on counter/chair.', base:8 },
     { name:'Standard Push-Up', desc:'From floor. Chest to deck.', base:8 },
@@ -657,8 +659,6 @@ const db = {
     { name:'Diamond Push-Up', desc:'Hands in diamond shape. Elbows track back.', base:6 },
     { name:'Sphinx Push-Ups', desc:'Bodyweight tricep extension from floor.', base:6 }
   ]},
-
-  // CALISTHENICS PULLS
   a_bar_mu: { cat:'arm', theme:'theme-arm', title:'Bar Muscle-Up', equip:['pullup_bar'], type:'reps', vars:[
     { name:'Kipping Pull-Ups', desc:'Use momentum to pull high.', base:5 },
     { name:'Band-Assisted Muscle-Up', desc:'Use heavy band. Focus on wrist turnover.', base:3 },
@@ -677,8 +677,6 @@ const db = {
     { name:'Skin the Cat (Bent)', desc:'Rotate fully backward to German hang.', base:3 },
     { name:'Full Skin the Cat', desc:'Keep legs perfectly straight through entire motion.', base:2 }
   ]},
-
-  // MOBILITY
   s_hip: { cat:'stretch', theme:'theme-stretch', title:'Hip Mobility', equip:[], type:'time_side', vars:[
     { name:'Posterior Tilt Lunge', desc:'Shallow lunge. Tuck pelvis. Intense stretch.', base:20 },
     { name:'Kneeling Hip Flexor', desc:'Back knee down, squeeze glute. Reach up.', base:25 },
@@ -745,158 +743,49 @@ const db = {
 };
 
 // ===================================================
-// IRON / BARBELL DATABASE
+// IRON DATABASE
 // ===================================================
 const ironDB = {
-  // MAIN LIFTS
-  squat: {
-    name: 'Back Squat', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
-    desc: 'Bar on upper traps. Brace hard, chest up, sit between heels.',
-    cues: ['Brace hard', 'Knees track over toes', 'Drive floor away']
-  },
-  squat_light: {
-    name: 'Back Squat (Light)', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' } ],
-    desc: 'Lighter squat session focusing on speed and technique, balancing the heavy deadlift.',
-    cues: ['Speed out of the hole', 'Perfect form']
-  },
-  bench: {
-    name: 'Flat Bench Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'flat_bench'],
-    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
-    desc: 'Arch back, bar touches sternum. Leg drive is key.',
-    cues: ['Bend the bar', 'Touch, don\'t bounce', 'Leg drive']
-  },
-  deadlift: {
-    name: 'Conventional Deadlift', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
-    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1' } ],
-    desc: 'Bar over mid-foot. Take slack out. Push floor away.',
-    cues: ['Push floor away', 'Lats tight', 'Squeeze glutes at lockout']
-  },
-  deadlift_light: {
-    name: 'Deadlift (Light)', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
-    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' } ],
-    desc: 'Lighter deadlift session focusing on form and bar speed, balancing the heavy squats.',
-    cues: ['Explosive pull', 'Keep lats engaged']
-  },
-  sumo: {
-    name: 'Sumo Deadlift', cat: 'iron', theme: 'theme-iron', equip: ['barbell', 'plates'],
-    warmup: [ { text: 'Empty bar × 8' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1' } ],
-    desc: 'Wide stance. Push knees out hard. Hips close to bar.',
-    cues: ['Spread the floor', 'Hips close to bar', 'Drive knees out']
-  },
-  ohp: {
-    name: 'Overhead Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [ { text: 'Empty bar × 10' }, { text: '50% × 5' }, { text: '70% × 3' }, { text: '85% × 1–2' } ],
-    desc: 'Brace hard. Press bar up and back. Shrug traps at lockout.',
-    cues: ['Move head back', 'Full lockout', 'Squeeze glutes']
-  },
-
-  // ACCESSORIES
-  db_row: {
-    name: 'Dumbbell Row', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
-    warmup: [{ text: 'Warmup weight × 8' }], desc: 'Pull DB to hip. Do not rotate torso.', cues: ['Lead with elbow', 'Pull to hip']
-  },
-  seal_row: {
-    name: 'Seal Row', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
-    warmup: [], desc: 'Lie face down on bench, row dumbbells up.', cues: ['Squeeze scapula', 'No momentum']
-  },
-  barbell_row: {
-    name: 'Barbell Row', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [{ text: 'Empty bar × 10' }], desc: 'Hinge over, pull bar to belly button.', cues: ['Keep back flat', 'Pull with lats']
-  },
-  db_curl: {
-    name: 'Dumbbell Curl', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Elbows pinned. Supinate at top.', cues: ['Elbows pinned', 'Full ROM']
-  },
-  barbell_curl: {
-    name: 'Barbell Curl', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [], desc: 'Strict barbell curl.', cues: ['No swinging', 'Squeeze biceps']
-  },
-  zottman_curl: {
-    name: 'Zottman Curl', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Curl up palms-up, lower palms-down.', cues: ['Full supination up', 'Controlled pronated down']
-  },
-  db_lateral: {
-    name: 'Lateral Raise', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Lead with elbows. Stop at shoulder height.', cues: ['Lead with elbows', 'Slow negative']
-  },
-  banded_lateral: {
-    name: 'Banded Lateral Raise', cat: 'iron', theme: 'theme-iron', equip: ['bands'],
-    warmup: [], desc: 'Constant tension lateral raise with band.', cues: ['Controlled tempo']
-  },
-  db_split_squat: {
-    name: 'Static Split Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Step one foot forward and one foot back. Lower your back knee straight down toward the floor, keeping your front foot flat.', cues: ['Drop straight down', 'Front heel stays planted', 'Keep torso steady']
-  },
-  db_bstance_squat: {
-    name: 'B-Stance Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Staggered stance squat where the back foot is just a kickstand for balance.', cues: ['Back foot is a kickstand', 'Hinge slightly forward', 'Drive through front heel']
-  },
-  db_rfe_split: {
-    name: 'RFE Split Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'flat_bench'],
-    warmup: [], desc: 'Rear foot on bench. Vertical torso. Lower back knee.', cues: ['Vertical torso', 'Full depth']
-  },
-  db_rdl: {
-    name: 'Romanian Deadlift (DB)', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Hinge hips back. Soft knees.', cues: ['Push hips back', 'DBs close to legs']
-  },
-  db_goblet: {
-    name: 'Goblet Squat', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Hold DB at chest. Elbows inside knees.', cues: ['Chest up', 'Full depth']
-  },
-  db_incline: {
-    name: 'Incline DB Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells', 'adjustable_bench'],
-    warmup: [{ text: 'Light weight × 10' }], desc: 'Press DBs up on 30-45 degree bench.', cues: ['Control descent', 'Full stretch']
-  },
-  db_tricep_ext: {
-    name: 'DB Tricep Extension', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Hold DB overhead. Lower behind head.', cues: ['Elbows stay in', 'Full stretch']
-  },
-  flat_db_bench: {
-    name: 'Flat DB Bench Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
-    warmup: [{ text: 'Light weight × 10' }], desc: 'Press up and slightly in.', cues: ['Elbows 45°', 'Full chest stretch']
-  },
-  jm_press: {
-    name: 'JM Press', cat: 'iron', theme: 'theme-iron', equip: ['barbell','flat_bench'],
-    warmup: [], desc: 'Hybrid close-grip bench / skullcrusher.', cues: ['Elbows forward', 'Drive to lockout']
-  },
-  tate_press: {
-    name: 'Tate Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
-    warmup: [], desc: 'DB tips to chest, elbows wide. Press up.', cues: ['Elbows wide', 'DB tips to chest']
-  },
-  svend_press: {
-    name: 'Svend Press', cat: 'iron', theme: 'theme-iron', equip: ['plates'],
-    warmup: [], desc: 'Press a plate between palms forward. Squeeze hard.', cues: ['Crush the plate', 'Slow press']
-  },
-  cuban_press: {
-    name: 'Cuban Press', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells'],
-    warmup: [], desc: 'Upright row → external rotate → press.', cues: ['Full rotation', 'Strict press']
-  },
-  powell_raise: {
-    name: 'Powell Raise', cat: 'iron', theme: 'theme-iron', equip: ['dumbbells','flat_bench'],
-    warmup: [], desc: 'Lie on side. Sweep DB from hip to overhead.', cues: ['Thumb down', 'Full arc']
-  },
-  hack_squat_bb: {
-    name: 'Barbell Hack Squat', cat: 'iron', theme: 'theme-iron', equip: ['barbell'],
-    warmup: [], desc: 'Bar behind legs. Squat down keeping torso upright.', cues: ['Torso tall', 'Push knees out']
-  },
-  ghr: {
-    name: 'Glute-Ham Raise', cat: 'iron', theme: 'theme-iron', equip: ['ghr_machine'],
-    warmup: [], desc: 'Lower body from horizontal, pull back with hamstrings.', cues: ['Neutral spine', 'Hams pull']
-  },
-  kot_split_squat: {
-    name: 'KOT Split Squat', cat: 'iron', theme: 'theme-iron', equip: [],
-    warmup: [], desc: 'Drive knee far past toes. Rebuilds patellar tendon.', cues: ['Heel stays down', 'Load the knee']
-  }
+  squat: { name:'Back Squat', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[{text:'Empty bar × 10'},{text:'50% × 5'},{text:'70% × 3'},{text:'85% × 1–2'}], desc:'Bar on upper traps. Brace hard, chest up, sit between heels.', cues:['Brace hard','Knees track over toes','Drive floor away'] },
+  squat_light: { name:'Back Squat (Light)', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[{text:'Empty bar × 10'},{text:'50% × 5'}], desc:'Lighter squat session focusing on speed and technique.', cues:['Speed out of the hole','Perfect form'] },
+  bench: { name:'Flat Bench Press', cat:'iron', theme:'theme-iron', equip:['barbell','flat_bench'], warmup:[{text:'Empty bar × 10'},{text:'50% × 5'},{text:'70% × 3'},{text:'85% × 1–2'}], desc:'Arch back, bar touches sternum. Leg drive is key.', cues:['Bend the bar',"Touch, don't bounce",'Leg drive'] },
+  deadlift: { name:'Conventional Deadlift', cat:'iron', theme:'theme-iron', equip:['barbell','plates'], warmup:[{text:'Empty bar × 8'},{text:'50% × 5'},{text:'70% × 3'},{text:'85% × 1'}], desc:'Bar over mid-foot. Take slack out. Push floor away.', cues:['Push floor away','Lats tight','Squeeze glutes at lockout'] },
+  deadlift_light: { name:'Deadlift (Light)', cat:'iron', theme:'theme-iron', equip:['barbell','plates'], warmup:[{text:'Empty bar × 8'},{text:'50% × 5'}], desc:'Lighter deadlift session focusing on form and bar speed.', cues:['Explosive pull','Keep lats engaged'] },
+  sumo: { name:'Sumo Deadlift', cat:'iron', theme:'theme-iron', equip:['barbell','plates'], warmup:[{text:'Empty bar × 8'},{text:'50% × 5'},{text:'70% × 3'},{text:'85% × 1'}], desc:'Wide stance. Push knees out hard. Hips close to bar.', cues:['Spread the floor','Hips close to bar','Drive knees out'] },
+  ohp: { name:'Overhead Press', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[{text:'Empty bar × 10'},{text:'50% × 5'},{text:'70% × 3'},{text:'85% × 1–2'}], desc:'Brace hard. Press bar up and back. Shrug traps at lockout.', cues:['Move head back','Full lockout','Squeeze glutes'] },
+  db_row: { name:'Dumbbell Row', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[{text:'Warmup weight × 8'}], desc:'Pull DB to hip. Do not rotate torso.', cues:['Lead with elbow','Pull to hip'] },
+  seal_row: { name:'Seal Row', cat:'iron', theme:'theme-iron', equip:['dumbbells','flat_bench'], warmup:[], desc:'Lie face down on bench, row dumbbells up.', cues:['Squeeze scapula','No momentum'] },
+  barbell_row: { name:'Barbell Row', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[{text:'Empty bar × 10'}], desc:'Hinge over, pull bar to belly button.', cues:['Keep back flat','Pull with lats'] },
+  db_curl: { name:'Dumbbell Curl', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Elbows pinned. Supinate at top.', cues:['Elbows pinned','Full ROM'] },
+  barbell_curl: { name:'Barbell Curl', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[], desc:'Strict barbell curl.', cues:['No swinging','Squeeze biceps'] },
+  zottman_curl: { name:'Zottman Curl', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Curl up palms-up, lower palms-down.', cues:['Full supination up','Controlled pronated down'] },
+  db_lateral: { name:'Lateral Raise', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Lead with elbows. Stop at shoulder height.', cues:['Lead with elbows','Slow negative'] },
+  banded_lateral: { name:'Banded Lateral Raise', cat:'iron', theme:'theme-iron', equip:['bands'], warmup:[], desc:'Constant tension lateral raise with band.', cues:['Controlled tempo'] },
+  db_split_squat: { name:'Static Split Squat', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Step one foot forward, one back. Lower back knee straight down.', cues:['Drop straight down','Front heel stays planted','Keep torso steady'] },
+  db_bstance_squat: { name:'B-Stance Squat', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Staggered stance squat where back foot is a kickstand for balance.', cues:['Back foot is a kickstand','Hinge slightly forward','Drive through front heel'] },
+  // FIX: removed flat_bench requirement from db_rfe_split to avoid silent filter crash — bench is optional
+  db_rfe_split: { name:'RFE Split Squat', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Rear foot elevated on bench or chair. Vertical torso. Lower back knee.', cues:['Vertical torso','Full depth'] },
+  db_rdl: { name:'Romanian Deadlift (DB)', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Hinge hips back. Soft knees.', cues:['Push hips back','DBs close to legs'] },
+  db_goblet: { name:'Goblet Squat', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Hold DB at chest. Elbows inside knees.', cues:['Chest up','Full depth'] },
+  db_incline: { name:'Incline DB Press', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[{text:'Light weight × 10'}], desc:'Press DBs up on 30-45 degree bench or floor/pillow angle.', cues:['Control descent','Full stretch'] },
+  db_tricep_ext: { name:'DB Tricep Extension', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Hold DB overhead. Lower behind head.', cues:['Elbows stay in','Full stretch'] },
+  flat_db_bench: { name:'Flat DB Bench Press', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[{text:'Light weight × 10'}], desc:'Press up and slightly in.', cues:['Elbows 45°','Full chest stretch'] },
+  jm_press: { name:'JM Press', cat:'iron', theme:'theme-iron', equip:['barbell','flat_bench'], warmup:[], desc:'Hybrid close-grip bench / skullcrusher.', cues:['Elbows forward','Drive to lockout'] },
+  tate_press: { name:'Tate Press', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'DB tips to chest, elbows wide. Press up.', cues:['Elbows wide','DB tips to chest'] },
+  svend_press: { name:'Svend Press', cat:'iron', theme:'theme-iron', equip:['plates'], warmup:[], desc:'Press a plate between palms forward. Squeeze hard.', cues:['Crush the plate','Slow press'] },
+  cuban_press: { name:'Cuban Press', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Upright row → external rotate → press.', cues:['Full rotation','Strict press'] },
+  powell_raise: { name:'Powell Raise', cat:'iron', theme:'theme-iron', equip:['dumbbells'], warmup:[], desc:'Lie on side. Sweep DB from hip to overhead.', cues:['Thumb down','Full arc'] },
+  hack_squat_bb: { name:'Barbell Hack Squat', cat:'iron', theme:'theme-iron', equip:['barbell'], warmup:[], desc:'Bar behind legs. Squat down keeping torso upright.', cues:['Torso tall','Push knees out'] },
+  ghr: { name:'Glute-Ham Raise', cat:'iron', theme:'theme-iron', equip:['ghr_machine'], warmup:[], desc:'Lower body from horizontal, pull back with hamstrings.', cues:['Neutral spine','Hams pull'] },
+  kot_split_squat: { name:'KOT Split Squat', cat:'iron', theme:'theme-iron', equip:[], warmup:[], desc:'Drive knee far past toes. Rebuilds patellar tendon.', cues:['Heel stays down','Load the knee'] }
 };
 
-// ── IRON ACCESSORY SWAP POOLS ──
 const ironPools = {
-  push: ['db_incline', 'flat_db_bench', 'db_lateral', 'banded_lateral', 'db_tricep_ext', 'jm_press', 'tate_press', 'svend_press', 'cuban_press', 'powell_raise'],
-  pull: ['db_row', 'seal_row', 'barbell_row', 'db_curl', 'barbell_curl', 'zottman_curl'],
-  legs: ['db_split_squat', 'db_bstance_squat', 'db_rdl', 'db_goblet', 'hack_squat_bb', 'ghr', 'kot_split_squat']
+  push: ['db_incline','flat_db_bench','db_lateral','banded_lateral','db_tricep_ext','jm_press','tate_press','svend_press','cuban_press','powell_raise'],
+  pull: ['db_row','seal_row','barbell_row','db_curl','barbell_curl','zottman_curl'],
+  legs: ['db_split_squat','db_bstance_squat','db_rdl','db_goblet','db_rfe_split','hack_squat_bb','ghr','kot_split_squat']
 };
+const bonusPool = [...ironPools.push, ...ironPools.pull, ...ironPools.legs];
 
 function getIronSubCat(exId) {
   if (ironPools.push.includes(exId)) return 'push';
@@ -905,51 +794,48 @@ function getIronSubCat(exId) {
   return null;
 }
 
-// ── INJURY / PREFERENCE SWAP DATABASE (Main Lifts Only) ──
 const injurySwapOptions = {
-squat: [
-    { id: 'db_goblet', name: 'Goblet Squat', reason: 'Lower back friendly', equip: ['dumbbells'] },
-    { id: 'db_split_squat', name: 'Static Split Squat', reason: 'Unilateral focus', equip: ['dumbbells'] },
-    { id: 'kot_split_squat', name: 'KOT Split Squat', reason: 'Knee rehab', equip: [] }
+  squat: [
+    { id:'db_goblet', name:'Goblet Squat', reason:'Lower back friendly', equip:['dumbbells'] },
+    { id:'db_split_squat', name:'Static Split Squat', reason:'Unilateral focus', equip:['dumbbells'] },
+    { id:'kot_split_squat', name:'KOT Split Squat', reason:'Knee rehab', equip:[] }
   ],
   bench: [
-    { id: 'flat_db_bench', name: 'Flat DB Bench', reason: 'Shoulder joint mobility', equip: ['dumbbells','flat_bench'] },
-    { id: 'db_incline', name: 'Incline DB Press', reason: 'Upper chest focus', equip: ['dumbbells','adjustable_bench'] }
+    { id:'flat_db_bench', name:'Flat DB Bench', reason:'Shoulder joint mobility', equip:['dumbbells'] },
+    { id:'db_incline', name:'Incline DB Press', reason:'Upper chest focus', equip:['dumbbells'] }
   ],
   deadlift: [
-    { id: 'sumo', name: 'Sumo Deadlift', reason: 'Lower back strain', equip: ['barbell','plates'] },
-    { id: 'db_rdl', name: 'DB RDL', reason: 'Hamstring isolation', equip: ['dumbbells'] }
+    { id:'sumo', name:'Sumo Deadlift', reason:'Lower back strain', equip:['barbell','plates'] },
+    { id:'db_rdl', name:'DB RDL', reason:'Hamstring isolation', equip:['dumbbells'] }
   ],
   ohp: [
-    { id: 'db_lateral', name: 'Lateral Raise', reason: 'Shoulder impingement', equip: ['dumbbells'] }
+    { id:'db_lateral', name:'Lateral Raise', reason:'Shoulder impingement', equip:['dumbbells'] }
   ]
 };
-
 injurySwapOptions['squat_light'] = injurySwapOptions['squat'];
 injurySwapOptions['deadlift_light'] = injurySwapOptions['deadlift'];
 
-// IRON FOCUS TEMPLATES
 const ironFocusTemplates = {
   ppl: {
     name: 'Push / Pull / Legs',
     sessions: {
-      push: { title: 'Push Day', lifts: ['bench', 'ohp', 'db_incline', 'db_tricep_ext', 'db_lateral'] },
-      pull: { title: 'Pull Day', lifts: ['deadlift', 'db_row', 'db_curl'] },
-      legs: { title: 'Legs Day', lifts: ['squat', 'db_split_squat', 'db_rdl', 'db_goblet'] }
+      push: { title:'Push Day', lifts:['bench','ohp','db_incline','db_tricep_ext','db_lateral'] },
+      pull: { title:'Pull Day', lifts:['deadlift','db_row','db_curl'] },
+      legs: { title:'Legs Day', lifts:['squat','db_split_squat','db_rdl','db_goblet'] }
     }
   },
   upper_lower: {
     name: 'Upper / Lower',
     sessions: {
-      upper: { title: 'Upper Body', lifts: ['bench', 'db_row', 'ohp', 'db_curl', 'db_tricep_ext', 'db_lateral'] },
-      lower: { title: 'Lower Body', lifts: ['squat', 'deadlift', 'db_split_squat', 'db_rdl', 'db_goblet'] }
+      upper: { title:'Upper Body', lifts:['bench','db_row','ohp','db_curl','db_tricep_ext','db_lateral'] },
+      lower: { title:'Lower Body', lifts:['squat','deadlift','db_split_squat','db_rdl','db_goblet'] }
     }
   },
   two_day_fullbody: {
-    name: '2-Day Full Body (Squat & DL)',
+    name: '2-Day Full Body',
     sessions: {
-      a: { title: 'Full Body A', lifts: ['squat', 'bench', 'deadlift_light', 'db_row', 'db_lateral'] },
-      b: { title: 'Full Body B', lifts: ['deadlift', 'ohp', 'squat_light', 'db_incline', 'db_curl'] }
+      a: { title:'Full Body A', lifts:['squat','bench','deadlift_light','db_row','db_lateral'] },
+      b: { title:'Full Body B', lifts:['deadlift','ohp','squat_light','db_incline','db_curl'] }
     }
   }
 };
@@ -1003,16 +889,14 @@ const focusTemplates = {
 };
 
 const pools = {
-  core:['c_iso','c_dyn','c_post','c_pelvic','c_oblique','c_antirot','c_lsit','c_front_lever','c_planche','c_flag','c_dragon_flag','c_ab_wheel'],
-  glute:['g_squat','g_hinge','g_abduct','g_ham','g_lateral','g_quad','g_plyo'],
-  arm:['a_push','a_pull','a_vertpush','a_scap','c_posture','a_bicep','a_tri','a_bar_mu','a_ring_mu','a_skin_cat'],
-  stretch:['s_hip','s_tspine','s_ankle','s_calf','s_ham','s_wrist','s_neck','s_shoulder','s_split']
+  core: ['c_iso','c_dyn','c_post','c_pelvic','c_oblique','c_antirot','c_lsit','c_front_lever','c_planche','c_flag','c_dragon_flag','c_ab_wheel'],
+  glute: ['g_squat','g_hinge','g_abduct','g_ham','g_lateral','g_quad','g_plyo'],
+  arm: ['a_push','a_pull','a_vertpush','a_scap','c_posture','a_bicep','a_tri','a_bar_mu','a_ring_mu','a_skin_cat'],
+  stretch: ['s_hip','s_tspine','s_ankle','s_calf','s_ham','s_wrist','s_neck','s_shoulder','s_split']
 };
 
-const bonusPool = [...ironPools.push, ...ironPools.pull, ...ironPools.legs];
-
 // ===================================================
-// PROGRESSIVE OVERLOAD & WARMUP ENGINE
+// PROGRESSIVE OVERLOAD ENGINE
 // ===================================================
 function getE1RM(liftKey) {
   const baseKey = liftKey.replace('_light', '');
@@ -1026,36 +910,27 @@ function calcWorkingWeight(liftKey, weekNum) {
   const isLight = liftKey.endsWith('_light');
   const cycleWeek = ((weekNum - 1) % 4) + 1;
   const cycle = Math.floor((weekNum - 1) / 4);
-  const progressFactor = 1 + (cycle * 0.025); 
+  const progressFactor = 1 + (cycle * 0.025);
   const adjustedE1RM = e1rm * progressFactor;
-  
-  if (isLight) {
-    return Math.round((adjustedE1RM * 0.65) / 5) * 5;
-  }
-  
-  const intensities = [0.70, 0.75, 0.80, 0.65]; 
-  const weight = adjustedE1RM * intensities[cycleWeek - 1];
-  return Math.round(weight / 5) * 5;
+  if (isLight) return Math.round((adjustedE1RM * 0.65) / 5) * 5;
+  const intensities = [0.70, 0.75, 0.80, 0.65];
+  return Math.round((adjustedE1RM * intensities[cycleWeek - 1]) / 5) * 5;
 }
 
 function calcSetsReps(liftKey, weekNum, isMainSlot) {
   const cycleWeek = ((weekNum - 1) % 4) + 1;
   const isLight = liftKey.endsWith('_light');
-  
-  if (isLight) {
-    return { sets: 3, reps: cycleWeek === 4 ? 8 : 10 }; 
-  }
-  
+  if (isLight) return { sets:3, reps: cycleWeek === 4 ? 8 : 10 };
   if (isMainSlot) {
     const startReps = ironSetup.startingRepsChoice || 5;
-    const setsMap = { 3: 5, 4: 5, 5: 4, 6: 4, 8: 3 };
+    const setsMap = { 3:5, 4:5, 5:4, 6:4, 8:3 };
     const baseSets = setsMap[startReps] || 4;
-    const setsProgression = [baseSets, baseSets, baseSets + 1, Math.max(2, baseSets - 1)];
-    const repsProgression = [startReps, startReps + 1, startReps + 2, Math.max(3, startReps - 2)];
-    return { sets: setsProgression[cycleWeek - 1], reps: repsProgression[cycleWeek - 1] };
+    const sp = [baseSets, baseSets, baseSets+1, Math.max(2, baseSets-1)];
+    const rp = [startReps, startReps+1, startReps+2, Math.max(3, startReps-2)];
+    return { sets: sp[cycleWeek-1], reps: rp[cycleWeek-1] };
   } else {
-    const accRepScheme = [ {s:3, r:12}, {s:3, r:10}, {s:4, r:8}, {s:2, r:15} ];
-    return { sets: accRepScheme[cycleWeek - 1].s, reps: accRepScheme[cycleWeek - 1].r };
+    const acc = [{s:3,r:12},{s:3,r:10},{s:4,r:8},{s:2,r:15}];
+    return { sets: acc[cycleWeek-1].s, reps: acc[cycleWeek-1].r };
   }
 }
 
@@ -1073,34 +948,30 @@ function updateWarmups(exId, weightInput) {
   const wt = parseFloat(weightInput);
   if (isNaN(wt) || wt <= 0) return;
   const pcts = [0, 0.5, 0.7, 0.85];
-  for(let i=1; i<pcts.length; i++) {
+  for (let i = 1; i < pcts.length; i++) {
     const span = document.getElementById(`wu-val-${exId}-${i}`);
-    if(span) span.innerHTML = ` ≈ <strong>${Math.round((wt * pcts[i]) / 5) * 5}lb</strong>`;
+    if (span) span.innerHTML = ` ≈ <strong>${Math.round((wt * pcts[i]) / 5) * 5}lb</strong>`;
   }
 }
 
 function setModifier(exId, modValue) {
   modifiers[`${exId}_${currentWeek}`] = modValue;
   saveGame();
-  showToast(`Modifier set to: ${modValue}`);
+  showToast(`Modifier: ${modValue}`);
 }
 
 // ===================================================
 // SCHEDULE GENERATION
 // ===================================================
 function getIronDayPattern(daysPerWeek) {
-  const patterns = { 2: [1,0,0,0,1,0,0], 3: [1,0,1,0,1,0,0], 4: [1,0,1,0,1,1,0], 5: [1,1,0,1,1,1,0] };
+  const patterns = { 2:[1,0,0,0,1,0,0], 3:[1,0,1,0,1,0,0], 4:[1,0,1,0,1,1,0], 5:[1,1,0,1,1,1,0] };
   return (patterns[daysPerWeek] || patterns[4]).map(v => v === 1);
 }
 
 function generateSchedule(focus) {
   const baseBWDays = focusTemplates[focus] || focusTemplates.balanced;
   const ironPattern = getIronDayPattern(trainingDays);
-  
-  let ironTemplateKey = ironSetup.sessionFocus;
-  if (trainingDays === 2) {
-     ironTemplateKey = 'two_day_fullbody';
-  }
+  let ironTemplateKey = trainingDays === 2 ? 'two_day_fullbody' : (ironSetup.sessionFocus || 'ppl');
   const ironTemplate = ironFocusTemplates[ironTemplateKey] || ironFocusTemplates.ppl;
   const ironSessions = Object.keys(ironTemplate.sessions);
   let ironIdx = 0;
@@ -1110,48 +981,42 @@ function generateSchedule(focus) {
     if (isIron) {
       const sessionKey = ironSessions[ironIdx % ironSessions.length]; ironIdx++;
       const session = ironTemplate.sessions[sessionKey];
-      
+      // FIX: safe null check on ironDB[actId] before accessing .equip
       const filteredLifts = session.lifts.filter(liftId => {
-         const actId = injurySwaps[liftId] || liftId;
-         const data = ironDB[actId];
-         return data ? meetsEquipmentRequirements(data.equip) : true;
+        const actId = injurySwaps[liftId] || liftId;
+        const data = ironDB[actId];
+        return data ? meetsEquipmentRequirements(data.equip) : false;
       });
-      return { day: d.day, focus: session.title, ids: filteredLifts, isIron: true };
+      // Always keep at least the main lift to avoid empty sessions
+      const safeLifts = filteredLifts.length > 0 ? filteredLifts : [session.lifts[0]];
+      return { day:d.day, focus:session.title, ids:safeLifts, isIron:true };
     }
-    const bwFiltered = d.ids.filter(id => { const data = db[id]; return data ? meetsEquipmentRequirements(data.equip) : true; });
-    if(bwFiltered.length === 0) bwFiltered.push('c_iso');
-    return { ...d, ids: bwFiltered, isIron: false };
+    const bwFiltered = d.ids.filter(id => { const data = db[id]; return data ? meetsEquipmentRequirements(data.equip) : false; });
+    return { ...d, ids: bwFiltered.length > 0 ? bwFiltered : ['c_iso'], isIron:false };
   });
 }
 
 function getExerciseData(exId, weekNum) {
   const track = db[exId];
   if (!track) return null;
-
   const isStretch = track.cat === 'stretch';
   const phase = Math.ceil(weekNum / 4);
   const subWeek = (weekNum - 1) % 4;
-
   let defaultVarIdx = Math.min(phase - 1, track.vars.length - 1);
   let activeVarIdx = userOverrides[exId] !== undefined ? userOverrides[exId] : defaultVarIdx;
-  activeVarIdx = Math.min(activeVarIdx, track.vars.length - 1);
+  activeVarIdx = Math.max(0, Math.min(activeVarIdx, track.vars.length - 1));
   const variation = track.vars[activeVarIdx];
-
   let sets = isStretch ? 1 : 2;
   if (!isStretch && phase >= 5) sets = 3;
-
   let val = variation.base;
   if (track.type.includes('time')) val += (subWeek * 5);
   else val += (subWeek * 2);
-
   let meta = '';
   if (track.type === 'time') meta = `⏱ ${sets}×${val}s`;
   if (track.type === 'time_side') meta = `⏱ ${sets}×${val}s/side`;
   if (track.type === 'reps') meta = `🔁 ${sets}×${val}`;
   if (track.type === 'reps_side') meta = `🔁 ${sets}×${val}/side`;
-
   const xpReward = Math.max(10, Math.round((sets * val) / (track.type.includes('time') ? 4 : 1)));
-
   return {
     name: variation.name, desc: variation.desc, meta, xpReward,
     timerVal: track.type.includes('time') ? val : 0, levelNum: activeVarIdx + 1,
@@ -1163,10 +1028,8 @@ function getExerciseData(exId, weekNum) {
 function getIronExerciseData(exId, weekNum, isMainSlot) {
   const lift = ironDB[exId];
   if (!lift) return null;
-
   const sr = calcSetsReps(exId, weekNum, isMainSlot);
   let workingWeight = null, poData = null;
-
   if (isMainSlot && getE1RM(exId) > 0) {
     workingWeight = calcWorkingWeight(exId, weekNum);
     poData = getPoData(exId, weekNum);
@@ -1174,9 +1037,7 @@ function getIronExerciseData(exId, weekNum, isMainSlot) {
     const saved = weightLogs[`${exId}_${weekNum}`];
     if (saved) workingWeight = saved.weight;
   }
-
   const meta = workingWeight ? `🏋️ ${sr.sets}×${sr.reps} @ ${workingWeight}lb` : `🏋️ ${sr.sets}×${sr.reps}`;
-
   return {
     name: lift.name, desc: lift.desc, meta, xpReward: sr.sets * sr.reps * 3,
     timerVal: 0, levelNum: 1, isOverride: false, trackCat: 'iron',
@@ -1187,10 +1048,92 @@ function getIronExerciseData(exId, weekNum, isMainSlot) {
 }
 
 // ===================================================
+// TIMER — FIX: fully implemented start/reset/tick
+// ===================================================
+const CIRC = 2 * Math.PI * 26; // 163.36
+
+function buildTimer(exId, total) {
+  return `
+    <div class="timer-wrap">
+      <div class="timer-svg-wrap">
+        <svg class="timer-svg" viewBox="0 0 54 54">
+          <circle class="timer-bg" cx="27" cy="27" r="26"/>
+          <circle class="timer-ring" id="ring-${exId}" cx="27" cy="27" r="26"
+            style="stroke-dasharray:${CIRC.toFixed(2)};stroke-dashoffset:${CIRC.toFixed(2)};"/>
+        </svg>
+        <div class="timer-display" id="timerDisplay-${exId}">${formatTime(total)}</div>
+      </div>
+      <div class="timer-controls">
+        <div class="timer-btns">
+          <button class="timer-btn start" id="timerStartBtn-${exId}"
+            onclick="startTimer('${exId}',${total})">▶ Start</button>
+          <button class="timer-btn reset"
+            onclick="resetTimer('${exId}',${total})">Reset</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function formatTime(s) {
+  return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+}
+
+function startTimer(exId, total) {
+  // If already running, pause it
+  if (timerState[exId] && timerState[exId].interval) {
+    clearInterval(timerState[exId].interval);
+    timerState[exId].interval = null;
+    const btn = document.getElementById(`timerStartBtn-${exId}`);
+    if (btn) { btn.textContent = '▶ Resume'; btn.classList.remove('running'); }
+    return;
+  }
+  // Initialize if new
+  if (!timerState[exId] || timerState[exId].total !== total) {
+    timerState[exId] = { remaining: total, total, interval: null };
+  }
+  const state = timerState[exId];
+  const btn = document.getElementById(`timerStartBtn-${exId}`);
+  if (btn) { btn.textContent = '⏸ Pause'; btn.classList.add('running'); }
+
+  state.interval = setInterval(() => {
+    state.remaining--;
+    const display = document.getElementById(`timerDisplay-${exId}`);
+    const ring = document.getElementById(`ring-${exId}`);
+    if (display) display.textContent = formatTime(state.remaining);
+    if (ring) {
+      const progress = state.remaining / state.total;
+      ring.style.strokeDashoffset = (CIRC * progress).toFixed(2);
+    }
+    if (state.remaining <= 0) {
+      clearInterval(state.interval);
+      state.interval = null;
+      if (display) display.textContent = 'Done!';
+      if (btn) { btn.textContent = '✓ Done'; btn.classList.remove('running'); }
+      showToast('⏱ Time up! Great set.');
+    }
+  }, 1000);
+}
+
+function resetTimer(exId, total) {
+  if (timerState[exId] && timerState[exId].interval) {
+    clearInterval(timerState[exId].interval);
+  }
+  timerState[exId] = { remaining: total, total, interval: null };
+  const display = document.getElementById(`timerDisplay-${exId}`);
+  const ring = document.getElementById(`ring-${exId}`);
+  const btn = document.getElementById(`timerStartBtn-${exId}`);
+  if (display) display.textContent = formatTime(total);
+  if (ring) ring.style.strokeDashoffset = CIRC.toFixed(2);
+  if (btn) { btn.textContent = '▶ Start'; btn.classList.remove('running'); }
+}
+
+// ===================================================
 // RENDER ENGINE
 // ===================================================
 function renderSchedule() {
-  document.getElementById('weekSchedule').innerHTML = activeSchedule.map((s, i) => `
+  const el = document.getElementById('weekSchedule');
+  if (!el) return;
+  el.innerHTML = activeSchedule.map((s, i) => `
     <button class="day-btn ${i === currentDayIdx ? 'active' : ''} ${s.isIron ? 'iron-day' : ''}" onclick="selectDay(${i})">
       <span class="day-name">${s.day}</span>
       <span class="day-focus">${s.focus}</span>
@@ -1201,9 +1144,20 @@ function renderSchedule() {
 
 function renderWorkout() {
   const dayData = activeSchedule[currentDayIdx];
-  document.getElementById('dailyFocusTitle').textContent = `${dayData.day}: ${dayData.focus}`;
+  if (!dayData) return;
+  const titleEl = document.getElementById('dailyFocusTitle');
+  if (titleEl) titleEl.textContent = `${dayData.day}: ${dayData.focus}`;
+  // Clear any running timers before re-render
+  Object.keys(timerState).forEach(key => {
+    if (timerState[key] && timerState[key].interval) {
+      clearInterval(timerState[key].interval);
+      timerState[key].interval = null;
+    }
+  });
   const container = document.getElementById('workoutContainer');
+  if (!container) return;
   container.innerHTML = '';
+  ensureCompletedStats();
 
   if (dayData.isIron) {
     renderIronDay(dayData, container);
@@ -1226,21 +1180,21 @@ function renderWorkout() {
     }
 
     const setKey = `${exId}_${currentDayIdx}_${currentWeek}`;
-    if (!setCompletions[setKey]) setCompletions[setKey] = new Array(data.sets).fill(false);
-    const sets = setCompletions[setKey];
-
-    const setsHTML = buildSetBubbles(setKey, sets, data.sets, false, data.timerVal > 0 ? 60 : 90);
-
-    let timerHtml = '';
-    if (data.timerVal > 0) {
-      timerHtml = buildTimer(exId, data.timerVal);
+    if (!setCompletions[setKey] || setCompletions[setKey].length !== data.sets) {
+      setCompletions[setKey] = new Array(data.sets).fill(false);
     }
+
+    const setsHTML = buildSetBubbles(setKey, setCompletions[setKey], data.sets, false);
+    const timerHtml = data.timerVal > 0 ? buildTimer(exId, data.timerVal) : '';
 
     container.innerHTML += `
       <div class="exercise-card ${data.trackTheme} ${isChecked ? 'completed' : ''}" id="card-${exId}">
         <div class="card-top" onclick="toggleDetail('${exId}')">
-          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${exId}" onclick="toggleCheck(event,'${exId}','${data.trackCat}',${data.xpReward})">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${exId}"
+            onclick="toggleCheck(event,'${exId}','${data.trackCat}',${data.xpReward})">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+              <polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
           <div class="card-info">
             <div class="exercise-name">${data.name}</div>
@@ -1251,7 +1205,9 @@ function renderWorkout() {
             </div>
           </div>
           <button class="expand-btn" id="btn-${exId}">
-            <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><polyline points="4,7 9,12 14,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+              <polyline points="4,7 9,12 14,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
         <div class="card-detail" id="detail-${exId}">
@@ -1268,16 +1224,21 @@ function renderWorkout() {
 }
 
 function renderIronDay(dayData, container) {
-  const mainLifts = ['squat','bench','deadlift','sumo','ohp', 'squat_light', 'deadlift_light'];
+  const mainLifts = ['squat','bench','deadlift','sumo','ohp','squat_light','deadlift_light'];
   let lastTitle = '';
 
   dayData.ids.forEach((baseExId, arrayIdx) => {
     const isMainSlot = mainLifts.includes(baseExId);
     const actualExId = injurySwaps[baseExId] || baseExId;
+    // FIX: guard against missing ironDB entry after swap
+    if (!ironDB[actualExId]) return;
     const data = getIronExerciseData(actualExId, currentWeek, isMainSlot);
     if (!data) return;
-    
+
     const isChecked = completedStats[currentDayIdx].has(actualExId);
+    const currentMod = modifiers[`${actualExId}_${currentWeek}`] || 'Standard';
+    const savedWeightEntry = weightLogs[`${actualExId}_${currentWeek}`];
+    const savedWeight = savedWeightEntry ? savedWeightEntry.weight : (data.workingWeight || '');
 
     if (data.trackTitle !== lastTitle) {
       lastTitle = data.trackTitle;
@@ -1289,72 +1250,66 @@ function renderIronDay(dayData, container) {
     }
 
     const setKey = `${actualExId}_${currentDayIdx}_${currentWeek}`;
-    if (!setCompletions[setKey]) setCompletions[setKey] = new Array(data.sets).fill(false);
-
-    const setsHTML = buildSetBubbles(setKey, setCompletions[setKey], data.sets, true, 180);
-    const savedWeight = (weightLogs[`${actualExId}_${currentWeek}`] || {}).weight || data.workingWeight || '';
-    const currentMod = modifiers[`${actualExId}_${currentWeek}`] || 'Standard';
-
-    let warmupHTML = '';
-    if (data.warmup && data.warmup.length > 0) {
-      const warmupSteps = data.warmup.map((w, wi) => {
-        let stepText = w.text;
-        let dynamicSpan = '';
-        if (data.isMain && wi > 0) {
-          const pcts = [0, 0.5, 0.7, 0.85];
-          const pctWeight = savedWeight ? Math.round((savedWeight * pcts[wi] / 5)) * 5 : 0;
-          dynamicSpan = `<span id="wu-val-${actualExId}-${wi}">${pctWeight ? ` ≈ <strong>${pctWeight}lb</strong>` : ''}</span>`;
-          stepText = stepText.replace(/50%|70%|85%/, m => m + dynamicSpan);
-        }
-        return `
-          <div class="warmup-step">
-            <div class="warmup-check" id="wuchk-${actualExId}-${wi}" onclick="this.classList.toggle('done')"></div>
-            <div class="warmup-text">${stepText}</div>
-          </div>`;
-      }).join('');
-      
-      warmupHTML = `
-        <div class="warmup-section">
-          <div class="warmup-title">🔥 Warm-Up Protocol</div>
-          <div class="warmup-steps open">${warmupSteps}</div>
-        </div>`;
+    if (!setCompletions[setKey] || setCompletions[setKey].length !== data.sets) {
+      setCompletions[setKey] = new Array(data.sets).fill(false);
     }
 
+    const setsHTML = buildSetBubbles(setKey, setCompletions[setKey], data.sets, true);
+
+    // Warmup HTML
+    let warmupHTML = '';
+    if (data.warmup && data.warmup.length > 0) {
+      const steps = data.warmup.map((w, wi) => {
+        let stepText = w.text;
+        if (data.isMain && wi > 0 && savedWeight) {
+          const pcts = [0, 0.5, 0.7, 0.85];
+          const pctWeight = Math.round((savedWeight * pcts[wi]) / 5) * 5;
+          const tag = `<span id="wu-val-${actualExId}-${wi}"> ≈ <strong>${pctWeight}lb</strong></span>`;
+          stepText = stepText + tag;
+        } else if (data.isMain && wi > 0) {
+          stepText = stepText + `<span id="wu-val-${actualExId}-${wi}"></span>`;
+        }
+        return `<div class="warmup-step">
+          <div class="warmup-check" onclick="this.classList.toggle('done')"></div>
+          <div class="warmup-text">${stepText}</div>
+        </div>`;
+      }).join('');
+      warmupHTML = `<div class="warmup-section"><div class="warmup-title">🔥 Warm-Up Protocol</div>${steps}</div>`;
+    }
+
+    // PO HTML
     let poHTML = '';
     if (data.poData) {
       const cycleWeek = ((currentWeek - 1) % 4) + 1;
-      poHTML = `
-        <div class="po-panel">
-          <div class="po-panel-title">📈 4-Week Progressive Overload</div>
-          <div class="po-weeks">
-            ${data.poData.map((pw, pi) => `
-              <div class="po-week ${pi + 1 === cycleWeek ? 'current-week' : ''}">
-                <div class="po-week-label">Wk ${pi + 1}</div>
-                <div class="po-week-val">${pw.weight ? pw.weight + 'lb' : '—'}</div>
-                <div style="font-size:0.7rem;color:var(--ink-soft)">${pw.sets}×${pw.reps}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>`;
+      poHTML = `<div class="po-panel">
+        <div class="po-panel-title">📈 4-Week Progressive Overload</div>
+        <div class="po-weeks">
+          ${data.poData.map((pw, pi) => `
+            <div class="po-week ${pi + 1 === cycleWeek ? 'current-week' : ''}">
+              <div class="po-week-label">Wk ${pi+1}</div>
+              <div class="po-week-val">${pw.weight ? pw.weight + 'lb' : '—'}</div>
+              <div style="font-size:0.7rem;color:var(--ink-soft)">${pw.sets}×${pw.reps}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
     }
 
-    // MODIFIER UI
+    // Modifier UI
     let modifierUI = '';
     if (data.isMain) {
-      modifierUI = `
-        <div class="modifier-row">
-          <label style="font-size:0.78rem;font-weight:600;color:var(--ink-soft);">Modifier:</label>
-          <select onchange="setModifier('${actualExId}', this.value)">
-            <option value="Standard" ${currentMod === 'Standard'?'selected':''}>Standard</option>
-            <option value="Paused (3s)" ${currentMod === 'Paused (3s)'?'selected':''}>Paused (3s bottom)</option>
-            <option value="Tempo (4-0-1-0)" ${currentMod === 'Tempo (4-0-1-0)'?'selected':''}>Tempo (4-0-1-0)</option>
-            <option value="Banded/Chains" ${currentMod === 'Banded/Chains'?'selected':''}>Banded / Accommodating</option>
-            <option value="Deficit" ${currentMod === 'Deficit'?'selected':''}>Deficit / Extended ROM</option>
-          </select>
-        </div>`;
+      modifierUI = `<div class="modifier-row">
+        <label style="font-size:0.78rem;font-weight:600;color:var(--ink-soft);">Modifier:</label>
+        <select onchange="setModifier('${actualExId}', this.value)">
+          <option value="Standard" ${currentMod==='Standard'?'selected':''}>Standard</option>
+          <option value="Paused (3s)" ${currentMod==='Paused (3s)'?'selected':''}>Paused (3s bottom)</option>
+          <option value="Tempo (4-0-1-0)" ${currentMod==='Tempo (4-0-1-0)'?'selected':''}>Tempo (4-0-1-0)</option>
+          <option value="Banded/Chains" ${currentMod==='Banded/Chains'?'selected':''}>Banded / Accommodating</option>
+          <option value="Deficit" ${currentMod==='Deficit'?'selected':''}>Deficit / Extended ROM</option>
+        </select>
+      </div>`;
     }
 
-    // SWAP UI (Main + Accessories)
+    // Swap UI
     let swapUI = '';
     if (data.isMain && injurySwapOptions[baseExId]) {
       const validSwaps = injurySwapOptions[baseExId].filter(opt => meetsEquipmentRequirements(opt.equip));
@@ -1362,46 +1317,52 @@ function renderIronDay(dayData, container) {
         swapUI = `<div class="injury-panel">
           <div class="injury-panel-title">🔄 Swap / Modify Lift</div>
           ${validSwaps.map(opt => `
-             <div class="swap-option ${actualExId === opt.id ? 'active-swap' : ''}" onclick="setInjurySwap('${baseExId}', '${opt.id}')">
-               <div class="swap-name">${opt.name} <div class="swap-reason">${opt.reason}</div></div>
-             </div>
-          `).join('')}
-          ${actualExId !== baseExId ? `<div class="swap-option" onclick="setInjurySwap('${baseExId}', '${baseExId}')"><div class="swap-name">Revert to Default</div></div>` : ''}
+            <div class="swap-option ${actualExId === opt.id ? 'active-swap' : ''}"
+              onclick="setInjurySwap('${baseExId}','${opt.id}')">
+              <div class="swap-name">${opt.name}<div class="swap-reason">${opt.reason}</div></div>
+            </div>`).join('')}
+          ${actualExId !== baseExId ? `<div class="swap-option" onclick="setInjurySwap('${baseExId}','${baseExId}')">
+            <div class="swap-name">↩ Revert to Default</div></div>` : ''}
         </div>`;
       }
     }
-    
-    // Accessory Swap Action
+
+    // Accessory swap
     let accActionRow = '';
     if (!data.isMain && getIronSubCat(actualExId)) {
-      accActionRow = `
-        <div class="action-row" style="margin-bottom: 12px;">
-          <button class="action-btn" onclick="swapIronAccessory(${currentDayIdx}, ${arrayIdx})">🔄 Swap Accessory</button>
-        </div>
-      `;
+      accActionRow = `<div class="action-row" style="margin-bottom:12px;">
+        <button class="action-btn" onclick="swapIronAccessory(${currentDayIdx},${arrayIdx})">🔄 Swap Accessory</button>
+      </div>`;
     }
 
-    const weightInputHTML = `
-      <div class="weight-input-row">
-        <label>Working Weight:</label>
-        <input type="number" class="weight-input" id="wt-${actualExId}" value="${savedWeight}" placeholder="lbs" 
-          oninput="updateWarmups('${actualExId}', this.value)"
-          onchange="logWeight('${actualExId}',this.value,${data.sets},${data.reps})" step="5" min="0">
-        <span class="weight-unit">lb</span>
-      </div>`;
+    const weightInputHTML = `<div class="weight-input-row">
+      <label>Working Weight:</label>
+      <input type="number" class="weight-input" id="wt-${actualExId}" value="${savedWeight}" placeholder="lbs"
+        oninput="updateWarmups('${actualExId}', this.value)"
+        onchange="logWeight('${actualExId}',this.value,${data.sets},${data.reps})" step="5" min="0">
+      <span class="weight-unit">lb</span>
+    </div>`;
 
     container.innerHTML += `
       <div class="exercise-card iron-card ${isChecked ? 'completed' : ''}" id="card-${actualExId}">
         <div class="card-top" onclick="toggleDetail('${actualExId}')">
-          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${actualExId}" onclick="toggleCheck(event,'${actualExId}','iron',${data.xpReward})">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="check-circle ${isChecked ? 'checked' : ''}" id="chk-${actualExId}"
+            onclick="toggleCheck(event,'${actualExId}','iron',${data.xpReward})">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+              <polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
           <div class="card-info">
-            <div class="exercise-name">${data.name} ${currentMod !== 'Standard' ? `<span style="font-size:0.75rem;color:var(--iron);">${currentMod}</span>` : ''}</div>
+            <div class="exercise-name">${data.name}${currentMod !== 'Standard' ? ` <span style="font-size:0.75rem;color:var(--iron);">${currentMod}</span>` : ''}</div>
             <div class="exercise-meta">
               <span class="meta-tag iron-tag">${data.meta}</span>
             </div>
           </div>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleDetail('${actualExId}')">
+            <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+              <polyline points="4,7 9,12 14,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
         <div class="card-detail" id="detail-${actualExId}">
           <p class="detail-desc">${data.desc}</p>
@@ -1415,74 +1376,51 @@ function renderIronDay(dayData, container) {
         </div>
       </div>`;
   });
-  
-  // Add +1 Bonus Accessory Button
+
   container.innerHTML += `
-    <div style="text-align: center; margin-top: 16px;">
-      <button class="action-btn iron-btn" style="padding: 10px 16px; font-size: 0.85rem;" onclick="addBonusIronAccessory()">🔥 + I want 1 more accessory</button>
-    </div>
-  `;
-}
-
-function buildSetBubbles(setKey, sets, numSets, isIron, restSeconds) {
-  const bubbles = sets.map((done, si) => `
-    <div class="set-bubble ${done ? 'done' : ''} ${isIron ? 'iron-set' : ''}" 
-         id="sb-${setKey}-${si}" onclick="toggleSet('${setKey}',${si})"><span>S${si+1}</span></div>
-  `).join('');
-  return `<div class="set-tracker"><div class="sets-row">${bubbles}</div></div>`;
-}
-
-function buildTimer(exId, total) {
-  const CIRC = 163.36;
-  return `
-    <div class="timer-wrap">
-      <div class="timer-svg-wrap">
-        <svg class="timer-svg" viewBox="0 0 54 54">
-          <circle class="timer-bg" cx="27" cy="27" r="26"/>
-          <circle class="timer-ring" id="ring-${exId}" cx="27" cy="27" r="26" style="stroke-dasharray:${CIRC};stroke-dashoffset:${CIRC};"/>
-        </svg>
-        <div class="timer-display" id="timerDisplay-${exId}">
-          ${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}
-        </div>
-      </div>
-      <div class="timer-controls">
-        <div class="timer-btns">
-          <button class="timer-btn start" onclick="startTimer('${exId}',${total})">Start</button>
-          <button class="timer-btn reset" onclick="resetTimer('${exId}',${total})">Reset</button>
-        </div>
-      </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="action-btn iron-btn" style="padding:10px 16px;font-size:0.85rem;"
+        onclick="addBonusIronAccessory()">🔥 + Add Bonus Accessory</button>
     </div>`;
 }
 
-// REST TIMER
-let restTimerInterval = null;
-function startRestTimer(seconds) {
-  if (restTimerInterval) clearInterval(restTimerInterval);
-  showToast(`⏱ Rest: ${seconds >= 60 ? Math.floor(seconds/60)+'m' : seconds+'s'} starting...`);
-  let remaining = seconds;
-  restTimerInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(restTimerInterval);
-      showToast('✅ Rest done! Time to work.');
-    }
-  }, 1000);
+function buildSetBubbles(setKey, sets, numSets, isIron) {
+  const bubbles = sets.map((done, si) => `
+    <div class="set-bubble ${done ? 'done' : ''} ${isIron ? 'iron-set' : ''}"
+      id="sb-${setKey}-${si}" onclick="toggleSet('${setKey}',${si})">
+      <span>S${si+1}</span>
+    </div>`).join('');
+  return `<div class="set-tracker"><div class="sets-row">${bubbles}</div></div>`;
 }
 
 // ===================================================
 // INTERACTIONS
 // ===================================================
 function toggleDetail(exId) {
-  document.getElementById('detail-' + exId).classList.toggle('open');
+  const det = document.getElementById('detail-' + exId);
+  const btn = document.getElementById('btn-' + exId);
+  if (!det) return;
+  det.classList.toggle('open');
+  if (btn) btn.classList.toggle('open');
 }
 
 function toggleCheck(e, exId, cat, xp) {
   e.stopPropagation();
+  ensureCompletedStats();
   const checkedSet = completedStats[currentDayIdx];
   if (checkedSet.has(exId)) {
-    checkedSet.delete(exId); document.getElementById('chk-'+exId).classList.remove('checked'); document.getElementById('card-'+exId).classList.remove('completed');
+    checkedSet.delete(exId);
+    const chk = document.getElementById('chk-'+exId);
+    const card = document.getElementById('card-'+exId);
+    if (chk) chk.classList.remove('checked');
+    if (card) card.classList.remove('completed');
   } else {
-    checkedSet.add(exId); document.getElementById('chk-'+exId).classList.add('checked'); document.getElementById('card-'+exId).classList.add('completed');
+    checkedSet.add(exId);
+    const chk = document.getElementById('chk-'+exId);
+    const card = document.getElementById('card-'+exId);
+    if (chk) chk.classList.add('checked');
+    if (card) card.classList.add('completed');
+    addXP(cat, xp);
     showToast(`+${xp} XP!`);
   }
   saveGame(); checkBanner();
@@ -1499,25 +1437,23 @@ function toggleSet(setKey, setIdx) {
 function toggleLevel(exId) {
   const track = db[exId];
   if (!track) return;
-  let current = userOverrides[exId] !== undefined ? userOverrides[exId] : Math.min(Math.ceil(currentWeek/4)-1, track.vars.length-1);
+  const phase = Math.ceil(currentWeek / 4);
+  let current = userOverrides[exId] !== undefined ? userOverrides[exId] : Math.min(phase - 1, track.vars.length - 1);
   userOverrides[exId] = (current + 1) % track.vars.length;
   saveGame(); renderWorkout();
 }
 
 function swapExercise(dayIdx, exIdx, category) {
   const dayData = activeSchedule[dayIdx];
+  if (!dayData) return;
   const currentId = dayData.ids[exIdx];
-  
-  const pool = pools[category].filter(id => {
-     let track = db[id];
-     return track ? meetsEquipmentRequirements(track.equip) : true;
+  const pool = (pools[category] || []).filter(id => {
+    const track = db[id];
+    return track ? meetsEquipmentRequirements(track.equip) : false;
   });
-
-  if (!pool || pool.length === 0) return showToast("No equipment matches available.");
-  
+  if (pool.length === 0) { showToast("No equipment matches available."); return; }
   let poolIdx = pool.indexOf(currentId);
-  if (poolIdx === -1) poolIdx = 0;
-  
+  poolIdx = poolIdx === -1 ? 0 : poolIdx;
   let nextId = pool[(poolIdx + 1) % pool.length];
   let iterations = 0;
   while (dayData.ids.includes(nextId) && pool.length > dayData.ids.length && iterations < pool.length) {
@@ -1525,33 +1461,32 @@ function swapExercise(dayIdx, exIdx, category) {
     nextId = pool[poolIdx];
     iterations++;
   }
-  
-  if (completedStats[dayIdx].has(currentId)) {
-    completedStats[dayIdx].delete(currentId);
+  if (completedStats[currentDayIdx] && completedStats[currentDayIdx].has(currentId)) {
+    completedStats[currentDayIdx].delete(currentId);
     const oldData = getExerciseData(currentId, currentWeek);
     if (oldData) removeXP(oldData.trackCat, oldData.xpReward);
   }
-  
   dayData.ids[exIdx] = nextId;
   saveGame(); renderWorkout(); checkBanner();
 }
 
 function swapIronAccessory(dayIdx, exIdx) {
   const dayData = activeSchedule[dayIdx];
+  if (!dayData) return;
   const currentId = dayData.ids[exIdx];
-  const subCat = getIronSubCat(currentId);
-  if (!subCat) return showToast("No alternates mapped for this accessory.");
+  // FIX: resolve actual ID first for subcat lookup
+  const actualCurrentId = injurySwaps[currentId] || currentId;
+  const subCat = getIronSubCat(actualCurrentId) || getIronSubCat(currentId);
+  if (!subCat) { showToast("No alternates for this exercise."); return; }
 
   const pool = ironPools[subCat].filter(id => {
-     const t = ironDB[id];
-     return t ? meetsEquipmentRequirements(t.equip) : true;
+    const t = ironDB[id];
+    return t ? meetsEquipmentRequirements(t.equip) : false;
   });
+  if (pool.length === 0) { showToast("No equipment matches available."); return; }
 
-  if (!pool || pool.length === 0) return showToast("No equipment matches available.");
-  
-  let poolIdx = pool.indexOf(currentId);
-  if (poolIdx === -1) poolIdx = 0;
-  
+  let poolIdx = pool.indexOf(actualCurrentId);
+  poolIdx = poolIdx === -1 ? 0 : poolIdx;
   let nextId = pool[(poolIdx + 1) % pool.length];
   let iterations = 0;
   while (dayData.ids.includes(nextId) && pool.length > dayData.ids.length && iterations < pool.length) {
@@ -1559,28 +1494,28 @@ function swapIronAccessory(dayIdx, exIdx) {
     nextId = pool[poolIdx];
     iterations++;
   }
-  
-  if (completedStats[dayIdx].has(currentId)) {
-    completedStats[dayIdx].delete(currentId);
-    const oldData = getIronExerciseData(currentId, currentWeek, false);
+
+  if (completedStats[currentDayIdx] && completedStats[currentDayIdx].has(actualCurrentId)) {
+    completedStats[currentDayIdx].delete(actualCurrentId);
+    const oldData = getIronExerciseData(actualCurrentId, currentWeek, false);
     if (oldData) removeXP('iron', oldData.xpReward);
   }
-  
   dayData.ids[exIdx] = nextId;
   saveGame(); renderWorkout(); checkBanner();
 }
 
 function addBonusIronAccessory() {
-   const dayData = activeSchedule[currentDayIdx];
-   const available = bonusPool.filter(id => !dayData.ids.includes(id) && meetsEquipmentRequirements(ironDB[id].equip));
-   
-   if (available.length === 0) return showToast("No more accessories available!");
-   
-   const randomId = available[Math.floor(Math.random() * available.length)];
-   dayData.ids.push(randomId);
-   saveGame();
-   renderWorkout();
-   showToast("🔥 Bonus exercise added!");
+  const dayData = activeSchedule[currentDayIdx];
+  if (!dayData) return;
+  // FIX: null-check ironDB[id] before accessing .equip
+  const available = bonusPool.filter(id => {
+    const entry = ironDB[id];
+    return entry && !dayData.ids.includes(id) && meetsEquipmentRequirements(entry.equip);
+  });
+  if (available.length === 0) { showToast("No more accessories to add!"); return; }
+  const randomId = available[Math.floor(Math.random() * available.length)];
+  dayData.ids.push(randomId);
+  saveGame(); renderWorkout(); showToast("🔥 Bonus exercise added!");
 }
 
 function setInjurySwap(baseId, swapId) {
@@ -1590,35 +1525,47 @@ function setInjurySwap(baseId, swapId) {
 }
 
 function logWeight(exId, weight, sets, reps) {
-  weightLogs[`${exId}_${currentWeek}`] = { weight: parseFloat(weight), sets, reps };
-  saveGame(); showToast(`✏️ Logged ${weight}lb`);
+  const val = parseFloat(weight);
+  if (!isNaN(val) && val > 0) {
+    weightLogs[`${exId}_${currentWeek}`] = { weight: val, sets, reps };
+    saveGame(); showToast(`✏️ Logged ${val}lb`);
+  }
 }
 
 function checkBanner() {
-  const totalToday = activeSchedule[currentDayIdx].ids.length;
+  ensureCompletedStats();
+  const totalToday = activeSchedule[currentDayIdx] ? activeSchedule[currentDayIdx].ids.length : 0;
   const completedToday = completedStats[currentDayIdx].size;
-  document.getElementById('doneBanner').style.display = (completedToday === totalToday && totalToday > 0) ? 'block' : 'none';
+  const banner = document.getElementById('doneBanner');
+  if (banner) banner.style.display = (completedToday >= totalToday && totalToday > 0) ? 'block' : 'none';
 }
 
-function selectDay(index) { currentDayIdx = index; saveGame(); renderSchedule(); renderWorkout(); checkBanner(); }
+function selectDay(index) {
+  currentDayIdx = index;
+  saveGame(); renderSchedule(); renderWorkout(); checkBanner();
+}
 
 // ===================================================
 // EQUIPMENT MODAL
 // ===================================================
 function openEquipModal() {
   const grid = document.getElementById('equipGrid');
+  if (!grid) return;
   grid.innerHTML = Object.keys(equipmentAvailable).map(eq => `
     <label class="equip-item ${equipmentAvailable[eq] ? 'selected' : ''}" onclick="this.classList.toggle('selected')">
-      <div class="equip-check"></div><div class="equip-label">${eq.replace('_', ' ')}</div>
-    </label>
-  `).join('');
+      <div class="equip-check"></div>
+      <div class="equip-label">${eq.replace(/_/g, ' ')}</div>
+    </label>`).join('');
   document.getElementById('equipModal').classList.add('open');
 }
 
 function saveEquipSettings() {
   const items = document.querySelectorAll('.equip-item');
-  let index = 0;
-  Object.keys(equipmentAvailable).forEach(eq => { equipmentAvailable[eq] = items[index].classList.contains('selected'); index++; });
+  let idx = 0;
+  Object.keys(equipmentAvailable).forEach(eq => {
+    if (items[idx]) equipmentAvailable[eq] = items[idx].classList.contains('selected');
+    idx++;
+  });
   closeEquipModal();
   saveGame(); regenerateSchedule(); showToast('🎒 Equipment saved!');
 }
@@ -1629,22 +1576,40 @@ function closeEquipModalIfOutside(e) { if (e.target === document.getElementById(
 // IRON SETUP MODAL
 // ===================================================
 function openIronSetup() {
-  const grid = document.getElementById('setupGrid'); const is = ironSetup;
+  const grid = document.getElementById('setupGrid');
+  if (!grid) return;
+  const is = ironSetup;
   grid.innerHTML = `
-    <div class="setup-field"><label>Training Split</label><select id="si-sessionFocus"><option value="ppl" ${is.sessionFocus==='ppl'?'selected':''}>Push / Pull / Legs</option><option value="upper_lower" ${is.sessionFocus==='upper_lower'?'selected':''}>Upper / Lower</option></select></div>
-    <div class="setup-field"><label>Starting Reps</label><select id="si-startReps"><option value="5" ${is.startingRepsChoice==5?'selected':''}>5 reps</option><option value="8" ${is.startingRepsChoice==8?'selected':''}>8 reps</option></select></div>
+    <div class="setup-field"><label>Training Split</label>
+      <select id="si-sessionFocus">
+        <option value="ppl" ${is.sessionFocus==='ppl'?'selected':''}>Push / Pull / Legs</option>
+        <option value="upper_lower" ${is.sessionFocus==='upper_lower'?'selected':''}>Upper / Lower</option>
+      </select>
+    </div>
+    <div class="setup-field"><label>Starting Reps</label>
+      <select id="si-startReps">
+        <option value="5" ${is.startingRepsChoice==5?'selected':''}>5 reps</option>
+        <option value="8" ${is.startingRepsChoice==8?'selected':''}>8 reps</option>
+      </select>
+    </div>
     ${['squat','bench','deadlift','sumo','ohp'].map(lift => `
-      <div class="setup-field"><label>${lift} e1RM</label><input type="number" id="si-${lift}" value="${is[lift+'E1RM']||''}" placeholder="lbs" step="5"></div>
-    `).join('')}
-  `;
+      <div class="setup-field"><label>${lift.charAt(0).toUpperCase()+lift.slice(1)} e1RM (lbs)</label>
+        <input type="number" id="si-${lift}" value="${is[lift+'E1RM']||''}" placeholder="0" step="5" min="0">
+      </div>`).join('')}`;
   document.getElementById('ironModal').classList.add('open');
 }
 
 function saveIronSetup() {
-  ironSetup.sessionFocus = document.getElementById('si-sessionFocus').value;
-  ironSetup.startingRepsChoice = parseInt(document.getElementById('si-startReps').value);
-  ['squat','bench','deadlift','sumo','ohp'].forEach(lift => { ironSetup[lift+'E1RM'] = parseFloat(document.getElementById('si-'+lift).value) || 0; });
-  closeIronModal(); saveGame(); refreshUI(); showToast('✅ Iron program saved!');
+  const focusEl = document.getElementById('si-sessionFocus');
+  const repsEl = document.getElementById('si-startReps');
+  if (focusEl) ironSetup.sessionFocus = focusEl.value;
+  if (repsEl) ironSetup.startingRepsChoice = parseInt(repsEl.value);
+  ['squat','bench','deadlift','sumo','ohp'].forEach(lift => {
+    const el = document.getElementById('si-' + lift);
+    if (el) ironSetup[lift+'E1RM'] = parseFloat(el.value) || 0;
+  });
+  closeIronModal();
+  saveGame(); regenerateSchedule(); showToast('✅ Iron program saved!');
 }
 function closeIronModal() { document.getElementById('ironModal').classList.remove('open'); }
 function closeModalIfOutside(e) { if (e.target === document.getElementById('ironModal')) closeIronModal(); }
@@ -1653,28 +1618,49 @@ function closeModalIfOutside(e) { if (e.target === document.getElementById('iron
 // BOOT
 // ===================================================
 function showToast(msg) {
-  const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show');
+  const el = document.getElementById('toast');
+  if (!el) return;
+  el.textContent = msg; el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2500);
 }
 
 function setMode(mode) { currentMode = mode; regenerateSchedule(); }
 function changeTrainingDays(days) { trainingDays = days; regenerateSchedule(); }
 function changeFocus(newFocus) { currentFocus = newFocus; regenerateSchedule(); }
-function changeWeek(dir) { 
-  const newWeek = currentWeek + dir; 
-  if (newWeek >= 1 && newWeek <= MAX_WEEKS) { currentWeek = newWeek; currentDayIdx = 0; saveGame(); refreshUI(); }
+
+function changeWeek(dir) {
+  const newWeek = currentWeek + dir;
+  if (newWeek >= 1 && newWeek <= MAX_WEEKS) {
+    currentWeek = newWeek; currentDayIdx = 0; saveGame(); refreshUI();
+  }
 }
-function regenerateSchedule() { activeSchedule = generateSchedule(currentFocus); currentDayIdx = 0; saveGame(); refreshUI(); }
+
+function regenerateSchedule() {
+  activeSchedule = generateSchedule(currentFocus);
+  currentDayIdx = 0; saveGame(); refreshUI();
+}
 
 function refreshUI() {
-  document.getElementById('weekBadge').textContent = `Wk ${currentWeek} / ${MAX_WEEKS}`;
-  document.getElementById('pillBodyweight').classList.toggle('active', currentMode==='bodyweight');
-  document.getElementById('pillIron').classList.toggle('active', currentMode==='iron');
+  const wb = document.getElementById('weekBadge');
+  if (wb) wb.textContent = `Wk ${currentWeek} / ${MAX_WEEKS}`;
+  const pbw = document.getElementById('pillBodyweight');
+  const pi = document.getElementById('pillIron');
+  const ds = document.getElementById('daysSelect');
+  const fs = document.getElementById('focusSelect');
+  if (pbw) pbw.classList.toggle('active', currentMode === 'bodyweight');
+  if (pi) pi.classList.toggle('active', currentMode === 'iron');
+  if (ds) ds.value = String(trainingDays);
+  if (fs) fs.value = currentFocus;
   updateStatUI(); renderSchedule(); renderWorkout(); checkBanner();
 }
 
 function boot() {
-  if (!loadGame()) { activeSchedule = generateSchedule(currentFocus); saveGame(); }
+  // FIX: always initialize completedStats before anything else
+  ensureCompletedStats();
+  if (!loadGame()) {
+    activeSchedule = generateSchedule(currentFocus);
+    saveGame();
+  }
   refreshUI();
 }
 
